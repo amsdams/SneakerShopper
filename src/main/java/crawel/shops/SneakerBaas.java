@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import crawel.Shop;
 
-public class TitoloShop extends Shop {
+public class SneakerBaas extends Shop {
 
 	
 	

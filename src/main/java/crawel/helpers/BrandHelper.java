@@ -18,7 +18,9 @@ public class BrandHelper {
 		}
 		return text;
 	}
-	public static String[] BRANDS = { "Nike", "Reebok", "Adidas", "Puma", "Converse", "Diadora", "Ben Sherman",
-			"Le Coq Sportif", "New Balance", "Asics", "Stussy", "Saucony", "Publish", "Lacoste", "Karhu", "Hummel", "Carhartt", "Air Jordan", "Staple"};
+
+	public static String[] BRANDS = { "Jordan", "Nike", "Reebok", "Adidas", "Puma", "Converse", "Diadora",
+			"Ben Sherman", "Le Coq Sportif", "New Balance", "Asics", "Stussy", "Saucony", "Publish", "Lacoste", "Karhu",
+			"Hummel", "Carhartt", "Air Jordan", "Staple", "Vans" };
 
 }

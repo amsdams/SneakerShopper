@@ -2,6 +2,7 @@ package crawel;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.jsoup.Jsoup;
@@ -35,9 +36,16 @@ public abstract class Shop {
 	private Integer timeout;
 	private String productsSelector;
 
+	private ResourceBundle resourceBundle;
+	
+	
 	public Shop() {
 		try {
-			ResourceBundle resourceBundle = ResourceBundle.getBundle(this.getClass().getName());
+			Locale locale = new Locale("en", "US");
+			
+					
+			System.out.println(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+			ResourceBundle resourceBundle = ResourceBundle.getBundle(this.getClass().getName(), Locale.getDefault());
 			this.setRunnable(Boolean.parseBoolean(resourceBundle.getString("runnable")));
 			this.setBaseUrl(resourceBundle.getString("baseUrl"));
 			this.setTimeout(Integer.parseInt(resourceBundle.getString("timeout")));
@@ -86,7 +94,7 @@ public abstract class Shop {
 
 		Document doc;
 		try {
-			doc = Jsoup.connect(url).timeout(20 * 1000).get();
+			doc = Jsoup.connect(url).timeout(this.getTimeout()).get();
 			Element nextLinkElement = doc.select(this.getNextPageSelector()).get(0);
 			nextPageUrl = nextLinkElement.attr("abs:href");
 		} catch (Exception e) {
@@ -302,6 +310,14 @@ public abstract class Shop {
 
 	public void setNextPageSelector(String nextPageSelector) {
 		this.nextPageSelector = nextPageSelector;
+	}
+
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
+	}
+
+	public void setResourceBundle(ResourceBundle resourceBundle) {
+		this.resourceBundle = resourceBundle;
 	}
 
 }
