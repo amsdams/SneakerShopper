@@ -1,10 +1,18 @@
 package crawel;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Crawel {
 	private static final int MYTHREADS = 30;
@@ -50,6 +58,43 @@ public class Crawel {
 		for (Product product : allProducts.getProducts()) {
 			LOGGER.info(product.toString());
 		}
+		writeProductList(allProducts);
+		
+	}
+	
+	private static void writeProductList(ProductList allProducts){
+		
+			ObjectMapper mapper = new ObjectMapper();
+
+			
+
+			try {
+				// Convert object to JSON string and save into a file directly
+				//mapper.writeValue(new File("allProducts.json"), allProducts);
+
+				// Convert object to JSON string
+				//String jsonInString = mapper.writeValueAsString(allProducts);
+				//System.out.println(jsonInString);
+
+				// Convert object to JSON string and pretty print
+				//String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(allProducts);
+				//System.out.println(jsonInString);
+				
+				
+				
+				File input = new File("index.html");
+				Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
+				doc.head().append("test");
+				
+
+			} catch (JsonGenerationException e) {
+				LOGGER.error("could not generate json", e);
+			} catch (JsonMappingException e) {
+				LOGGER.error("could not map json", e);
+			} catch (IOException e) {
+				LOGGER.error("could not write file", e);
+			}
+		
 	}
 
 }
