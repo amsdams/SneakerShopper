@@ -29,6 +29,8 @@ public class BrandHelper {
 	}
 	public static String[] BRANDS = { "Nike", "Reebok", "Adidas", "Puma", "Converse", "Diadora", "Ben Sherman",
 			"Le Coq Sportif", "New Balance", "Asics", "Stussy", "Saucony", "Publish", "Lacoste", "Karhu", "Hummel", "Carhartt", "Jordan", "Staple", "Ransom", "KangaROOS", "Vans", "Poler", "Ucon", 
-			"Undefeated", "Beastin", "OPM", "New Era", "LOOKYLOOKY", "ESPERANDO", "NVRMRE", "Jason Markk","43einhalb", "On"};
+			"Undefeated", "Beastin", "OPM", "New Era", "LOOKYLOOKY", "ESPERANDO", "NVRMRE", "Jason Markk","43einhalb", "On", "Junya Watanabe", 
+			"Zespa", "Filling Pieces", "Alexander McQueen", "Jimmy Choo", "Wings + Horns", "No. 288", "Buttero", "Diemme", "Buddy", "Giuseppe Zanotti", 
+			"Visvim", "WTAPS", "Eytys", "Our Legacy", "Paul Smith", "Clarks Originals", "ETQ."};
 
 }

@@ -18,13 +18,16 @@ public class Crawel {
 		Shop shop2 = shopFactory.getShop(ShopFactory.SHOPTYPES.TITOLOSHOP);
 		Shop shop3 = shopFactory.getShop(ShopFactory.SHOPTYPES.SNEAKAVENUE);
 		Shop shop4 = shopFactory.getShop(ShopFactory.SHOPTYPES._43EINHALB);
+		Shop shop5 = shopFactory.getShop(ShopFactory.SHOPTYPES._5POINTZ);
+		Shop shop6 = shopFactory.getShop(ShopFactory.SHOPTYPES.ENDCLOTHING);
 		
 		ShopList shopList = new ShopList();
 		shopList.addShop(shop1);
 		shopList.addShop(shop2);
 		shopList.addShop(shop3);
 		shopList.addShop(shop4);
-		
+		shopList.addShop(shop5);
+		shopList.addShop(shop6);
 		for (Shop shop : shopList.getShops()) {
 
 			Runnable worker = new Shopper(shop);

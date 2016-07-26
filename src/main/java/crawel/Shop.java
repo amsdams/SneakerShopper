@@ -81,12 +81,16 @@ public abstract class Shop {
 		return productBrandNameSelector;
 	}
 
+	private String userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0";
+	private String referrer = "http://www.google.com";;
+
 	public String getNextPageUrl(String url) {
 		String nextPageUrl = null;
 
 		Document doc;
 		try {
-			doc = Jsoup.connect(url).timeout(20 * 1000).get();
+			doc = Jsoup.connect(url).ignoreContentType(true).userAgent(this.getUserAgent()).referrer(this.getReferrer())
+					.followRedirects(true).timeout(this.getTimeout()).get();
 			Element nextLinkElement = doc.select(this.getNextPageSelector()).get(0);
 			nextPageUrl = nextLinkElement.attr("abs:href");
 		} catch (Exception e) {
@@ -105,7 +109,8 @@ public abstract class Shop {
 		try {
 			LOGGER.info("Fetching {}...", url);
 
-			Document doc = Jsoup.connect(url).timeout(getTimeout()).get();
+			Document doc = Jsoup.connect(url).ignoreContentType(true).userAgent(this.getUserAgent())
+					.referrer(this.getReferrer()).followRedirects(true).timeout(getTimeout()).get();
 
 			Elements productElements = doc.select(this.getProductsSelector());
 			for (Element productElement : productElements) {
@@ -154,7 +159,7 @@ public abstract class Shop {
 		try {
 			String price = productElement.select(selector).get(0).ownText();
 			price = price.replaceAll(",", ".");
-			
+
 			price = PriceHelper.removeCurrency(price);
 			price = price.trim();
 			productProperty = Double.parseDouble(price);
@@ -304,6 +309,22 @@ public abstract class Shop {
 
 	public void setNextPageSelector(String nextPageSelector) {
 		this.nextPageSelector = nextPageSelector;
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
+	}
+
+	public String getReferrer() {
+		return referrer;
+	}
+
+	public void setReferrer(String referrer) {
+		this.referrer = referrer;
 	}
 
 }

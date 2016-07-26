@@ -1,7 +1,7 @@
 package crawel.helpers;
 
 public class PriceHelper {
-	public static String[] CURRENCIES = { "€", "$" };
+	public static String[] CURRENCIES = { "€", "$", "£" };
 
 	public static String getCurrency(String text) {
 		String currency = "unknown";
