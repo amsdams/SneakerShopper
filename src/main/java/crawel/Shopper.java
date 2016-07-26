@@ -12,6 +12,7 @@ public class Shopper implements Runnable {
 		this.shop = shop;
 	}
 
+	@Override
 	public void run() {
 		try {
 			if (shop.getRunnable().equals(Boolean.FALSE)) {

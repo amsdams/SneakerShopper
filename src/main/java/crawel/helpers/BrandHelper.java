@@ -3,8 +3,6 @@ package crawel.helpers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import crawel.Shopper;
-
 public class BrandHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BrandHelper.class);
 	public static String getBrandName(String text) {

@@ -28,7 +28,7 @@ public class Crawel {
 		Shop shop4 = shopFactory.getShop(ShopFactory.SHOPTYPES._43EINHALB);
 		Shop shop5 = shopFactory.getShop(ShopFactory.SHOPTYPES._5POINTZ);
 		Shop shop6 = shopFactory.getShop(ShopFactory.SHOPTYPES.ENDCLOTHING);
-		
+		Shop shop7 = shopFactory.getShop(ShopFactory.SHOPTYPES.SNEAKERBAAS);
 		ShopList shopList = new ShopList();
 		shopList.addShop(shop1);
 		shopList.addShop(shop2);

@@ -1,17 +1,16 @@
 package crawel;
 
-import java.util.List;
-
 import crawel.shops.EndClothing;
 import crawel.shops.OverkillShop;
 import crawel.shops.SneakAVenue;
+import crawel.shops.SneakerBaas;
 import crawel.shops.TitoloShop;
 import crawel.shops._43Einhalb;
 import crawel.shops._5Pointz;
 
 public class ShopFactory {
 	public static enum SHOPTYPES {
-		OVERKILLSHOP, TITOLOSHOP, SNEAKAVENUE, _43EINHALB, _5POINTZ, ENDCLOTHING
+		OVERKILLSHOP, TITOLOSHOP, SNEAKAVENUE, _43EINHALB, _5POINTZ, ENDCLOTHING, SNEAKERBAAS
 	}
 
 	public Shop getShop(SHOPTYPES shopType) {
@@ -28,6 +27,8 @@ public class ShopFactory {
 			return new _5Pointz();
 		case ENDCLOTHING:
 			return new EndClothing();
+		case SNEAKERBAAS:
+			return new SneakerBaas();
 		default:
 			return null;
 
