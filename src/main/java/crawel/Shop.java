@@ -153,6 +153,8 @@ public abstract class Shop {
 		Double productProperty = null;
 		try {
 			String price = productElement.select(selector).get(0).ownText();
+			price = price.replaceAll(",", ".");
+			
 			price = PriceHelper.removeCurrency(price);
 			price = price.trim();
 			productProperty = Double.parseDouble(price);
