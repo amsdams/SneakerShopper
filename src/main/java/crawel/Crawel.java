@@ -36,6 +36,7 @@ public class Crawel {
 		shopList.addShop(shop4);
 		shopList.addShop(shop5);
 		shopList.addShop(shop6);
+		shopList.addShop(shop7);
 		for (Shop shop : shopList.getShops()) {
 
 			Runnable worker = new Shopper(shop);
@@ -70,7 +71,7 @@ public class Crawel {
 
 			try {
 				// Convert object to JSON string and save into a file directly
-				//mapper.writeValue(new File("allProducts.json"), allProducts);
+				mapper.writeValue(new File("allProducts.json"), allProducts);
 
 				// Convert object to JSON string
 				//String jsonInString = mapper.writeValueAsString(allProducts);
