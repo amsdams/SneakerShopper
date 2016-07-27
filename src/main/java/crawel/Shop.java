@@ -35,6 +35,12 @@ public abstract class Shop {
 	private Integer timeout;
 	private String productsSelector;
 
+	private Boolean limit;
+
+	private String userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0";
+
+	private String referrer = "http://www.google.com";
+
 	public Shop() {
 		try {
 			ResourceBundle resourceBundle = ResourceBundle.getBundle(this.getClass().getName());
@@ -59,49 +65,6 @@ public abstract class Shop {
 		} catch (Exception e) {
 			LOGGER.error("Error retrieving properties file: {}", e);
 		}
-	}
-
-	private Boolean limit;
-
-	private void setLimitSelector(Boolean limit) {
-		this.limit = limit;
-
-	}
-
-	private Boolean getLimit() {
-		return this.limit;
-	}
-
-	public String getBaseUrl() {
-		return this.baseUrl;
-
-	}
-
-	public String getProductBrandNameSelector() {
-		return productBrandNameSelector;
-	}
-
-	private String userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0";
-	private String referrer = "http://www.google.com";;
-
-	public String getNextPageUrl(String url) {
-		String nextPageUrl = null;
-
-		Document doc;
-		try {
-			doc = Jsoup.connect(url).ignoreContentType(true).userAgent(this.getUserAgent()).referrer(this.getReferrer())
-					.followRedirects(true).timeout(this.getTimeout()).get();
-			Element nextLinkElement = doc.select(this.getNextPageSelector()).get(0);
-			nextPageUrl = nextLinkElement.attr("abs:href");
-		} catch (Exception e) {
-			LOGGER.error("failed to get next page ", e);
-		}
-
-		return nextPageUrl;
-	}
-
-	public ProductList getProductList() {
-		return this.productList;
 	}
 
 	public void addProductsToList(String url) {
@@ -142,6 +105,87 @@ public abstract class Shop {
 
 	}
 
+	public String getBaseUrl() {
+		return this.baseUrl;
+
+	}
+
+	private Boolean getLimit() {
+		return this.limit;
+	}
+	public String getNextPageSelector() {
+		return nextPageSelector;
+	};
+
+	public String getNextPageUrl(String url) {
+		String nextPageUrl = null;
+
+		Document doc;
+		try {
+			doc = Jsoup.connect(url).ignoreContentType(true).userAgent(this.getUserAgent()).referrer(this.getReferrer())
+					.followRedirects(true).timeout(this.getTimeout()).get();
+			Element nextLinkElement = doc.select(this.getNextPageSelector()).get(0);
+			nextPageUrl = nextLinkElement.attr("abs:href");
+		} catch (Exception e) {
+			LOGGER.error("failed to get next page ", e);
+		}
+
+		return nextPageUrl;
+	}
+
+	private String getProductBrandNameAsString(Element productElement, String selector) {
+		String productProperty = null;
+		try {
+
+			String text = productElement.select(selector).get(0).ownText();
+			text = BrandHelper.getBrandName(text);
+
+			text = text.trim();
+			productProperty = text;
+		} catch (Exception e) {
+			LOGGER.error("error getting product property with selector {}", selector, e);
+		}
+		return productProperty;
+	}
+
+	public String getProductBrandNameSelector() {
+		return productBrandNameSelector;
+	}
+
+	private String getProductCurrencyAsString(Element productElement, String selector) {
+		String productProperty = null;
+		try {
+
+			String text = productElement.select(selector).get(0).ownText();
+			text = PriceHelper.getCurrency(text);
+
+			text = text.trim();
+			productProperty = text;
+		} catch (Exception e) {
+			LOGGER.error("error getting product property with selector {}", selector, e);
+		}
+		return productProperty;
+	}
+
+	public ProductList getProductList() {
+		return this.productList;
+	}
+
+	private String getProductNameAsString(Element productElement, String selector) {
+		String productProperty = null;
+		try {
+
+			String text = productElement.select(selector).get(0).ownText();
+			text = BrandHelper.removeBrandName(text);
+
+			text = text.trim();
+			productProperty = text;
+		} catch (Exception e) {
+			LOGGER.error("error getting product property with selector {}", selector, e);
+		}
+		return productProperty;
+	}
+
 	public String getProductNameSelector() {
 		return productNameSelector;
 	}
@@ -170,51 +214,6 @@ public abstract class Shop {
 		return productProperty;
 	}
 
-	private String getProductCurrencyAsString(Element productElement, String selector) {
-		String productProperty = null;
-		try {
-
-			String text = productElement.select(selector).get(0).ownText();
-			text = PriceHelper.getCurrency(text);
-
-			text = text.trim();
-			productProperty = text;
-		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
-		}
-		return productProperty;
-	}
-
-	private String getProductNameAsString(Element productElement, String selector) {
-		String productProperty = null;
-		try {
-
-			String text = productElement.select(selector).get(0).ownText();
-			text = BrandHelper.removeBrandName(text);
-
-			text = text.trim();
-			productProperty = text;
-		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
-		}
-		return productProperty;
-	}
-
-	private String getProductBrandNameAsString(Element productElement, String selector) {
-		String productProperty = null;
-		try {
-
-			String text = productElement.select(selector).get(0).ownText();
-			text = BrandHelper.getBrandName(text);
-
-			text = text.trim();
-			productProperty = text;
-		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
-		}
-		return productProperty;
-	}
-
 	private String getProductPropertyAsString(Element productElement, String selector) {
 		String productProperty = null;
 		try {
@@ -226,6 +225,10 @@ public abstract class Shop {
 			LOGGER.error("error getting product property with selector {}", selector, e);
 		}
 		return productProperty;
+	}
+
+	public String getProductsSelector() {
+		return productsSelector;
 	}
 
 	private String getProductUrlAsString(Element productElement, String selector) {
@@ -241,12 +244,12 @@ public abstract class Shop {
 		return productProperty;
 	}
 
-	public String getProductsSelector() {
-		return productsSelector;
-	}
-
 	public String getProductUrlSelector() {
 		return productUrlSelector;
+	}
+
+	public String getReferrer() {
+		return referrer;
 	}
 
 	public Boolean getRunnable() {
@@ -257,9 +260,22 @@ public abstract class Shop {
 		return timeout;
 	}
 
+	public String getUserAgent() {
+		return userAgent;
+	}
+
 	private void setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
 
+	}
+
+	private void setLimitSelector(Boolean limit) {
+		this.limit = limit;
+
+	}
+
+	public void setNextPageSelector(String nextPageSelector) {
+		this.nextPageSelector = nextPageSelector;
 	}
 
 	private void setProductBrandNameSelector(String productBrandNameSelector) {
@@ -269,7 +285,7 @@ public abstract class Shop {
 
 	public void setProductList(ProductList productList) {
 		this.productList = productList;
-	}
+	};
 
 	private void setProductNameSelector(String productNameSelector) {
 		this.productNameSelector = productNameSelector;
@@ -288,11 +304,15 @@ public abstract class Shop {
 
 	public void setProductsSelector(String productsSelector) {
 		this.productsSelector = productsSelector;
-	};
+	}
 
 	private void setProductUrlSelector(String productUrlSelector) {
 		this.productUrlSelector = productUrlSelector;
 
+	}
+
+	public void setReferrer(String referrer) {
+		this.referrer = referrer;
 	}
 
 	public void setRunnable(Boolean runnable) {
@@ -303,28 +323,8 @@ public abstract class Shop {
 		this.timeout = timeout;
 	}
 
-	public String getNextPageSelector() {
-		return nextPageSelector;
-	}
-
-	public void setNextPageSelector(String nextPageSelector) {
-		this.nextPageSelector = nextPageSelector;
-	}
-
-	public String getUserAgent() {
-		return userAgent;
-	}
-
 	public void setUserAgent(String userAgent) {
 		this.userAgent = userAgent;
-	}
-
-	public String getReferrer() {
-		return referrer;
-	}
-
-	public void setReferrer(String referrer) {
-		this.referrer = referrer;
 	}
 
 }

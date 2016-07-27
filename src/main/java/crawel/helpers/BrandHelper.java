@@ -5,6 +5,15 @@ import org.slf4j.LoggerFactory;
 
 public class BrandHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BrandHelper.class);
+
+	public static String[] BRANDS = { "Nike", "Reebok", "Adidas", "Puma", "Converse", "Diadora", "Ben Sherman",
+			"Le Coq Sportif", "New Balance", "Asics", "Stussy", "Saucony", "Publish", "Lacoste", "Karhu", "Hummel",
+			"Carhartt", "Jordan", "Staple", "Ransom", "KangaROOS", "Vans", "Poler", "Ucon", "Undefeated", "Beastin",
+			"OPM", "New Era", "LOOKYLOOKY", "ESPERANDO", "NVRMRE", "Jason Markk", "43einhalb", "On", "Junya Watanabe",
+			"Zespa", "Filling Pieces", "Alexander McQueen", "Jimmy Choo", "Wings + Horns", "No. 288", "Buttero",
+			"Diemme", "Buddy", "Giuseppe Zanotti", "Visvim", "WTAPS", "Eytys", "Our Legacy", "Paul Smith",
+			"Clarks Originals", "ETQ.", "Pierre Hardy" };
+
 	public static String getBrandName(String text) {
 		String brand = "unknown";
 		for (String brandString : BRANDS) {
@@ -12,7 +21,7 @@ public class BrandHelper {
 				brand = brandString;
 			}
 		}
-		if (brand.equals("unknown")){
+		if (brand.equals("unknown")) {
 			LOGGER.info("unable to match brand from {}", text);
 		}
 		return brand;
@@ -25,10 +34,5 @@ public class BrandHelper {
 		}
 		return text;
 	}
-	public static String[] BRANDS = { "Nike", "Reebok", "Adidas", "Puma", "Converse", "Diadora", "Ben Sherman",
-			"Le Coq Sportif", "New Balance", "Asics", "Stussy", "Saucony", "Publish", "Lacoste", "Karhu", "Hummel", "Carhartt", "Jordan", "Staple", "Ransom", "KangaROOS", "Vans", "Poler", "Ucon", 
-			"Undefeated", "Beastin", "OPM", "New Era", "LOOKYLOOKY", "ESPERANDO", "NVRMRE", "Jason Markk","43einhalb", "On", "Junya Watanabe", 
-			"Zespa", "Filling Pieces", "Alexander McQueen", "Jimmy Choo", "Wings + Horns", "No. 288", "Buttero", "Diemme", "Buddy", "Giuseppe Zanotti", 
-			"Visvim", "WTAPS", "Eytys", "Our Legacy", "Paul Smith", "Clarks Originals", "ETQ."};
 
 }

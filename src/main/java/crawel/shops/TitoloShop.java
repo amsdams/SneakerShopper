@@ -4,7 +4,4 @@ import crawel.Shop;
 
 public class TitoloShop extends Shop {
 
-	
-	
-	
 }
