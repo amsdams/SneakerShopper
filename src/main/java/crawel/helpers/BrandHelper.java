@@ -12,7 +12,8 @@ public class BrandHelper {
 			"OPM", "New Era", "LOOKYLOOKY", "ESPERANDO", "NVRMRE", "Jason Markk", "43einhalb", "On", "Junya Watanabe",
 			"Zespa", "Filling Pieces", "Alexander McQueen", "Jimmy Choo", "Wings + Horns", "No. 288", "Buttero",
 			"Diemme", "Buddy", "Giuseppe Zanotti", "Visvim", "WTAPS", "Eytys", "Our Legacy", "Paul Smith",
-			"Clarks Originals", "ETQ.", "Pierre Hardy" };
+			"Clarks Originals", "ETQ.", "Pierre Hardy", "Penfield", "HUF", "New Black", "The Hundreds", "Native",
+			"Bleu de Paname", "Wood Wood", "Norse Projects", "The North Face", "Wemoto", "Pointer", "Ewing Athletics" };
 
 	public static String getBrandName(String text) {
 		String brand = "unknown";

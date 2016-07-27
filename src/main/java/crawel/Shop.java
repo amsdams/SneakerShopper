@@ -25,6 +25,8 @@ public abstract class Shop {
 
 	private String productBrandNameSelector;
 	private String productNewPriceSelector;
+	private String productCurrencySelector;
+
 	private String nextPageSelector;
 
 	private String baseUrl;
@@ -54,6 +56,7 @@ public abstract class Shop {
 			this.setProductBrandNameSelector(resourceBundle.getString("productBrandNameSelector"));
 			this.setProductNameSelector(resourceBundle.getString("productNameSelector"));
 			this.setProductUrlSelector(resourceBundle.getString("productUrlSelector"));
+			this.setProductCurrencySelector(resourceBundle.getString("productCurrencySelector"));
 			this.setLimitSelector(Boolean.parseBoolean(resourceBundle.getString("limit")));
 			Enumeration<String> resourceBundleKeys = resourceBundle.getKeys();
 			while (resourceBundleKeys.hasMoreElements()) {
@@ -86,7 +89,7 @@ public abstract class Shop {
 						this.getProductBrandNameAsString(productElement, this.getProductBrandNameSelector()));
 				product.setUrl(this.getProductUrlAsString(productElement, this.getProductUrlSelector()));
 				product.setShopName(this.getClass().getName());
-				product.setCurrency(this.getProductCurrencyAsString(productElement, this.getProductNewPriceSelector()));
+				product.setCurrency(this.getProductCurrencyAsString(productElement, this.getProductCurrencySelector()));
 				productList.addProduct(product);
 			}
 			if (!this.getLimit()) {
@@ -113,6 +116,7 @@ public abstract class Shop {
 	private Boolean getLimit() {
 		return this.limit;
 	}
+
 	public String getNextPageSelector() {
 		return nextPageSelector;
 	};
@@ -165,6 +169,10 @@ public abstract class Shop {
 			LOGGER.error("error getting product property with selector {}", selector, e);
 		}
 		return productProperty;
+	}
+
+	public String getProductCurrencySelector() {
+		return productCurrencySelector;
 	}
 
 	public ProductList getProductList() {
@@ -281,11 +289,15 @@ public abstract class Shop {
 	private void setProductBrandNameSelector(String productBrandNameSelector) {
 		this.productBrandNameSelector = productBrandNameSelector;
 
+	};
+
+	public void setProductCurrencySelector(String productCurrencySelector) {
+		this.productCurrencySelector = productCurrencySelector;
 	}
 
 	public void setProductList(ProductList productList) {
 		this.productList = productList;
-	};
+	}
 
 	private void setProductNameSelector(String productNameSelector) {
 		this.productNameSelector = productNameSelector;

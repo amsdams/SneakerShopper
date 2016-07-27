@@ -28,55 +28,62 @@ public class ConsoleHelper {
 	public ActionList getActionList() {
 		ActionList actionList = new ActionList();
 
-		Action getProducts = new Action();
-		getProducts.setAction("gp");
-		getProducts.setDescription("get all products");
-
-		actionList.getActions().add(getProducts);
-
-		Action getProductsDev = new Action();
-		getProductsDev.setAction("gpdev");
-		getProductsDev.setDescription("get all products dev");
-
-		actionList.getActions().add(getProductsDev);
-		Action sortProductsByNewPrice = new Action();
-		sortProductsByNewPrice.setAction("sbnp");
-		sortProductsByNewPrice.setDescription("sort by new price");
-
-		actionList.getActions().add(sortProductsByNewPrice);
-
-		Action sortProductsByOldPrice = new Action();
-		sortProductsByOldPrice.setAction("sbop");
-		sortProductsByOldPrice.setDescription("sort by old price");
-
-		actionList.getActions().add(sortProductsByOldPrice);
-
+		/*
+		 * Action getProducts = new Action(); getProducts.setAction("gp");
+		 * getProducts.setDescription("get all products");
+		 * 
+		 * actionList.getActions().add(getProducts);
+		 * 
+		 * Action getProductsDev = new Action();
+		 * getProductsDev.setAction("gpdev");
+		 * getProductsDev.setDescription("get all products dev");
+		 * 
+		 * actionList.getActions().add(getProductsDev); Action
+		 * sortProductsByNewPrice = new Action();
+		 * sortProductsByNewPrice.setAction("sbnp");
+		 * sortProductsByNewPrice.setDescription("sort by new price");
+		 * 
+		 * actionList.getActions().add(sortProductsByNewPrice);
+		 * 
+		 * Action sortProductsByOldPrice = new Action();
+		 * sortProductsByOldPrice.setAction("sbop");
+		 * sortProductsByOldPrice.setDescription("sort by old price");
+		 * 
+		 * actionList.getActions().add(sortProductsByOldPrice);
+		 */
 		Action sortProductsByBrand = new Action();
-		sortProductsByBrand.setAction("sbb");
+		sortProductsByBrand.setAction("sbb<ASC|DESC>");
 		sortProductsByBrand.setDescription("sort by brand");
-
 		actionList.getActions().add(sortProductsByBrand);
 
 		Action sortProductsByName = new Action();
-		sortProductsByName.setAction("sbn");
+		sortProductsByName.setAction("sbn<ASD|DESC>");
 		sortProductsByName.setDescription("sort by name");
-
 		actionList.getActions().add(sortProductsByName);
+
+		Action sortProductsByShop = new Action();
+		sortProductsByShop.setAction("sbs<ASD|DESC>");
+		sortProductsByShop.setDescription("sort by shop");
+		actionList.getActions().add(sortProductsByShop);
+
+		Action sortProductsByNewPrice = new Action();
+		sortProductsByNewPrice.setAction("sbp<ASD|DESC>");
+		sortProductsByNewPrice.setDescription("sort by (new) price");
+		actionList.getActions().add(sortProductsByNewPrice);
+
 		Action filterByBrand = new Action();
 		filterByBrand.setAction("fbb<brand>");
 		filterByBrand.setDescription("filter by brand");
-
 		actionList.getActions().add(filterByBrand);
+
 		Action filterByName = new Action();
 		filterByName.setAction("fbn<name>");
 		filterByName.setDescription("filter by name");
-
 		actionList.getActions().add(filterByName);
 
 		Action exit = new Action();
 		exit.setAction("bye");
 		exit.setDescription("exits the program");
-
 		actionList.getActions().add(exit);
 
 		return actionList;

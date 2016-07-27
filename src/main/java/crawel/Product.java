@@ -12,11 +12,8 @@ public class Product implements Comparable<Product> {
 			String productName1 = product1.getBrandName().toUpperCase();
 			String productName2 = product2.getBrandName().toUpperCase();
 
-			// ascending order
 			return productName1.compareTo(productName2);
 
-			// descending order
-			// return productName2.compareTo(productName1);
 		}
 
 	};
@@ -29,11 +26,22 @@ public class Product implements Comparable<Product> {
 			String productName1 = product1.getName().toUpperCase();
 			String productName2 = product2.getName().toUpperCase();
 
-			// ascending order
 			return productName1.compareTo(productName2);
 
-			// descending order
-			// return productName2.compareTo(productName1);
+		}
+
+	};
+
+	public static Comparator<Product> ShopNameComparator = new Comparator<Product>() {
+
+		@Override
+		public int compare(Product product1, Product product2) {
+
+			String productName1 = product1.getShopName().toUpperCase();
+			String productName2 = product2.getShopName().toUpperCase();
+
+			return productName1.compareTo(productName2);
+
 		}
 
 	};
@@ -46,11 +54,8 @@ public class Product implements Comparable<Product> {
 			Double productName1 = product1.getNewPrice();
 			Double productName2 = product2.getNewPrice();
 
-			// ascending order
 			return productName1.compareTo(productName2);
 
-			// descending order
-			// return productName2.compareTo(productName1);
 		}
 
 	};
@@ -63,11 +68,8 @@ public class Product implements Comparable<Product> {
 			Double productName1 = product1.getOldPrice();
 			Double productName2 = product2.getOldPrice();
 
-			// ascending order
 			return productName1.compareTo(productName2);
 
-			// descending order
-			// return productName2.compareTo(productName1);
 		}
 
 	};
@@ -90,11 +92,8 @@ public class Product implements Comparable<Product> {
 	public int compareTo(Product o) {
 		String otherBrandName = o.getBrandName();
 
-		// ascending order
 		return this.getBrandName().compareTo(otherBrandName);
 
-		// descending order
-		// return compareQuantity - this.quantity;
 	}
 
 	public String getBrandName() {
@@ -110,15 +109,15 @@ public class Product implements Comparable<Product> {
 	}
 
 	public Double getNewPrice() {
-		return newPrice;
+		return newPrice != null ? newPrice : 0.0;
 	}
 
 	public Double getOldPrice() {
-		return oldPrice;
+		return oldPrice != null ? oldPrice : 0.0;
 	}
 
 	public String getShopName() {
-		return shopName;
+		return shopName.toUpperCase();
 	}
 
 	public String getUrl() {
@@ -156,8 +155,8 @@ public class Product implements Comparable<Product> {
 
 	@Override
 	public String toString() {
-		return "Product [newPrice=" + newPrice + ", oldPrice=" + oldPrice + ", brandName=" + brandName + ", name="
-				+ name + ", url=" + url + ", currency=" + currency + ", shopName=" + shopName + "]";
+		return "Product [currency=" + currency + ",newPrice=" + newPrice + ", oldPrice=" + oldPrice + ", brandName="
+				+ brandName + ", name=" + name + ", url=" + url + ",  shopName=" + shopName + "]";
 	}
 
 }

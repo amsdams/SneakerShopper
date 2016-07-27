@@ -63,8 +63,8 @@ public class Crawel {
 		try {
 			allProducts = mapper.readValue(new File("allProducts.json"), ProductList.class);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("could not open file", e);
+
 		}
 		return allProducts;
 
@@ -75,23 +75,38 @@ public class Crawel {
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
-			// Convert object to JSON string and save into a file directly
+
 			mapper.writeValue(new File("allProducts.json"), allProducts);
 
-			// Convert object to JSON string
-			// String jsonInString = mapper.writeValueAsString(allProducts);
-			// System.out.println(jsonInString);
+		} catch (JsonGenerationException e) {
+			LOGGER.error("could not generate json", e);
+		} catch (JsonMappingException e) {
+			LOGGER.error("could not map json", e);
+		} catch (IOException e) {
+			LOGGER.error("could not write file", e);
+		}
 
-			// Convert object to JSON string and pretty print
-			// String jsonInString =
-			// mapper.writerWithDefaultPrettyPrinter().writeValueAsString(allProducts);
-			// System.out.println(jsonInString);
+	}
 
-			/*
-			 * File input = new File("index.html"); Document doc =
-			 * Jsoup.parse(input, "UTF-8", "http://example.com/");
-			 * doc.head().append("test");
-			 */
+	private static ShopList openShopList() {
+		ObjectMapper mapper = new ObjectMapper();
+		ShopList allShops = new ShopList();
+		try {
+			allShops = mapper.readValue(new File("allProducts.json"), ShopList.class);
+		} catch (IOException e) {
+			LOGGER.error("could not open file", e);
+		}
+		return allShops;
+
+	}
+
+	private static void writeShopList(ShopList allShops) {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+
+			mapper.writeValue(new File("allShops.json"), allShops);
 
 		} catch (JsonGenerationException e) {
 			LOGGER.error("could not generate json", e);
@@ -121,6 +136,11 @@ public class Crawel {
 		Shop shop5 = shopFactory.getShop(ShopFactory.SHOPTYPES._5POINTZ);
 		Shop shop6 = shopFactory.getShop(ShopFactory.SHOPTYPES.ENDCLOTHING);
 		Shop shop7 = shopFactory.getShop(ShopFactory.SHOPTYPES.SNEAKERBAAS);
+		// Shop shop8 = shopFactory.getShop(ShopFactory.SHOPTYPES.OFFSPRING);
+		// Shop shop9 =
+		// shopFactory.getShop(ShopFactory.SHOPTYPES.SLAMJAMSOCIALISM);
+		Shop shop10 = shopFactory.getShop(ShopFactory.SHOPTYPES.ASPHALTGOLD);
+		Shop shop11 = shopFactory.getShop(ShopFactory.SHOPTYPES.AFEW);
 		ShopList shopList = new ShopList();
 		shopList.addShop(shop1);
 		shopList.addShop(shop2);
@@ -129,6 +149,18 @@ public class Crawel {
 		shopList.addShop(shop5);
 		shopList.addShop(shop6);
 		shopList.addShop(shop7);
+		// shopList.addShop(shop8);
+		// shopList.addShop(shop9);
+		shopList.addShop(shop10);
+		shopList.addShop(shop11);
+		//writeShopList(shopList);
+		/* TODO
+		 * shopList = openShopList()
+		 * and remove the factory and extended shop classes?
+		 * do the same with Brands?
+		 * and Currencies?
+		 */
+		
 		return shopList;
 	}
 
@@ -162,15 +194,50 @@ public class Crawel {
 
 		ActionList actionList = consoleHelper.getActionList();
 		ProductList filteredProductList = new ProductList();
+		Comparator<Product> comparator = Product.NewPriceComparator;
 		while (keepRunning) {
 
 			String in = consoleHelper.readLine(consoleHelper.printActionList(actionList));
 			LOGGER.info("received " + in);
-			if (in.startsWith("fbb")) {
+			if (in.startsWith("sbb")) {
+				String order = in.replace("sbb", "");
+				LOGGER.info("will sort by name and order" + order);
+
+				comparator = Product.BrandNameComparator;
+
+				filteredProductList.setProducts(
+						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				consoleHelper.printProductList(filteredProductList);
+			} else if (in.startsWith("sbn")) {
+				String order = in.replace("sbn", "");
+				LOGGER.info("will sort by name and order" + order);
+
+				comparator = Product.NameComparator;
+
+				filteredProductList.setProducts(
+						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				consoleHelper.printProductList(filteredProductList);
+			} else if (in.startsWith("sbp")) {
+				String order = in.replace("sbp", "");
+				LOGGER.info("will sort by new price" + order);
+
+				comparator = Product.NewPriceComparator;
+
+				filteredProductList.setProducts(
+						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				consoleHelper.printProductList(filteredProductList);
+			} else if (in.startsWith("sbs")) {
+				String order = in.replace("sbs", "");
+				LOGGER.info("will sort by shop and order" + order);
+
+				comparator = Product.ShopNameComparator;
+
+				filteredProductList.setProducts(
+						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				consoleHelper.printProductList(filteredProductList);
+			} else if (in.startsWith("fbb")) {
 				String brand = in.replace("fbb", "");
 				LOGGER.info("extracted brand " + brand);
-
-				Comparator<Product> comparator = Product.NewPriceComparator;
 
 				filteredProductList.setProducts(productList.getProducts().stream()
 						.filter(p -> p.getBrandName().contains(brand)).sorted(comparator).collect(Collectors.toList()));
@@ -178,7 +245,6 @@ public class Crawel {
 			} else if (in.startsWith("fbn")) {
 				String name = in.replace("fbn", "");
 				LOGGER.info("extracted name " + name);
-				Comparator<Product> comparator = Product.NewPriceComparator;
 
 				filteredProductList.setProducts(productList.getProducts().stream()
 						.filter(p -> p.getName().contains(name)).sorted(comparator).collect(Collectors.toList()));
