@@ -1,4 +1,4 @@
-package crawel.console;
+package crawel.pojo;
 
 public class Action {
 	String action;

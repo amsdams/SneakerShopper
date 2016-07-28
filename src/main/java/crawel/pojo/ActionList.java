@@ -1,4 +1,4 @@
-package crawel.console;
+package crawel.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

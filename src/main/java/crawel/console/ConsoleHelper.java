@@ -7,10 +7,15 @@ import java.io.PrintStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import crawel.Product;
-import crawel.ProductList;
-import crawel.Shop;
-import crawel.ShopList;
+import crawel.pojo.Action;
+import crawel.pojo.Brand;
+import crawel.pojo.BrandList;
+import crawel.pojo.ActionList;
+
+import crawel.pojo.Product;
+import crawel.pojo.ProductList;
+import crawel.pojo.Shop;
+import crawel.pojo.ShopList;
 
 public class ConsoleHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleHelper.class);
@@ -121,6 +126,13 @@ public class ConsoleHelper {
 		} catch (IOException e) {
 			return null;
 		}
+	}
+
+	public void printBrandList(BrandList brandList) {
+		for (Brand brand : brandList.getBrands()) {
+			LOGGER.info(brand.toString());
+		}
+		
 	}
 
 }

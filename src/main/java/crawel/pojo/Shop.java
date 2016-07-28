@@ -1,4 +1,4 @@
-package crawel;
+package crawel.pojo;
 
 import java.io.IOException;
 

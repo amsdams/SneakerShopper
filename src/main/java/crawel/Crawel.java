@@ -18,8 +18,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import crawel.console.ActionList;
 import crawel.console.ConsoleHelper;
+import crawel.pojo.ActionList;
+import crawel.pojo.Brand;
+import crawel.pojo.BrandList;
+import crawel.pojo.Product;
+import crawel.pojo.ProductList;
+import crawel.pojo.Shop;
+import crawel.pojo.ShopList;
 
 public class Crawel {
 	private static final int MYTHREADS = 30;
@@ -34,6 +40,9 @@ public class Crawel {
 			parser.parseArgument(args);
 			if (crawel.writeFile) {
 
+				BrandList brandList = crawel.getBrandList();
+				consoleHelper.printBrandList(brandList);
+				
 				ShopList shopList = crawel.getShopList();
 				consoleHelper.printShopList(shopList);
 				ProductList productList = crawel.getShopsProductList(shopList);
@@ -72,6 +81,37 @@ public class Crawel {
 
 	}
 
+	private static BrandList openBrandList() {
+		ObjectMapper mapper = new ObjectMapper();
+		BrandList allBrands = new BrandList();
+		try {
+			allBrands = mapper.readValue(new File("allBrands.json"), BrandList.class);
+		} catch (IOException e) {
+			LOGGER.error("could not open file", e);
+
+		}
+		return allBrands;
+
+	}
+	
+	private static void writeBrandListList(BrandList allBrands) {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("allBrands.json"), allBrands);
+
+		} catch (JsonGenerationException e) {
+			LOGGER.error("could not generate json", e);
+		} catch (JsonMappingException e) {
+			LOGGER.error("could not map json", e);
+		} catch (IOException e) {
+			LOGGER.error("could not write file", e);
+		}
+
+	}
+	
 	private static void writeProductList(ProductList allProducts) {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -137,6 +177,30 @@ public class Crawel {
 		
 		
 		return shopList;
+	}
+	
+	private BrandList getBrandList() {
+		
+		BrandList brandList = new BrandList();
+		
+		Brand brand1  = new Brand("Adidas");
+		brandList.addBrand(brand1);
+		
+		Brand brand2  = new Brand("Puma");
+		brandList.addBrand(brand2);
+		
+		Brand brand3  = new Brand("Nike");
+		brandList.addBrand(brand3);
+		
+		
+		brandList.addBrand(brand1);
+		writeBrandListList(brandList);
+		
+		//BrandList brandList = openBrandList();
+		//writeShopList(shopList);
+		
+		
+		return brandList;
 	}
 
 	private ProductList getShopsProductList(ShopList shopList) {
