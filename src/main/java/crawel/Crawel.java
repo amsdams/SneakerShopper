@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -34,6 +35,7 @@ public class Crawel {
 			if (crawel.writeFile) {
 
 				ShopList shopList = crawel.getShopList();
+				consoleHelper.printShopList(shopList);
 				ProductList productList = crawel.getShopsProductList(shopList);
 				consoleHelper.printProductList(productList);
 				writeProductList(productList);
@@ -76,7 +78,7 @@ public class Crawel {
 
 		try {
 
-			mapper.writeValue(new File("allProducts.json"), allProducts);
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("allProducts.json"), allProducts);
 
 		} catch (JsonGenerationException e) {
 			LOGGER.error("could not generate json", e);
@@ -92,7 +94,9 @@ public class Crawel {
 		ObjectMapper mapper = new ObjectMapper();
 		ShopList allShops = new ShopList();
 		try {
-			allShops = mapper.readValue(new File("allProducts.json"), ShopList.class);
+			mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
+			allShops = mapper.readValue(new File("allShops.json"), ShopList.class);
 		} catch (IOException e) {
 			LOGGER.error("could not open file", e);
 		}
@@ -106,7 +110,7 @@ public class Crawel {
 
 		try {
 
-			mapper.writeValue(new File("allShops.json"), allShops);
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("allShops.json"), allShops);
 
 		} catch (JsonGenerationException e) {
 			LOGGER.error("could not generate json", e);
@@ -128,38 +132,9 @@ public class Crawel {
 	private Boolean openFile = false;
 
 	private ShopList getShopList() {
-		ShopFactory shopFactory = new ShopFactory();
-		Shop shop1 = shopFactory.getShop(ShopFactory.SHOPTYPES.OVERKILLSHOP);
-		Shop shop2 = shopFactory.getShop(ShopFactory.SHOPTYPES.TITOLOSHOP);
-		Shop shop3 = shopFactory.getShop(ShopFactory.SHOPTYPES.SNEAKAVENUE);
-		Shop shop4 = shopFactory.getShop(ShopFactory.SHOPTYPES._43EINHALB);
-		Shop shop5 = shopFactory.getShop(ShopFactory.SHOPTYPES._5POINTZ);
-		Shop shop6 = shopFactory.getShop(ShopFactory.SHOPTYPES.ENDCLOTHING);
-		Shop shop7 = shopFactory.getShop(ShopFactory.SHOPTYPES.SNEAKERBAAS);
-		// Shop shop8 = shopFactory.getShop(ShopFactory.SHOPTYPES.OFFSPRING);
-		// Shop shop9 =
-		// shopFactory.getShop(ShopFactory.SHOPTYPES.SLAMJAMSOCIALISM);
-		Shop shop10 = shopFactory.getShop(ShopFactory.SHOPTYPES.ASPHALTGOLD);
-		Shop shop11 = shopFactory.getShop(ShopFactory.SHOPTYPES.AFEW);
-		ShopList shopList = new ShopList();
-		shopList.addShop(shop1);
-		shopList.addShop(shop2);
-		shopList.addShop(shop3);
-		shopList.addShop(shop4);
-		shopList.addShop(shop5);
-		shopList.addShop(shop6);
-		shopList.addShop(shop7);
-		// shopList.addShop(shop8);
-		// shopList.addShop(shop9);
-		shopList.addShop(shop10);
-		shopList.addShop(shop11);
+		ShopList shopList = openShopList();
 		//writeShopList(shopList);
-		/* TODO
-		 * shopList = openShopList()
-		 * and remove the factory and extended shop classes?
-		 * do the same with Brands?
-		 * and Currencies?
-		 */
+		
 		
 		return shopList;
 	}

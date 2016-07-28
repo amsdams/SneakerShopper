@@ -1,8 +1,6 @@
 package crawel;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.ResourceBundle;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,7 +12,18 @@ import org.slf4j.LoggerFactory;
 import crawel.helpers.BrandHelper;
 import crawel.helpers.PriceHelper;
 
-public abstract class Shop {
+public class Shop {
+
+	@Override
+	public String toString() {
+		return "Shop [productOldPriceSelector=" + productOldPriceSelector + ", productUrlSelector=" + productUrlSelector
+				+ ", productNameSelector=" + productNameSelector + ", productBrandNameSelector="
+				+ productBrandNameSelector + ", productNewPriceSelector=" + productNewPriceSelector
+				+ ", productCurrencySelector=" + productCurrencySelector + ", nextPageSelector=" + nextPageSelector
+				+ ", baseUrl=" + baseUrl + ", productList=" + productList + ", runnable=" + runnable + ", timeout="
+				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", userAgent=" + userAgent
+				+ ", referrer=" + referrer + "]";
+	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Shop.class);
 
@@ -35,6 +44,10 @@ public abstract class Shop {
 	private Boolean runnable;
 
 	private Integer timeout;
+	public void setLimit(Boolean limit) {
+		this.limit = limit;
+	}
+
 	private String productsSelector;
 
 	private Boolean limit;
@@ -44,30 +57,9 @@ public abstract class Shop {
 	private String referrer = "http://www.google.com";
 
 	public Shop() {
-		try {
-			ResourceBundle resourceBundle = ResourceBundle.getBundle(this.getClass().getName());
-			this.setRunnable(Boolean.parseBoolean(resourceBundle.getString("runnable")));
-			this.setBaseUrl(resourceBundle.getString("baseUrl"));
-			this.setTimeout(Integer.parseInt(resourceBundle.getString("timeout")));
-			this.setProductsSelector(resourceBundle.getString("productsSelector"));
-			this.setNextPageSelector(resourceBundle.getString("nextPageSelector"));
-			this.setProductNewPriceSelector(resourceBundle.getString("productNewPriceSelector"));
-			this.setProductOldPriceSelector(resourceBundle.getString("productOldPriceSelector"));
-			this.setProductBrandNameSelector(resourceBundle.getString("productBrandNameSelector"));
-			this.setProductNameSelector(resourceBundle.getString("productNameSelector"));
-			this.setProductUrlSelector(resourceBundle.getString("productUrlSelector"));
-			this.setProductCurrencySelector(resourceBundle.getString("productCurrencySelector"));
-			this.setLimitSelector(Boolean.parseBoolean(resourceBundle.getString("limit")));
-			Enumeration<String> resourceBundleKeys = resourceBundle.getKeys();
-			while (resourceBundleKeys.hasMoreElements()) {
-				String resourceBundleKey = resourceBundleKeys.nextElement();
-				String value = resourceBundle.getString(resourceBundleKey);
-				LOGGER.info(resourceBundleKey + ": " + value);
-			}
-			productList = new ProductList();
-		} catch (Exception e) {
-			LOGGER.error("Error retrieving properties file: {}", e);
-		}
+		
+		productList = new ProductList();
+		
 	}
 
 	public void addProductsToList(String url) {

@@ -16,7 +16,7 @@ public class Shopper implements Runnable {
 	public void run() {
 		try {
 			if (shop.getRunnable().equals(Boolean.FALSE)) {
-				LOGGER.info("will not run shop");
+				LOGGER.info("will not run shop {}", shop.getBaseUrl());
 			} else {
 				shop.addProductsToList(shop.getBaseUrl());
 

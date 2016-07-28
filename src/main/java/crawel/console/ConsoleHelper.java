@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import crawel.Product;
 import crawel.ProductList;
+import crawel.Shop;
+import crawel.ShopList;
 
 public class ConsoleHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleHelper.class);
@@ -106,6 +108,12 @@ public class ConsoleHelper {
 		}
 	}
 
+	public void printShopList(ShopList shopList) {
+		for (Shop shop : shopList.getShops()) {
+			LOGGER.info(shop.toString());
+		}
+	}
+	
 	public String readLine(String out) {
 		ps.format(out);
 		try {
