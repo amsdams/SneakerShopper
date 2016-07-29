@@ -193,7 +193,6 @@ public class Crawel {
 		brandList.addBrand(brand3);
 		
 		
-		brandList.addBrand(brand1);
 		writeBrandListList(brandList);
 		
 		//BrandList brandList = openBrandList();
