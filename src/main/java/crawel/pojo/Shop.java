@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import crawel.helpers.BrandHelper;
 import crawel.helpers.PriceHelper;
+import crawel.storage.BrandListStorage;
+import crawel.storage.CurrencyListStorage;
 
 public class Shop {
 
@@ -40,10 +42,13 @@ public class Shop {
 
 	private String baseUrl;
 	private ProductList productList;
+	private BrandList brandList;
+	private CurrencyList currencyList;
 
 	private Boolean runnable;
 
 	private Integer timeout;
+
 	public void setLimit(Boolean limit) {
 		this.limit = limit;
 	}
@@ -57,9 +62,11 @@ public class Shop {
 	private String referrer = "http://www.google.com";
 
 	public Shop() {
-		
+
 		productList = new ProductList();
-		
+		brandList = BrandListStorage.get();
+		currencyList = CurrencyListStorage.get();
+
 	}
 
 	public void addProductsToList(String url) {
@@ -95,7 +102,8 @@ public class Shop {
 
 		} catch (IOException e) {
 
-			LOGGER.error("error getting products with selector {} ", this.getProductsSelector(), e);
+			LOGGER.error("error getting products with selector {} for baseUrl {}", this.getProductsSelector(),
+					this.getBaseUrl(), e);
 		}
 
 	}
@@ -134,12 +142,13 @@ public class Shop {
 		try {
 
 			String text = productElement.select(selector).get(0).ownText();
-			text = BrandHelper.getBrandName(text);
+			text = BrandHelper.getBrandName(text, brandList);
 
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
+			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
+					e);
 		}
 		return productProperty;
 	}
@@ -153,12 +162,13 @@ public class Shop {
 		try {
 
 			String text = productElement.select(selector).get(0).ownText();
-			text = PriceHelper.getCurrency(text);
+			text = PriceHelper.getCurrency(text, currencyList);
 
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
+			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
+					e);
 		}
 		return productProperty;
 	}
@@ -176,12 +186,13 @@ public class Shop {
 		try {
 
 			String text = productElement.select(selector).get(0).ownText();
-			text = BrandHelper.removeBrandName(text);
+			text = BrandHelper.removeBrandName(text, brandList);
 
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
+			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
+					e);
 		}
 		return productProperty;
 	}
@@ -204,12 +215,13 @@ public class Shop {
 			String price = productElement.select(selector).get(0).ownText();
 			price = price.replaceAll(",", ".");
 
-			price = PriceHelper.removeCurrency(price);
+			price = PriceHelper.removeCurrency(price, currencyList);
 			price = price.trim();
 			productProperty = Double.parseDouble(price);
 
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
+			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
+					e);
 		}
 		return productProperty;
 	}
@@ -222,7 +234,8 @@ public class Shop {
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
+			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
+					e);
 		}
 		return productProperty;
 	}
@@ -239,7 +252,8 @@ public class Shop {
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {}", selector, e);
+			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
+					e);
 		}
 		return productProperty;
 	}
@@ -329,6 +343,14 @@ public class Shop {
 
 	public void setUserAgent(String userAgent) {
 		this.userAgent = userAgent;
+	}
+
+	public BrandList getBrandList() {
+		return brandList;
+	}
+
+	public void setBrandList(BrandList brandList) {
+		this.brandList = brandList;
 	}
 
 }

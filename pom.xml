@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.amsdams.sneakers</groupId>
 	<artifactId>crawel</artifactId>
@@ -15,8 +16,38 @@
 					<outputEncoding>UTF-8</outputEncoding>
 				</configuration>
 			</plugin>
+			<!-- <plugin>
+				<groupId>com.buschmais.jqassistant.scm</groupId>
+				<artifactId>jqassistant-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>scan</goal>
+							<goal>analyze</goal>
+						</goals>
+						<configuration>
+							<failOnViolations>true</failOnViolations>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<!-- <plugin>
+				<groupId>com.buschmais.jqassistant.scm</groupId>
+				<artifactId>jqassistant-maven-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin> -->
+		</plugins>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -33,11 +64,19 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.21</version>
 		</dependency>
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> 
+			<version>1.7.21</version> </dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.21</version>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.5</version>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

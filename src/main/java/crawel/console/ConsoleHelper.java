@@ -8,14 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import crawel.pojo.Action;
-import crawel.pojo.Brand;
-import crawel.pojo.BrandList;
 import crawel.pojo.ActionList;
-
-import crawel.pojo.Product;
-import crawel.pojo.ProductList;
-import crawel.pojo.Shop;
-import crawel.pojo.ShopList;
 
 public class ConsoleHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleHelper.class);
@@ -35,29 +28,6 @@ public class ConsoleHelper {
 	public ActionList getActionList() {
 		ActionList actionList = new ActionList();
 
-		/*
-		 * Action getProducts = new Action(); getProducts.setAction("gp");
-		 * getProducts.setDescription("get all products");
-		 * 
-		 * actionList.getActions().add(getProducts);
-		 * 
-		 * Action getProductsDev = new Action();
-		 * getProductsDev.setAction("gpdev");
-		 * getProductsDev.setDescription("get all products dev");
-		 * 
-		 * actionList.getActions().add(getProductsDev); Action
-		 * sortProductsByNewPrice = new Action();
-		 * sortProductsByNewPrice.setAction("sbnp");
-		 * sortProductsByNewPrice.setDescription("sort by new price");
-		 * 
-		 * actionList.getActions().add(sortProductsByNewPrice);
-		 * 
-		 * Action sortProductsByOldPrice = new Action();
-		 * sortProductsByOldPrice.setAction("sbop");
-		 * sortProductsByOldPrice.setDescription("sort by old price");
-		 * 
-		 * actionList.getActions().add(sortProductsByOldPrice);
-		 */
 		Action sortProductsByBrand = new Action();
 		sortProductsByBrand.setAction("sbb<ASC|DESC>");
 		sortProductsByBrand.setDescription("sort by brand");
@@ -107,18 +77,6 @@ public class ConsoleHelper {
 
 	}
 
-	public void printProductList(ProductList productList) {
-		for (Product product : productList.getProducts()) {
-			LOGGER.info(product.toString());
-		}
-	}
-
-	public void printShopList(ShopList shopList) {
-		for (Shop shop : shopList.getShops()) {
-			LOGGER.info(shop.toString());
-		}
-	}
-	
 	public String readLine(String out) {
 		ps.format(out);
 		try {
@@ -126,13 +84,6 @@ public class ConsoleHelper {
 		} catch (IOException e) {
 			return null;
 		}
-	}
-
-	public void printBrandList(BrandList brandList) {
-		for (Brand brand : brandList.getBrands()) {
-			LOGGER.info(brand.toString());
-		}
-		
 	}
 
 }

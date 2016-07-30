@@ -1,12 +1,23 @@
 package crawel.pojo;
 
 public class Brand {
-	public Brand(){
-		
+	public Brand() {
+
 	}
-	public Brand(String name){
+
+	
+
+	@Override
+	public String toString() {
+		return "Brand [name=" + name + "]";
+	}
+
+
+
+	public Brand(String name) {
 		this.name = name;
 	}
+
 	private String name;
 
 	public String getName() {

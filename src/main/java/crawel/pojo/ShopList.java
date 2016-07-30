@@ -3,7 +3,13 @@ package crawel.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class ShopList {
+	
+	
+	
+	
 	private List<Shop> shops = new ArrayList<Shop>();
 
 	public void addShop(Shop shop) {

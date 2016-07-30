@@ -1,21 +1,28 @@
 package crawel.helpers;
 
-public class PriceHelper {
-	public static String[] CURRENCIES = { "€", "$", "£" };
+import crawel.pojo.Currency;
+import crawel.pojo.CurrencyList;
 
-	public static String getCurrency(String text) {
-		String currency = "unknown";
-		for (String currencyString : CURRENCIES) {
+public class PriceHelper {
+	/*
+	 * public static String[] CURRENCIES = { "€", "$", "£" };
+	 */
+
+	public static String getCurrency(String text, CurrencyList currencyList) {
+		String returnCurrency = "unknown";
+		for (Currency currency : currencyList.getCurrencys()) {
+			String currencyString = currency.getSymbol();
 			if (text.toLowerCase().contains(currencyString.toLowerCase())) {
-				currency = currencyString;
+				returnCurrency = currencyString;
 			}
 		}
-		return currency;
+		return returnCurrency;
 	}
 
-	public static String removeCurrency(String text) {
+	public static String removeCurrency(String text, CurrencyList currencyList) {
 
-		for (String currencyString : CURRENCIES) {
+		for (Currency currency : currencyList.getCurrencys()) {
+			String currencyString = currency.getSymbol();
 			text = text.replaceAll(currencyString, "");
 		}
 		return text;
