@@ -38,23 +38,22 @@ public class Crawel {
 
 				BrandList brandList = BrandListStorage.get();
 				BrandListStorage.print(brandList);
-				
 
 				ShopList shopList = ShopListStorage.get();
 				ShopListStorage.print(shopList);
 
 				CurrencyList currencyList = CurrencyListStorage.get();
 				CurrencyListStorage.print(currencyList);
-				
+
 				ProductList productList = crawel.getShopsProductList(shopList);
 				ProductListStorage.print(productList);
 				ProductListStorage.put(productList);
 			}
 
 			if (crawel.openFile) {
-				
+
 				ProductList productList = ProductListStorage.get();
-				
+
 				ProductListStorage.print(productList);
 
 			}
@@ -85,7 +84,7 @@ public class Crawel {
 
 		for (Shop shop : shopList.getShops()) {
 
-			Runnable worker = new Shopper(shop);
+			Runnable worker = new ShopRunner(shop);
 			executor.execute(worker);
 		}
 
@@ -168,6 +167,17 @@ public class Crawel {
 			} else if (in.startsWith("reset")) {
 				filteredProductList = productList;
 				ProductListStorage.print(filteredProductList);
+
+			} else if (in.startsWith("psl")) {
+				ShopListStorage.print(ShopListStorage.get());
+
+			} else if (in.startsWith("ppl")) {
+				ProductListStorage.print(ProductListStorage.get());
+
+			} else if (in.startsWith("pbl")) {
+				BrandListStorage.print(BrandListStorage.get());
+			} else if (in.startsWith("pcl")) {
+				CurrencyListStorage.print(CurrencyListStorage.get());
 			} else if (in.startsWith("bye")) {
 				keepRunning = false;
 

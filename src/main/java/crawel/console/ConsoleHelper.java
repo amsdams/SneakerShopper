@@ -63,6 +63,26 @@ public class ConsoleHelper {
 		exit.setDescription("exits the program");
 		actionList.getActions().add(exit);
 
+		Action psl = new Action();
+		psl.setAction("psl");
+		psl.setDescription("print shop list");
+		actionList.getActions().add(psl);
+
+		Action pbl = new Action();
+		pbl.setAction("pbl");
+		pbl.setDescription("print brand list");
+		actionList.getActions().add(pbl);
+
+		Action ppl = new Action();
+		ppl.setAction("ppl");
+		ppl.setDescription("print product list");
+		actionList.getActions().add(ppl);
+
+		Action pcl = new Action();
+		pcl.setAction("pcl");
+		pcl.setDescription("print currency list");
+		actionList.getActions().add(pcl);
+
 		return actionList;
 	}
 

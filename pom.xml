@@ -16,36 +16,35 @@
 					<outputEncoding>UTF-8</outputEncoding>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
-				<groupId>com.buschmais.jqassistant.scm</groupId>
-				<artifactId>jqassistant-maven-plugin</artifactId>
+			<!-- <plugin> <groupId>com.buschmais.jqassistant.scm</groupId> <artifactId>jqassistant-maven-plugin</artifactId> 
+				<executions> <execution> <goals> <goal>scan</goal> <goal>analyze</goal> </goals> 
+				<configuration> <failOnViolations>true</failOnViolations> </configuration> 
+				</execution> </executions> </plugin> -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
 				<executions>
 					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- bind to the packaging phase -->
 						<goals>
-							<goal>scan</goal>
-							<goal>analyze</goal>
+							<goal>single</goal>
 						</goals>
-						<configuration>
-							<failOnViolations>true</failOnViolations>
-						</configuration>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>
 		<plugins>
-			<!-- <plugin>
-				<groupId>com.buschmais.jqassistant.scm</groupId>
-				<artifactId>jqassistant-maven-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>report</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin> -->
+			<!-- <plugin> <groupId>com.buschmais.jqassistant.scm</groupId> <artifactId>jqassistant-maven-plugin</artifactId> 
+				<reportSets> <reportSet> <reports> <report>report</report> </reports> </reportSet> 
+				</reportSets> </plugin> -->
 		</plugins>
 	</reporting>
 	<dependencies>

@@ -11,9 +11,6 @@ public class BrandList {
 
 	private List<Brand> brands = new ArrayList<Brand>();
 
-	
-
-	
 	public void addBrand(Brand Brand) {
 		brands.add(Brand);
 	}

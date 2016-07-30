@@ -21,12 +21,11 @@ public class ShopListStorage {
 			LOGGER.info(shop.toString());
 		}
 	}
+
 	public static ShopList get() {
 		ObjectMapper mapper = new ObjectMapper();
 		ShopList allShops = new ShopList();
 		try {
-			//mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-
 			allShops = mapper.readValue(new File("allShops.json"), ShopList.class);
 		} catch (IOException e) {
 			LOGGER.error("could not open file", e);

@@ -5,12 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import crawel.pojo.Shop;
 
-public class Shopper implements Runnable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Shopper.class);
+public class ShopRunner implements Runnable {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShopRunner.class);
 
 	private final Shop shop;
 
-	Shopper(Shop shop) {
+	ShopRunner(Shop shop) {
 		this.shop = shop;
 	}
 
