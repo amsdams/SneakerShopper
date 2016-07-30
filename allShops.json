@@ -1,0 +1,175 @@
+{
+	"shops": [
+		{
+			"productOldPriceSelector": ".price-box .old-price .price",
+			"productUrlSelector": ".product-name",
+			"productNameSelector": ".product-name",
+			"productBrandNameSelector": ".product-name",
+			"productNewPriceSelector": ".price-box .special-price .price",
+			"productCurrencySelector": ".price-box .special-price .price",
+			"nextPageSelector": ".pagination>ul>li>a.next",
+			"baseUrl": "https://www.overkillshop.com/en/sale.html",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".category-products>ul>li",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".price-box .old-price .price",
+			"productUrlSelector": ".product-name",
+			"productNameSelector": ".product-name>.name",
+			"productBrandNameSelector": ".product-name>.manufacturer",
+			"productNewPriceSelector": ".price-box .special-price .price",
+			"productCurrencySelector": ".price-box .special-price .price",
+			"nextPageSelector": "ul.pagination>li>a.next",
+			"baseUrl": "https://en.titoloshop.com/sale",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".category-products>.columns>ul>li",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".price .oldprice>.priceWithCurrency",
+			"productUrlSelector": ".pText>.pName",
+			"productNameSelector": ".pText>.pName>.productname",
+			"productBrandNameSelector": ".pText>.pName>.producername",
+			"productNewPriceSelector": ".price .newprice",
+			"productCurrencySelector": ".price .oldprice>.priceWithCurrency",
+			"nextPageSelector": ".paginator-centered>ul>li.next>a",
+			"baseUrl": "http://www.sneak-a-venue.com/sale",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".productlist>div>ul>li",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".pInfo>.pPrice>.oldPrice>.priceWithCurrency",
+			"productUrlSelector": ".pName",
+			"productNameSelector": ".pInfo>.pName>.productName",
+			"productBrandNameSelector": ".pInfo>.pName>.producerName",
+			"productNewPriceSelector": ".pInfo>.pPrice>.newPrice",
+			"productCurrencySelector": ".pInfo>.pPrice>.oldPrice>.priceWithCurrency",
+			"nextPageSelector": ".paginator-centered>ul>li.next>a",
+			"baseUrl": "http://www.43einhalb.com/sale",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": "ul.productListing>li",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".old-price>.price",
+			"productUrlSelector": ".item__details>a",
+			"productNameSelector": ".item__title",
+			"productBrandNameSelector": ".item__brand",
+			"productNewPriceSelector": ".special-price>.price",
+			"productCurrencySelector": ".old-price>.price",
+			"nextPageSelector": ".pager>ol>li>a.next",
+			"baseUrl": "https://www.5pointz.co.uk/sale?cat=256",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".cat-list>ol>li",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".price-box>.price.old-price",
+			"productUrlSelector": "h3>a",
+			"productNameSelector": "h3>a",
+			"productBrandNameSelector": "h3>a",
+			"productNewPriceSelector": ".price-box>.price.regular-price",
+			"productCurrencySelector": ".price-box>.price.old-price",
+			"nextPageSelector": ".pager>ul>li>a.next",
+			"baseUrl": "http://www.endclothing.com/eu/sale/sneakers",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".category-products>.item",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".product-info>.price-box>.old-price>.price>.integer",
+			"productUrlSelector": ".product-info .product-name a",
+			"productNameSelector": ".product-info .product-name a",
+			"productBrandNameSelector": ".product-info .product-brand ",
+			"productNewPriceSelector": ".product-info>.price-box>.old-price>.price>.integer",
+			"productCurrencySelector": ".product-info>.price-box>.old-price>.price>.currency",
+			"nextPageSelector": ".pager .next",
+			"baseUrl": "http://www.sneakerbaas.com/nl/sale.html/",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".category-products>ul>li",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".product-details>.price-box>.old-price>.price",
+			"productUrlSelector": ".product-details>.product-name>a",
+			"productNameSelector": ".product-details>.product-name>a",
+			"productBrandNameSelector": ".product-details>.product-name>a",
+			"productNewPriceSelector": ".product-details>.price-box>.special-price>.price",
+			"productCurrencySelector": ".product-details>.price-box>.old-price>.price",
+			"nextPageSelector": ".pages>ol>li>a.next",
+			"baseUrl": "https://asphaltgold.de/en/sale",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".product-grid>.item",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".price-box>.old-price>.price",
+			"productUrlSelector": ".product-name>a",
+			"productNameSelector": ".product-name>a",
+			"productBrandNameSelector": ".product-name>a",
+			"productNewPriceSelector": ".price-box>.special-price>.price",
+			"productCurrencySelector": ".price-box>.old-price>.price",
+			"nextPageSelector": ".pages>ol>li>a.next",
+			"baseUrl": "https://www.afew-store.com/en/sale/",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"limit": false,
+			"timeout": 10000,
+			"productsSelector": ".category-products>ul>li.item",
+			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			"referrer": "http://www.google.com"
+		}
+	]
+}
