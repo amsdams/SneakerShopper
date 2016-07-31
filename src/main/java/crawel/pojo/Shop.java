@@ -1,13 +1,18 @@
 package crawel.pojo;
 
 import java.io.IOException;
+import java.net.URL;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebClientOptions;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import crawel.helpers.BrandHelper;
 import crawel.helpers.PriceHelper;
@@ -74,23 +79,40 @@ public class Shop {
 		try {
 			LOGGER.info("Fetching {}...", url);
 
-			Document doc = Jsoup.connect(url).ignoreContentType(true).userAgent(this.getUserAgent())
-					.referrer(this.getReferrer()).followRedirects(true).timeout(getTimeout()).get();
+			try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
 
-			Elements productElements = doc.select(this.getProductsSelector());
-			for (Element productElement : productElements) {
-				Product product = new Product();
+				webClient.getOptions().setJavaScriptEnabled(true);
+				webClient.getOptions().setActiveXNative(false);
+				webClient.getOptions().setAppletEnabled(false);
+				webClient.getOptions().setCssEnabled(false);
+				webClient.getOptions().setPopupBlockerEnabled(true);
+				webClient.getOptions().setPrintContentOnFailingStatusCode(false);
+				webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+				webClient.getOptions().setThrowExceptionOnScriptError(false);
+				webClient.getOptions().setTimeout(this.getTimeout());
+				webClient.getOptions().setDoNotTrackEnabled(false);
+				webClient.getOptions().setUseInsecureSSL(true);
 
-				product.setName(this.getProductNameAsString(productElement, this.getProductNameSelector()));
-				product.setNewPrice(this.getProductPropertyAsDouble(productElement, this.getProductNewPriceSelector()));
-				product.setOldPrice(this.getProductPropertyAsDouble(productElement, this.getProductOldPriceSelector()));
-				product.setBrandName(
-						this.getProductBrandNameAsString(productElement, this.getProductBrandNameSelector()));
-				product.setUrl(this.getProductUrlAsString(productElement, this.getProductUrlSelector()));
-				product.setShopName(this.getClass().getName());
-				product.setCurrency(this.getProductCurrencyAsString(productElement, this.getProductCurrencySelector()));
-				productList.addProduct(product);
+				final HtmlPage page = webClient.getPage(url);
+
+				DomNodeList<DomNode> nodes = page.querySelectorAll(this.getProductsSelector());
+				for (DomNode node : nodes) {
+					Product product = new Product();
+					product.setName(this.getProductNameAsString(node, this.getProductNameSelector()));
+					product.setNewPrice(this.getProductPropertyAsDouble(node, this.getProductNewPriceSelector()));
+					product.setOldPrice(this.getProductPropertyAsDouble(node, this.getProductOldPriceSelector()));
+					product.setBrandName(this.getProductBrandNameAsString(node, this.getProductBrandNameSelector()));
+					String href = this.getProductHrefAsString(node, this.getProductUrlSelector());
+
+					product.setUrl(page.getFullyQualifiedUrl(href).toString());
+					product.setShopName(this.getClass().getName());
+					product.setCurrency(this.getProductCurrencyAsString(node, this.getProductCurrencySelector()));
+					productList.addProduct(product);
+				}
+				
+				LOGGER.info("Found {} elements... from {} ", nodes.size(),  url);
 			}
+
 			if (!this.getLimit()) {
 				String nextPageUrl = this.getNextPageUrl(url);
 				if (nextPageUrl != null && !nextPageUrl.equals(url)) {
@@ -98,11 +120,11 @@ public class Shop {
 				}
 			}
 
-			LOGGER.info("Found {} products... from {} ", productElements.size(), url);
+			 
 
 		} catch (IOException e) {
 
-			LOGGER.error("error getting products with selector {} for baseUrl {}", this.getProductsSelector(),
+			LOGGER.error("error getting products with querySelectorAllor {} for baseUrl {}", this.getProductsSelector(),
 					this.getBaseUrl(), e);
 		}
 
@@ -121,15 +143,48 @@ public class Shop {
 		return nextPageSelector;
 	};
 
+	private WebClientOptions getWebClientOptions() {
+		WebClientOptions webClientOptions = new WebClientOptions();
+		webClientOptions.setJavaScriptEnabled(true);
+		webClientOptions.setActiveXNative(false);
+		webClientOptions.setAppletEnabled(false);
+		webClientOptions.setCssEnabled(false);
+		webClientOptions.setPopupBlockerEnabled(true);
+		webClientOptions.setPrintContentOnFailingStatusCode(false);
+		webClientOptions.setThrowExceptionOnFailingStatusCode(false);
+		webClientOptions.setThrowExceptionOnScriptError(false);
+		webClientOptions.setTimeout(this.getTimeout());
+		webClientOptions.setDoNotTrackEnabled(false);
+		webClientOptions.setUseInsecureSSL(true);
+
+		return webClientOptions;
+
+	}
+
 	public String getNextPageUrl(String url) {
 		String nextPageUrl = null;
+		try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
 
-		Document doc;
-		try {
-			doc = Jsoup.connect(url).ignoreContentType(true).userAgent(this.getUserAgent()).referrer(this.getReferrer())
-					.followRedirects(true).timeout(this.getTimeout()).get();
-			Element nextLinkElement = doc.select(this.getNextPageSelector()).get(0);
-			nextPageUrl = nextLinkElement.attr("abs:href");
+			webClient.getOptions().setJavaScriptEnabled(true);
+			webClient.getOptions().setActiveXNative(false);
+			webClient.getOptions().setAppletEnabled(false);
+			webClient.getOptions().setCssEnabled(false);
+			webClient.getOptions().setPopupBlockerEnabled(true);
+			webClient.getOptions().setPrintContentOnFailingStatusCode(false);
+			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+			webClient.getOptions().setThrowExceptionOnScriptError(false);
+			webClient.getOptions().setTimeout(this.getTimeout());
+			webClient.getOptions().setDoNotTrackEnabled(false);
+			webClient.getOptions().setUseInsecureSSL(true);
+
+			final HtmlPage page = webClient.getPage(url);
+
+			HtmlElement htmlElement = (HtmlElement) page.querySelectorAll(this.getNextPageSelector()).get(0);
+
+			nextPageUrl = htmlElement.getAttribute("href");
+			URL nextPage = page.getFullyQualifiedUrl(nextPageUrl);
+			nextPageUrl = nextPage.toString();
+
 		} catch (Exception e) {
 			LOGGER.error("failed to get next page ", e);
 		}
@@ -137,18 +192,18 @@ public class Shop {
 		return nextPageUrl;
 	}
 
-	private String getProductBrandNameAsString(Element productElement, String selector) {
+	private String getProductBrandNameAsString(DomNode domNode, String querySelectorAllor) {
 		String productProperty = null;
 		try {
 
-			String text = productElement.select(selector).get(0).ownText();
+			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 			text = BrandHelper.getBrandName(text, brandList);
 
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
-					e);
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
 		}
 		return productProperty;
 	}
@@ -157,18 +212,18 @@ public class Shop {
 		return productBrandNameSelector;
 	}
 
-	private String getProductCurrencyAsString(Element productElement, String selector) {
+	private String getProductCurrencyAsString(DomNode domNode, String querySelectorAllor) {
 		String productProperty = null;
 		try {
 
-			String text = productElement.select(selector).get(0).ownText();
+			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 			text = PriceHelper.getCurrency(text, currencyList);
 
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
-					e);
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
 		}
 		return productProperty;
 	}
@@ -181,18 +236,18 @@ public class Shop {
 		return this.productList;
 	}
 
-	private String getProductNameAsString(Element productElement, String selector) {
+	private String getProductNameAsString(DomNode domNode, String querySelectorAllor) {
 		String productProperty = null;
 		try {
 
-			String text = productElement.select(selector).get(0).ownText();
+			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 			text = BrandHelper.removeBrandName(text, brandList);
 
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
-					e);
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
 		}
 		return productProperty;
 	}
@@ -209,10 +264,10 @@ public class Shop {
 		return productOldPriceSelector;
 	}
 
-	private Double getProductPropertyAsDouble(Element productElement, String selector) {
+	private Double getProductPropertyAsDouble(DomNode domNode, String querySelectorAllor) {
 		Double productProperty = null;
 		try {
-			String price = productElement.select(selector).get(0).ownText();
+			String price = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 			price = price.replaceAll(",", ".");
 
 			price = PriceHelper.removeCurrency(price, currencyList);
@@ -220,22 +275,22 @@ public class Shop {
 			productProperty = Double.parseDouble(price);
 
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
-					e);
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
 		}
 		return productProperty;
 	}
 
-	private String getProductPropertyAsString(Element productElement, String selector) {
+	private String getProductPropertyAsString(DomNode domNode, String querySelectorAllor) {
 		String productProperty = null;
 		try {
 
-			String text = productElement.select(selector).get(0).ownText();
+			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
-					e);
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
 		}
 		return productProperty;
 	}
@@ -244,16 +299,18 @@ public class Shop {
 		return productsSelector;
 	}
 
-	private String getProductUrlAsString(Element productElement, String selector) {
+	private String getProductHrefAsString(DomNode domNode, String querySelectorAllor) {
 		String productProperty = null;
 		try {
+			HtmlElement htmlElement = (HtmlElement) domNode.querySelectorAll(querySelectorAllor).get(0);
 
-			String text = productElement.select(selector).attr("abs:href");
+			String text = htmlElement.getAttribute("href");
+
 			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
-			LOGGER.error("error getting product property with selector {} for baseUrl {}", selector, this.getBaseUrl(),
-					e);
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
 		}
 		return productProperty;
 	}

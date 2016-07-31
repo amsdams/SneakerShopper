@@ -12,7 +12,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
@@ -31,7 +31,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.columns>ul>li",
@@ -69,7 +69,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": "ul.productListing>li",
@@ -88,7 +88,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".cat-list>ol>li",
@@ -107,7 +107,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.item",
@@ -126,7 +126,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
@@ -145,7 +145,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".product-grid>.item",
@@ -164,7 +164,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
+			"runnable": false,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li.item",
