@@ -1,5 +1,6 @@
 target
-.settings
-.project
-*.log
-.classpath
+/.classpath
+/.project
+allProducts.json
+
+/logging.log
