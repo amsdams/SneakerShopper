@@ -1,60 +1,60 @@
 {
 	"shops": [
 		{
-			"productOldPriceSelector": ".price-box .old-price .price",
+			"productOldPriceSelector": ".price-box>.old-price>.price",
 			"productUrlSelector": ".product-name",
 			"productNameSelector": ".product-name",
 			"productBrandNameSelector": ".product-name",
-			"productNewPriceSelector": ".price-box .special-price .price",
-			"productCurrencySelector": ".price-box .special-price .price",
+			"productNewPriceSelector": ".price-box>.special-price>.price",
+			"productCurrencySelector": ".price-box>.special-price>.price",
 			"nextPageSelector": ".pagination>ul>li>a.next",
 			"baseUrl": "https://www.overkillshop.com/en/sale.html",
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
-			"productOldPriceSelector": ".price-box .old-price .price",
+			"productOldPriceSelector": ".price-box>.old-price>.price",
 			"productUrlSelector": ".product-name",
 			"productNameSelector": ".product-name>.name",
 			"productBrandNameSelector": ".product-name>.manufacturer",
-			"productNewPriceSelector": ".price-box .special-price .price",
-			"productCurrencySelector": ".price-box .special-price .price",
+			"productNewPriceSelector": ".price-box>.special-price>.price",
+			"productCurrencySelector": ".price-box>.special-price>.price",
 			"nextPageSelector": "ul.pagination>li>a.next",
 			"baseUrl": "https://en.titoloshop.com/sale",
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.columns>ul>li",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
-			"productOldPriceSelector": ".price .oldprice>.priceWithCurrency",
+			"productOldPriceSelector": ".price>.oldprice>.priceWithCurrency",
 			"productUrlSelector": ".pText>.pName",
 			"productNameSelector": ".pText>.pName>.productname",
 			"productBrandNameSelector": ".pText>.pName>.producername",
-			"productNewPriceSelector": ".price .newprice",
-			"productCurrencySelector": ".price .oldprice>.priceWithCurrency",
+			"productNewPriceSelector": ".price>.newprice",
+			"productCurrencySelector": ".price>.oldprice>.priceWithCurrency",
 			"nextPageSelector": ".paginator-centered>ul>li.next>a",
 			"baseUrl": "http://www.sneak-a-venue.com/sale",
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".productlist>div>ul>li",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -69,11 +69,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": "ul.productListing>li",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -88,11 +88,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".cat-list>ol>li",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -107,30 +107,30 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.item",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
 			"productOldPriceSelector": ".product-info>.price-box>.old-price>.price>.integer",
-			"productUrlSelector": ".product-info .product-name a",
-			"productNameSelector": ".product-info .product-name a",
-			"productBrandNameSelector": ".product-info .product-brand ",
-			"productNewPriceSelector": ".product-info>.price-box>.old-price>.price>.integer",
+			"productUrlSelector": ".product-info>.product-name>a",
+			"productNameSelector": ".product-info>.product-name>a",
+			"productBrandNameSelector": ".product-info>.product-brand ",
+			"productNewPriceSelector": ".product-info>.price-box>.special-price>.price>.integer",
 			"productCurrencySelector": ".product-info>.price-box>.old-price>.price>.currency",
-			"nextPageSelector": ".pager .next",
+			"nextPageSelector": ".pager>.next",
 			"baseUrl": "http://www.sneakerbaas.com/nl/sale.html/",
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -145,11 +145,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".product-grid>.item",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -164,16 +164,16 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li.item",
-			
 			"referrer": "http://www.google.com"
 		},
 		{
 			"productOldPriceSelector": ".fp-product-thumb-price>.price-was",
-			"productUrlSelector": "div.fp-product-thumb>a",
+			"productUrlSelector": ".fp-product-thumb>a",
 			"productNameSelector": ".fp-product-thumb-title>span",
 			"productBrandNameSelector": ".fp-product-thumb-title",
 			"productNewPriceSelector": ".fp-product-thumb-price>.fp-price--now",
@@ -183,14 +183,13 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": true,
-			"limit": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": "ul.fp-product-list>li",
-			
 			"referrer": "http://www.google.com"
-		}
-		,
+		},
 		{
 			"productOldPriceSelector": "div.content>a>.price-box>.price>.old-price",
 			"productUrlSelector": "div.content>a",
@@ -203,15 +202,13 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false, "javaScriptEnabled": true,
-			"limit": false,
-			"timeout": 50000,
+			"runnable": false,
+			"javaScriptEnabled": false,
+			"limit": true,
+			"timeout": 1000,
 			"productsSelector": "ul.product-list>li.item",
-			
 			"referrer": "http://www.google.com"
-		}
-		
-		,
+		},
 		{
 			"productOldPriceSelector": "a>.overlay>.info>.price>del>span",
 			"productUrlSelector": "a",
@@ -224,16 +221,12 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true, "javaScriptEnabled": false,
+			"runnable": true,
+			"javaScriptEnabled": false,
 			"limit": true,
-			"timeout": 2000,
+			"timeout": 1000,
 			"productsSelector": "ul.products>li.item-sneaker",
-			
 			"referrer": "http://www.google.com"
 		}
-		
-		
-		
-		
 	]
 }

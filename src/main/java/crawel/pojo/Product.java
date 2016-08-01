@@ -46,6 +46,21 @@ public class Product implements Comparable<Product> {
 
 	};
 
+	public static Comparator<Product> DiscountComparator = new Comparator<Product>() {
+
+		@Override
+		public int compare(Product product1, Product product2) {
+
+			Double discount1 = product1.getDiscount();
+			Double discount2 = product2.getDiscount();
+
+			return discount2.compareTo(discount1);
+			//return Double.compare(discount1, discount2);
+
+		}
+
+	};
+	
 	public static Comparator<Product> NewPriceComparator = new Comparator<Product>() {
 
 		@Override
@@ -86,6 +101,8 @@ public class Product implements Comparable<Product> {
 
 	private String shopName;
 
+	private Double discount;
+	
 	private String currency;
 
 	@Override
@@ -157,7 +174,17 @@ public class Product implements Comparable<Product> {
 	@Override
 	public String toString() {
 		return "Product [currency=" + currency + ",newPrice=" + newPrice + ", oldPrice=" + oldPrice + ", brandName="
-				+ brandName + ", name=" + name + ", url=" + url + ",  shopName=" + shopName + "]";
+				+ brandName + ", name=" + name + ", url=" + url + ",  shopName=" + shopName + ",  discount=" + discount + "]";
+	}
+
+	public Double getDiscount() {
+		//this.discount = ((this.getNewPrice()/this.getOldPrice())*100)-100;
+		this.discount = (1-(this.getNewPrice()/this.getOldPrice()))*100;
+		return this.discount;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
 	}
 
 }

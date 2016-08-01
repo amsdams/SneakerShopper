@@ -1,8 +1,8 @@
-https://caliroots.nl/shoes/s/51
-http://www.offspring.co.uk/view/category/offspring_catalog/6
-http://www.triads.co.uk/sale/triads-mens-c1/footwear-c24/trainers-c211
-http://footdistrict.com/en/sales.html
-http://www.seventyfive.com/shop/sale/
+[ ]https://caliroots.nl/shoes/s/51
+[ ]http://www.offspring.co.uk/view/category/offspring_catalog/6
+[ ]http://www.triads.co.uk/sale/triads-mens-c1/footwear-c24/trainers-c211
+[ ]http://footdistrict.com/en/sales.html
+[x]http://www.seventyfive.com/shop/sale/
  
  
 ? http://www.baskets-store.com/sale/ 

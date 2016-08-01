@@ -48,6 +48,12 @@ public class ConsoleHelper {
 		sortProductsByNewPrice.setDescription("sort by (new) price");
 		actionList.getActions().add(sortProductsByNewPrice);
 
+		Action sortProductsByDiscount = new Action();
+		sortProductsByDiscount.setAction("sbd<ASD|DESC>");
+		sortProductsByDiscount.setDescription("sort by discount");
+		actionList.getActions().add(sortProductsByDiscount);
+		
+		
 		Action filterByBrand = new Action();
 		filterByBrand.setAction("fbb<brand>");
 		filterByBrand.setDescription("filter by brand");

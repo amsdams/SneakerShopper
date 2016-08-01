@@ -89,7 +89,7 @@ public class Shop {
 
 				webClient.getOptions().setActiveXNative(false);
 				webClient.getOptions().setAppletEnabled(false);
-				webClient.getOptions().setCssEnabled(true);
+				webClient.getOptions().setCssEnabled(false);
 				webClient.getOptions().setPopupBlockerEnabled(true);
 				webClient.getOptions().setPrintContentOnFailingStatusCode(false);
 				webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
@@ -170,7 +170,7 @@ public class Shop {
 
 			webClient.getOptions().setActiveXNative(false);
 			webClient.getOptions().setAppletEnabled(false);
-			webClient.getOptions().setCssEnabled(true);
+			webClient.getOptions().setCssEnabled(false);
 			webClient.getOptions().setPopupBlockerEnabled(true);
 			webClient.getOptions().setPrintContentOnFailingStatusCode(false);
 			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
@@ -188,7 +188,7 @@ public class Shop {
 			nextPageUrl = nextPage.toString();
 
 		} catch (Exception e) {
-			LOGGER.error("failed to get next page ", e);
+			LOGGER.error("Failed to get next page from {}", url, e);
 		}
 
 		return nextPageUrl;

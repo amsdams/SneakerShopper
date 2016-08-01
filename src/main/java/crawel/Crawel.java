@@ -150,7 +150,16 @@ public class Crawel {
 				filteredProductList.setProducts(
 						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
-			} else if (in.startsWith("fbb")) {
+			} else if (in.startsWith("sbd")) {
+				String order = in.replace("sbd", "");
+				LOGGER.info("will sort by discount and order" + order);
+
+				comparator = Product.DiscountComparator;
+
+				filteredProductList.setProducts(
+						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				ProductListStorage.print(filteredProductList);
+			}else if (in.startsWith("fbb")) {
 				String brand = in.replace("fbb", "");
 				LOGGER.info("extracted brand " + brand);
 
