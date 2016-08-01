@@ -178,13 +178,13 @@
 			"productBrandNameSelector": ".fp-product-thumb-title",
 			"productNewPriceSelector": ".fp-product-thumb-price>.fp-price--now",
 			"productCurrencySelector": ".fp-product-thumb-price>.price-was",
-			"nextPageSelector": ".pages>ol>li>a.next",
+			"nextPageSelector": ".fp-column-full>a.search-results-load-more",
 			"baseUrl": "http://www.footpatrol.co.uk/sale/footwear/",
 			"productList": {
 				"products": []
 			},
-			"runnable": true, "javaScriptEnabled": false,
-			"limit": true,
+			"runnable": true, "javaScriptEnabled": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": "ul.fp-product-list>li",
 			
