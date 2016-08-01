@@ -191,7 +191,7 @@
 			"referrer": "http://www.google.com"
 		}
 		,
-		{/* not worky*/
+		{
 			"productOldPriceSelector": "div.content>a>.price-box>.price>.old-price",
 			"productUrlSelector": "div.content>a",
 			"productNameSelector": "div.content>a>.name",
@@ -210,6 +210,29 @@
 			
 			"referrer": "http://www.google.com"
 		}
+		
+		,
+		{
+			"productOldPriceSelector": "a>.overlay>.info>.price>del>span",
+			"productUrlSelector": "a",
+			"productNameSelector": "a>.overlay>.info>.title>h3",
+			"productBrandNameSelector": "a>.overlay>.info>.title>h3",
+			"productNewPriceSelector": "a>.overlay>.info>.price>ins>span",
+			"productCurrencySelector": "a>.overlay>.info>.price>del>span",
+			"nextPageSelector": "pagination>li:last-child",
+			"baseUrl": "http://www.seventyfive.com/shop/sale/",
+			"productList": {
+				"products": []
+			},
+			"runnable": true, "javaScriptEnabled": false,
+			"limit": true,
+			"timeout": 2000,
+			"productsSelector": "ul.products>li.item-sneaker",
+			
+			"referrer": "http://www.google.com"
+		}
+		
+		
 		
 		
 	]
