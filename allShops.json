@@ -12,11 +12,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -31,11 +31,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.columns>ul>li",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -50,11 +50,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".productlist>div>ul>li",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -69,11 +69,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": "ul.productListing>li",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -88,11 +88,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".cat-list>ol>li",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -107,11 +107,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.item",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -126,11 +126,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -145,11 +145,11 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".product-grid>.item",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
 			"referrer": "http://www.google.com"
 		},
 		{
@@ -164,11 +164,30 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
-			"limit": false,
+			"runnable": false, "javaScriptEnabled": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li.item",
-			"userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0",
+			
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".fp-product-thumb-price>.price-was",
+			"productUrlSelector": "div.fp-product-thumb>a",
+			"productNameSelector": ".fp-product-thumb-title>span",
+			"productBrandNameSelector": ".fp-product-thumb-title",
+			"productNewPriceSelector": ".fp-product-thumb-price>.fp-price--now",
+			"productCurrencySelector": ".fp-product-thumb-price>.price-was",
+			"nextPageSelector": ".pages>ol>li>a.next",
+			"baseUrl": "http://www.footpatrol.co.uk/sale/footwear/",
+			"productList": {
+				"products": []
+			},
+			"runnable": true, "javaScriptEnabled": false,
+			"limit": true,
+			"timeout": 10000,
+			"productsSelector": "ul.fp-product-list>li",
+			
 			"referrer": "http://www.google.com"
 		}
 	]

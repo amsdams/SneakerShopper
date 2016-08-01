@@ -28,8 +28,8 @@ public class Shop {
 				+ productBrandNameSelector + ", productNewPriceSelector=" + productNewPriceSelector
 				+ ", productCurrencySelector=" + productCurrencySelector + ", nextPageSelector=" + nextPageSelector
 				+ ", baseUrl=" + baseUrl + ", productList=" + productList + ", runnable=" + runnable + ", timeout="
-				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", userAgent=" + userAgent
-				+ ", referrer=" + referrer + "]";
+				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", referrer=" + referrer
+				+ ", javaScriptEnabled=" + javaScriptEnabled + "]";
 	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Shop.class);
@@ -52,6 +52,8 @@ public class Shop {
 
 	private Boolean runnable;
 
+	private Boolean javaScriptEnabled;
+
 	private Integer timeout;
 
 	public void setLimit(Boolean limit) {
@@ -61,8 +63,6 @@ public class Shop {
 	private String productsSelector;
 
 	private Boolean limit;
-
-	private String userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0";
 
 	private String referrer = "http://www.google.com";
 
@@ -81,7 +81,7 @@ public class Shop {
 
 			try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
 
-				webClient.getOptions().setJavaScriptEnabled(true);
+				webClient.getOptions().setJavaScriptEnabled(this.getJavaScriptEnabled());
 				webClient.getOptions().setActiveXNative(false);
 				webClient.getOptions().setAppletEnabled(false);
 				webClient.getOptions().setCssEnabled(false);
@@ -109,8 +109,8 @@ public class Shop {
 					product.setCurrency(this.getProductCurrencyAsString(node, this.getProductCurrencySelector()));
 					productList.addProduct(product);
 				}
-				
-				LOGGER.info("Found {} elements... from {} ", nodes.size(),  url);
+
+				LOGGER.info("Found {} elements... from {} ", nodes.size(), url);
 			}
 
 			if (!this.getLimit()) {
@@ -119,8 +119,6 @@ public class Shop {
 					this.addProductsToList(nextPageUrl);
 				}
 			}
-
-			 
 
 		} catch (IOException e) {
 
@@ -145,7 +143,7 @@ public class Shop {
 
 	private WebClientOptions getWebClientOptions() {
 		WebClientOptions webClientOptions = new WebClientOptions();
-		webClientOptions.setJavaScriptEnabled(true);
+		webClientOptions.setJavaScriptEnabled(this.getJavaScriptEnabled());
 		webClientOptions.setActiveXNative(false);
 		webClientOptions.setAppletEnabled(false);
 		webClientOptions.setCssEnabled(false);
@@ -165,7 +163,7 @@ public class Shop {
 		String nextPageUrl = null;
 		try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
 
-			webClient.getOptions().setJavaScriptEnabled(true);
+			webClient.getOptions().setJavaScriptEnabled(this.getJavaScriptEnabled());
 			webClient.getOptions().setActiveXNative(false);
 			webClient.getOptions().setAppletEnabled(false);
 			webClient.getOptions().setCssEnabled(false);
@@ -271,6 +269,7 @@ public class Shop {
 			price = price.replaceAll(",", ".");
 
 			price = PriceHelper.removeCurrency(price, currencyList);
+			price = price.replaceAll("[^\\d.]", "");
 			price = price.trim();
 			productProperty = Double.parseDouble(price);
 
@@ -329,10 +328,6 @@ public class Shop {
 
 	public Integer getTimeout() {
 		return timeout;
-	}
-
-	public String getUserAgent() {
-		return userAgent;
 	}
 
 	private void setBaseUrl(String baseUrl) {
@@ -398,16 +393,20 @@ public class Shop {
 		this.timeout = timeout;
 	}
 
-	public void setUserAgent(String userAgent) {
-		this.userAgent = userAgent;
-	}
-
 	public BrandList getBrandList() {
 		return brandList;
 	}
 
 	public void setBrandList(BrandList brandList) {
 		this.brandList = brandList;
+	}
+
+	public Boolean getJavaScriptEnabled() {
+		return javaScriptEnabled;
+	}
+
+	public void setJavaScriptEnabled(Boolean javaScriptEnabled) {
+		this.javaScriptEnabled = javaScriptEnabled;
 	}
 
 }
