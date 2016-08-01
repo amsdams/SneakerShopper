@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.WebClientOptions;
 import com.gargoylesoftware.htmlunit.html.DomNode;
@@ -79,12 +80,16 @@ public class Shop {
 		try {
 			LOGGER.info("Fetching {}...", url);
 
-			try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
+			try (final WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER)) {
 
 				webClient.getOptions().setJavaScriptEnabled(this.getJavaScriptEnabled());
+				webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+				webClient.waitForBackgroundJavaScript(getTimeout());
+				webClient.waitForBackgroundJavaScriptStartingBefore(this.getTimeout());
+
 				webClient.getOptions().setActiveXNative(false);
 				webClient.getOptions().setAppletEnabled(false);
-				webClient.getOptions().setCssEnabled(false);
+				webClient.getOptions().setCssEnabled(true);
 				webClient.getOptions().setPopupBlockerEnabled(true);
 				webClient.getOptions().setPrintContentOnFailingStatusCode(false);
 				webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
@@ -94,6 +99,15 @@ public class Shop {
 				webClient.getOptions().setUseInsecureSSL(true);
 
 				final HtmlPage page = webClient.getPage(url);
+				try {
+					for (int i = 0; i < 20; i++) {
+						synchronized (page) {
+							page.wait(500);
+						}
+					}
+				} catch (Exception e) {
+					LOGGER.error("workaround for angular not working {}", e);
+				}
 
 				DomNodeList<DomNode> nodes = page.querySelectorAll(this.getProductsSelector());
 				for (DomNode node : nodes) {
@@ -102,9 +116,13 @@ public class Shop {
 					product.setNewPrice(this.getProductPropertyAsDouble(node, this.getProductNewPriceSelector()));
 					product.setOldPrice(this.getProductPropertyAsDouble(node, this.getProductOldPriceSelector()));
 					product.setBrandName(this.getProductBrandNameAsString(node, this.getProductBrandNameSelector()));
-					String href = this.getProductHrefAsString(node, this.getProductUrlSelector());
+					try {
+						String href = this.getProductHrefAsString(node, this.getProductUrlSelector());
 
-					product.setUrl(page.getFullyQualifiedUrl(href).toString());
+						product.setUrl(page.getFullyQualifiedUrl(href).toString());
+					} catch (Exception e) {
+						LOGGER.error("could not get fully qualified url for node {}", node, e);
+					}
 					product.setShopName(this.getClass().getName());
 					product.setCurrency(this.getProductCurrencyAsString(node, this.getProductCurrencySelector()));
 					productList.addProduct(product);
@@ -141,32 +159,18 @@ public class Shop {
 		return nextPageSelector;
 	};
 
-	private WebClientOptions getWebClientOptions() {
-		WebClientOptions webClientOptions = new WebClientOptions();
-		webClientOptions.setJavaScriptEnabled(this.getJavaScriptEnabled());
-		webClientOptions.setActiveXNative(false);
-		webClientOptions.setAppletEnabled(false);
-		webClientOptions.setCssEnabled(false);
-		webClientOptions.setPopupBlockerEnabled(true);
-		webClientOptions.setPrintContentOnFailingStatusCode(false);
-		webClientOptions.setThrowExceptionOnFailingStatusCode(false);
-		webClientOptions.setThrowExceptionOnScriptError(false);
-		webClientOptions.setTimeout(this.getTimeout());
-		webClientOptions.setDoNotTrackEnabled(false);
-		webClientOptions.setUseInsecureSSL(true);
-
-		return webClientOptions;
-
-	}
-
 	public String getNextPageUrl(String url) {
 		String nextPageUrl = null;
-		try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
+		try (final WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER)) {
 
 			webClient.getOptions().setJavaScriptEnabled(this.getJavaScriptEnabled());
+			webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+			webClient.waitForBackgroundJavaScript(this.getTimeout());
+			webClient.waitForBackgroundJavaScriptStartingBefore(this.getTimeout());
+
 			webClient.getOptions().setActiveXNative(false);
 			webClient.getOptions().setAppletEnabled(false);
-			webClient.getOptions().setCssEnabled(false);
+			webClient.getOptions().setCssEnabled(true);
 			webClient.getOptions().setPopupBlockerEnabled(true);
 			webClient.getOptions().setPrintContentOnFailingStatusCode(false);
 			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);

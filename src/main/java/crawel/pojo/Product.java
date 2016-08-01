@@ -97,15 +97,16 @@ public class Product implements Comparable<Product> {
 	}
 
 	public String getBrandName() {
-		return brandName.toUpperCase();
+		
+		return brandName==null?"":brandName.toUpperCase();
 	}
 
 	public String getCurrency() {
-		return currency;
+		return currency==null?"":currency;
 	}
 
 	public String getName() {
-		return name.toUpperCase();
+		return name==null?"":name.toUpperCase();
 	}
 
 	public Double getNewPrice() {
@@ -121,7 +122,7 @@ public class Product implements Comparable<Product> {
 	}
 
 	public String getUrl() {
-		return url;
+		return url==null?"":url;
 	}
 
 	public void setBrandName(String brandName) {

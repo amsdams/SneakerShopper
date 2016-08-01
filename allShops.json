@@ -183,12 +183,34 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": true, "javaScriptEnabled": true,
+			"runnable": false, "javaScriptEnabled": true,
 			"limit": false,
 			"timeout": 10000,
 			"productsSelector": "ul.fp-product-list>li",
 			
 			"referrer": "http://www.google.com"
 		}
+		,
+		{/* not worky*/
+			"productOldPriceSelector": "div.content>a>.price-box>.price>.old-price",
+			"productUrlSelector": "div.content>a",
+			"productNameSelector": "div.content>a>.name",
+			"productBrandNameSelector": ".fp-product-thumb-title",
+			"productNewPriceSelector": "div.content>a>.price-box>.price>.special-price",
+			"productCurrencySelector": "div.content>a>.price-box>.price>.old-price",
+			"nextPageSelector": "pagination>li:last-child",
+			"baseUrl": "https://www.thegoodwillout.com/sale",
+			"productList": {
+				"products": []
+			},
+			"runnable": false, "javaScriptEnabled": true,
+			"limit": false,
+			"timeout": 50000,
+			"productsSelector": "ul.product-list>li.item",
+			
+			"referrer": "http://www.google.com"
+		}
+		
+		
 	]
 }
