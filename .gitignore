@@ -4,3 +4,4 @@ target
 allProducts.json
 
 /logging.log
+.resourceCache

@@ -55,12 +55,12 @@ public class Product implements Comparable<Product> {
 			Double discount2 = product2.getDiscount();
 
 			return discount2.compareTo(discount1);
-			//return Double.compare(discount1, discount2);
+			// return Double.compare(discount1, discount2);
 
 		}
 
 	};
-	
+
 	public static Comparator<Product> NewPriceComparator = new Comparator<Product>() {
 
 		@Override
@@ -93,6 +93,10 @@ public class Product implements Comparable<Product> {
 
 	private Double oldPrice;
 
+	private Double newPriceInEuro;
+
+	private Double oldPriceInEuro;
+
 	private String brandName;
 
 	private String name;
@@ -102,8 +106,8 @@ public class Product implements Comparable<Product> {
 	private String shopName;
 
 	private Double discount;
-	
-	private String currency;
+
+	private Currency currency;
 
 	@Override
 	public int compareTo(Product o) {
@@ -114,24 +118,38 @@ public class Product implements Comparable<Product> {
 	}
 
 	public String getBrandName() {
-		
-		return brandName==null?"":brandName.toUpperCase();
+
+		return brandName == null ? "" : brandName.toUpperCase();
 	}
 
-	public String getCurrency() {
-		return currency==null?"":currency;
+	public Currency getCurrency() {
+		return currency == null ? new Currency() : currency;
+	}
+
+	public Double getDiscount() {
+		// this.discount = ((this.getNewPrice()/this.getOldPrice())*100)-100;
+		this.discount = (1 - (this.getNewPrice() / this.getOldPrice())) * 100;
+		return this.discount;
 	}
 
 	public String getName() {
-		return name==null?"":name.toUpperCase();
+		return name == null ? "" : name.toUpperCase();
 	}
 
 	public Double getNewPrice() {
 		return newPrice != null ? newPrice : 0.0;
 	}
 
+	public Double getNewPriceInEuro() {
+		return newPriceInEuro;
+	}
+
 	public Double getOldPrice() {
 		return oldPrice != null ? oldPrice : 0.0;
+	}
+
+	public Double getOldPriceInEuro() {
+		return oldPriceInEuro;
 	}
 
 	public String getShopName() {
@@ -139,15 +157,19 @@ public class Product implements Comparable<Product> {
 	}
 
 	public String getUrl() {
-		return url==null?"":url;
+		return url == null ? "" : url;
 	}
 
 	public void setBrandName(String brandName) {
 		this.brandName = brandName;
 	}
 
-	public void setCurrency(String currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
 	}
 
 	public void setName(String name) {
@@ -158,8 +180,16 @@ public class Product implements Comparable<Product> {
 		this.newPrice = newPrice;
 	}
 
+	public void setNewPriceInEuro(Double newPriceInEuro) {
+		this.newPriceInEuro = newPriceInEuro;
+	}
+
 	public void setOldPrice(Double oldPrice) {
 		this.oldPrice = oldPrice;
+	}
+
+	public void setOldPriceInEuro(Double oldPriceInEuro) {
+		this.oldPriceInEuro = oldPriceInEuro;
 	}
 
 	public void setShopName(String shopName) {
@@ -173,18 +203,10 @@ public class Product implements Comparable<Product> {
 
 	@Override
 	public String toString() {
-		return "Product [currency=" + currency + ",newPrice=" + newPrice + ", oldPrice=" + oldPrice + ", brandName="
-				+ brandName + ", name=" + name + ", url=" + url + ",  shopName=" + shopName + ",  discount=" + discount + "]";
-	}
-
-	public Double getDiscount() {
-		//this.discount = ((this.getNewPrice()/this.getOldPrice())*100)-100;
-		this.discount = (1-(this.getNewPrice()/this.getOldPrice()))*100;
-		return this.discount;
-	}
-
-	public void setDiscount(Double discount) {
-		this.discount = discount;
+		return "Product [brandName=" + brandName + ", name=" + name + ", newPriceInEuro=" + newPriceInEuro
+				+ ", oldPriceInEuro=" + oldPriceInEuro + ", currency=" + currency + ",  url=" + url + ",  shopName=" + shopName + ",  discount=" + discount
+				+ ", newPrice=" + newPrice
+				+ ", oldPrice=" + oldPrice + "]";
 	}
 
 }

@@ -177,6 +177,11 @@ public class Crawel {
 				filteredProductList = productList;
 				ProductListStorage.print(filteredProductList);
 
+			}else if (in.startsWith("gp")) {
+				ShopList shopList = ShopListStorage.get();
+				productList = this.getShopsProductList(shopList);
+				ProductListStorage.print(productList);
+
 			} else if (in.startsWith("psl")) {
 				ShopListStorage.print(ShopListStorage.get());
 

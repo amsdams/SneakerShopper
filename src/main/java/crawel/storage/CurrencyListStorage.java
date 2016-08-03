@@ -16,12 +16,6 @@ import crawel.pojo.CurrencyList;
 public class CurrencyListStorage {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyListStorage.class);
 
-	public static void print(CurrencyList currencyList) {
-		for (Currency currency : currencyList.getCurrencys()) {
-			LOGGER.info(currency.toString());
-		}
-
-	}
 	public static CurrencyList get() {
 		ObjectMapper mapper = new ObjectMapper();
 		CurrencyList allCurrencys = new CurrencyList();
@@ -50,6 +44,12 @@ public class CurrencyListStorage {
 		}
 		return allCurrencys;
 
+	}
+	public static void print(CurrencyList currencyList) {
+		for (Currency currency : currencyList.getCurrencys()) {
+			LOGGER.info(currency.toString());
+		}
+		LOGGER.info("printed "+ currencyList.getCurrencys().size() );
 	}
 
 	public static void put(CurrencyList currencyList) {

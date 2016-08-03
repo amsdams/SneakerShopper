@@ -16,13 +16,6 @@ import crawel.pojo.BrandList;
 public class BrandListStorage {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BrandListStorage.class);
 
-	public static void print(BrandList brandList) {
-		for (Brand brand : brandList.getBrands()) {
-			LOGGER.info(brand.toString());
-		}
-
-	}
-
 	public static BrandList get() {
 		ObjectMapper mapper = new ObjectMapper();
 		BrandList allBrands = new BrandList();
@@ -38,6 +31,14 @@ public class BrandListStorage {
 		}
 
 		return allBrands;
+
+	}
+
+	public static void print(BrandList brandList) {
+		for (Brand brand : brandList.getBrands()) {
+			LOGGER.info(brand.toString());
+		}
+		LOGGER.info("printed "+ brandList.getBrands().size() );
 
 	}
 

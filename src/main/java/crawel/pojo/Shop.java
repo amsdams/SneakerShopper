@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebClientOptions;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -22,44 +21,30 @@ import crawel.storage.CurrencyListStorage;
 
 public class Shop {
 
-	@Override
-	public String toString() {
-		return "Shop [productOldPriceSelector=" + productOldPriceSelector + ", productUrlSelector=" + productUrlSelector
-				+ ", productNameSelector=" + productNameSelector + ", productBrandNameSelector="
-				+ productBrandNameSelector + ", productNewPriceSelector=" + productNewPriceSelector
-				+ ", productCurrencySelector=" + productCurrencySelector + ", nextPageSelector=" + nextPageSelector
-				+ ", baseUrl=" + baseUrl + ", productList=" + productList + ", runnable=" + runnable + ", timeout="
-				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", referrer=" + referrer
-				+ ", javaScriptEnabled=" + javaScriptEnabled + "]";
-	}
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(Shop.class);
 
 	private String productOldPriceSelector;
 
 	private String productUrlSelector;
-	private String productNameSelector;
 
+	private String productNameSelector;
 	private String productBrandNameSelector;
+
 	private String productNewPriceSelector;
 	private String productCurrencySelector;
-
 	private String nextPageSelector;
 
 	private String baseUrl;
+
 	private ProductList productList;
 	private BrandList brandList;
 	private CurrencyList currencyList;
-
+	
 	private Boolean runnable;
 
 	private Boolean javaScriptEnabled;
 
 	private Integer timeout;
-
-	public void setLimit(Boolean limit) {
-		this.limit = limit;
-	}
 
 	private String productsSelector;
 
@@ -113,8 +98,16 @@ public class Shop {
 				for (DomNode node : nodes) {
 					Product product = new Product();
 					product.setName(this.getProductNameAsString(node, this.getProductNameSelector()));
+					
+					product.setCurrency(this.getProductCurrencyAsCurrency(node, this.getProductCurrencySelector()));
+
+					
 					product.setNewPrice(this.getProductPropertyAsDouble(node, this.getProductNewPriceSelector()));
 					product.setOldPrice(this.getProductPropertyAsDouble(node, this.getProductOldPriceSelector()));
+					product.setNewPriceInEuro(this.getProductPropertyAsDouble(node, product.getCurrency(), this.getProductNewPriceSelector()));
+					product.setOldPriceInEuro(this.getProductPropertyAsDouble(node, product.getCurrency(), this.getProductOldPriceSelector()));
+					
+					
 					product.setBrandName(this.getProductBrandNameAsString(node, this.getProductBrandNameSelector()));
 					try {
 						String href = this.getProductHrefAsString(node, this.getProductUrlSelector());
@@ -124,7 +117,6 @@ public class Shop {
 						LOGGER.error("could not get fully qualified url for node {}", node, e);
 					}
 					product.setShopName(this.getClass().getName());
-					product.setCurrency(this.getProductCurrencyAsString(node, this.getProductCurrencySelector()));
 					productList.addProduct(product);
 				}
 
@@ -149,6 +141,16 @@ public class Shop {
 	public String getBaseUrl() {
 		return this.baseUrl;
 
+	}
+
+	public BrandList getBrandList() {
+		return brandList;
+	}
+
+	
+
+	public Boolean getJavaScriptEnabled() {
+		return javaScriptEnabled;
 	}
 
 	private Boolean getLimit() {
@@ -214,15 +216,18 @@ public class Shop {
 		return productBrandNameSelector;
 	}
 
-	private String getProductCurrencyAsString(DomNode domNode, String querySelectorAllor) {
-		String productProperty = null;
+	private Currency getProductCurrencyAsCurrency(DomNode domNode, String querySelectorAllor) {
+		Currency productProperty = null;
 		try {
 
 			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
-			text = PriceHelper.getCurrency(text, currencyList);
+			
 
 			text = text.trim();
-			productProperty = text;
+			
+			
+			productProperty = PriceHelper.getCurrency(text, currencyList);
+			
 		} catch (Exception e) {
 			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
 					this.getBaseUrl(), e);
@@ -232,6 +237,22 @@ public class Shop {
 
 	public String getProductCurrencySelector() {
 		return productCurrencySelector;
+	}
+
+	private String getProductHrefAsString(DomNode domNode, String querySelectorAllor) {
+		String productProperty = null;
+		try {
+			HtmlElement htmlElement = (HtmlElement) domNode.querySelectorAll(querySelectorAllor).get(0);
+
+			String text = htmlElement.getAttribute("href");
+
+			text = text.trim();
+			productProperty = text;
+		} catch (Exception e) {
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
+		}
+		return productProperty;
 	}
 
 	public ProductList getProductList() {
@@ -265,6 +286,28 @@ public class Shop {
 	public String getProductOldPriceSelector() {
 		return productOldPriceSelector;
 	}
+	
+	private Double getProductPropertyAsDouble(DomNode domNode, Currency currency, String querySelectorAllor) {
+		Double productProperty = null;
+		try {
+			String price = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
+			price = price.replaceAll(",", ".");
+
+			price = PriceHelper.removeCurrency(price, currencyList);
+			
+			
+			price = price.replaceAll("[^\\d.]", "");
+			price = price.trim();
+			productProperty = Double.parseDouble(price);
+			productProperty = PriceHelper.toEuro(productProperty, currency, currencyList);
+		} catch (Exception e) {
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
+		}
+		return productProperty;
+	}
+
+	
 
 	private Double getProductPropertyAsDouble(DomNode domNode, String querySelectorAllor) {
 		Double productProperty = null;
@@ -273,24 +316,11 @@ public class Shop {
 			price = price.replaceAll(",", ".");
 
 			price = PriceHelper.removeCurrency(price, currencyList);
+			
+			
 			price = price.replaceAll("[^\\d.]", "");
 			price = price.trim();
 			productProperty = Double.parseDouble(price);
-
-		} catch (Exception e) {
-			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
-		}
-		return productProperty;
-	}
-
-	private String getProductPropertyAsString(DomNode domNode, String querySelectorAllor) {
-		String productProperty = null;
-		try {
-
-			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
-			text = text.trim();
-			productProperty = text;
 		} catch (Exception e) {
 			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
 					this.getBaseUrl(), e);
@@ -300,22 +330,6 @@ public class Shop {
 
 	public String getProductsSelector() {
 		return productsSelector;
-	}
-
-	private String getProductHrefAsString(DomNode domNode, String querySelectorAllor) {
-		String productProperty = null;
-		try {
-			HtmlElement htmlElement = (HtmlElement) domNode.querySelectorAll(querySelectorAllor).get(0);
-
-			String text = htmlElement.getAttribute("href");
-
-			text = text.trim();
-			productProperty = text;
-		} catch (Exception e) {
-			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
-		}
-		return productProperty;
 	}
 
 	public String getProductUrlSelector() {
@@ -339,6 +353,18 @@ public class Shop {
 
 	}
 
+	public void setBrandList(BrandList brandList) {
+		this.brandList = brandList;
+	}
+
+	public void setJavaScriptEnabled(Boolean javaScriptEnabled) {
+		this.javaScriptEnabled = javaScriptEnabled;
+	}
+
+	public void setLimit(Boolean limit) {
+		this.limit = limit;
+	};
+
 	private void setLimitSelector(Boolean limit) {
 		this.limit = limit;
 
@@ -351,7 +377,7 @@ public class Shop {
 	private void setProductBrandNameSelector(String productBrandNameSelector) {
 		this.productBrandNameSelector = productBrandNameSelector;
 
-	};
+	}
 
 	public void setProductCurrencySelector(String productCurrencySelector) {
 		this.productCurrencySelector = productCurrencySelector;
@@ -397,20 +423,15 @@ public class Shop {
 		this.timeout = timeout;
 	}
 
-	public BrandList getBrandList() {
-		return brandList;
-	}
-
-	public void setBrandList(BrandList brandList) {
-		this.brandList = brandList;
-	}
-
-	public Boolean getJavaScriptEnabled() {
-		return javaScriptEnabled;
-	}
-
-	public void setJavaScriptEnabled(Boolean javaScriptEnabled) {
-		this.javaScriptEnabled = javaScriptEnabled;
+	@Override
+	public String toString() {
+		return "Shop [productOldPriceSelector=" + productOldPriceSelector + ", productUrlSelector=" + productUrlSelector
+				+ ", productNameSelector=" + productNameSelector + ", productBrandNameSelector="
+				+ productBrandNameSelector + ", productNewPriceSelector=" + productNewPriceSelector
+				+ ", productCurrencySelector=" + productCurrencySelector + ", nextPageSelector=" + nextPageSelector
+				+ ", baseUrl=" + baseUrl + ", productList=" + productList + ", runnable=" + runnable + ", timeout="
+				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", referrer=" + referrer
+				+ ", javaScriptEnabled=" + javaScriptEnabled + "]";
 	}
 
 }

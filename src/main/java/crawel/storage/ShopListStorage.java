@@ -16,12 +16,6 @@ import crawel.pojo.ShopList;
 public class ShopListStorage {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShopListStorage.class);
 
-	public static void print(ShopList shopList) {
-		for (Shop shop : shopList.getShops()) {
-			LOGGER.info(shop.toString());
-		}
-	}
-
 	public static ShopList get() {
 		ObjectMapper mapper = new ObjectMapper();
 		ShopList allShops = new ShopList();
@@ -32,6 +26,13 @@ public class ShopListStorage {
 		}
 		return allShops;
 
+	}
+
+	public static void print(ShopList shopList) {
+		for (Shop shop : shopList.getShops()) {
+			LOGGER.info(shop.toString());
+		}
+		LOGGER.info("printed "+ shopList.getShops().size() );
 	}
 
 	public static void put(ShopList allShops) {

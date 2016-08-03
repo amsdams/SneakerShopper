@@ -89,6 +89,11 @@ public class ConsoleHelper {
 		pcl.setDescription("print currency list");
 		actionList.getActions().add(pcl);
 
+		Action gp = new Action();
+		gp.setAction("gp");
+		gp.setDescription("get products");
+		actionList.getActions().add(gp);
+		
 		return actionList;
 	}
 
@@ -99,6 +104,7 @@ public class ConsoleHelper {
 		for (Action action : actionList.getActions()) {
 			question.append("type " + action.getAction() + " to " + action.getDescription() + "\r\n");
 		}
+		
 		return question.toString();
 
 	}

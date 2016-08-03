@@ -14,7 +14,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
 			"referrer": "http://www.google.com"
@@ -33,7 +33,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.columns>ul>li",
 			"referrer": "http://www.google.com"
@@ -52,7 +52,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".productlist>div>ul>li",
 			"referrer": "http://www.google.com"
@@ -71,7 +71,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": "ul.productListing>li",
 			"referrer": "http://www.google.com"
@@ -90,7 +90,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".cat-list>ol>li",
 			"referrer": "http://www.google.com"
@@ -109,7 +109,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.item",
 			"referrer": "http://www.google.com"
@@ -128,7 +128,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
 			"referrer": "http://www.google.com"
@@ -147,7 +147,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".product-grid>.item",
 			"referrer": "http://www.google.com"
@@ -166,7 +166,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li.item",
 			"referrer": "http://www.google.com"
@@ -185,7 +185,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 10000,
 			"productsSelector": "ul.fp-product-list>li",
 			"referrer": "http://www.google.com"
@@ -204,7 +204,7 @@
 			},
 			"runnable": false,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 1000,
 			"productsSelector": "ul.product-list>li.item",
 			"referrer": "http://www.google.com"
@@ -223,7 +223,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": true,
+			"limit": false,
 			"timeout": 1000,
 			"productsSelector": "ul.products>li.item-sneaker",
 			"referrer": "http://www.google.com"

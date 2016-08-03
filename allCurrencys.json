@@ -1,12 +1,12 @@
 {
   "currencys" : [ {
-    "name" : "EURO",
+    "name" : "EUR",
     "symbol" : "€"
   }, {
-    "name" : "DOLLAR",
+    "name" : "USD",
     "symbol" : "$"
   }, {
-    "name" : "POUND",
+    "name" : "GBP",
     "symbol" : "£"
   } ]
 }
