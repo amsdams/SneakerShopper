@@ -5,3 +5,4 @@ allProducts.json
 
 /logging.log
 .resourceCache
+*.log
