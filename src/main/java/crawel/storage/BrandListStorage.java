@@ -38,7 +38,7 @@ public class BrandListStorage {
 		for (Brand brand : brandList.getBrands()) {
 			LOGGER.info(brand.toString());
 		}
-		LOGGER.info("printed "+ brandList.getBrands().size() );
+		LOGGER.info("printed " + brandList.getBrands().size());
 
 	}
 

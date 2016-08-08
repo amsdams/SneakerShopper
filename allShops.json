@@ -202,7 +202,7 @@
 			"productList": {
 				"products": []
 			},
-			"runnable": false,
+			"runnable": true,
 			"javaScriptEnabled": false,
 			"limit": false,
 			"timeout": 1000,
@@ -216,7 +216,7 @@
 			"productBrandNameSelector": "a>.overlay>.info>.title>h3",
 			"productNewPriceSelector": "a>.overlay>.info>.price>ins>span",
 			"productCurrencySelector": "a>.overlay>.info>.price>del>span",
-			"nextPageSelector": "pagination>li:last-child",
+			"nextPageSelector": ".pagination>li:last-child",
 			"baseUrl": "http://www.seventyfive.com/shop/sale/",
 			"productList": {
 				"products": []
@@ -226,6 +226,25 @@
 			"limit": false,
 			"timeout": 1000,
 			"productsSelector": "ul.products>li.item-sneaker",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": "figure>figcaption.product-name>a>.price>.price-box>.old-price>.price",
+			"productUrlSelector": "figure>a",
+			"productNameSelector": "figure>figcaption.product-name>a",
+			"productBrandNameSelector": "figure>figcaption.product-name>a",
+			"productNewPriceSelector": "figure>figcaption.product-name>a>.price>.price-box>.special-price>.price",
+			"productCurrencySelector": "figure>figcaption.product-name>a>.price>.price-box>.old-price>.price",
+			"nextPageSelector": ".pagination>a.next",
+			"baseUrl": "https://wellgosh.com/sale",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"javaScriptEnabled": false,
+			"limit": false,
+			"timeout": 1000,
+			"productsSelector": ".category-products>article",
 			"referrer": "http://www.google.com"
 		}
 	]

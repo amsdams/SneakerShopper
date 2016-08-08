@@ -19,7 +19,7 @@ import crawel.helpers.PriceHelper;
 import crawel.storage.BrandListStorage;
 import crawel.storage.CurrencyListStorage;
 
-public class Shop {
+public class Shop implements Comparable<Shop> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Shop.class);
 
@@ -39,7 +39,7 @@ public class Shop {
 	private ProductList productList;
 	private BrandList brandList;
 	private CurrencyList currencyList;
-	
+
 	private Boolean runnable;
 
 	private Boolean javaScriptEnabled;
@@ -98,16 +98,16 @@ public class Shop {
 				for (DomNode node : nodes) {
 					Product product = new Product();
 					product.setName(this.getProductNameAsString(node, this.getProductNameSelector()));
-					
+
 					product.setCurrency(this.getProductCurrencyAsCurrency(node, this.getProductCurrencySelector()));
 
-					
 					product.setNewPrice(this.getProductPropertyAsDouble(node, this.getProductNewPriceSelector()));
 					product.setOldPrice(this.getProductPropertyAsDouble(node, this.getProductOldPriceSelector()));
-					product.setNewPriceInEuro(this.getProductPropertyAsDouble(node, product.getCurrency(), this.getProductNewPriceSelector()));
-					product.setOldPriceInEuro(this.getProductPropertyAsDouble(node, product.getCurrency(), this.getProductOldPriceSelector()));
-					
-					
+					product.setNewPriceInEuro(this.getProductPropertyAsDouble(node, product.getCurrency(),
+							this.getProductNewPriceSelector()));
+					product.setOldPriceInEuro(this.getProductPropertyAsDouble(node, product.getCurrency(),
+							this.getProductOldPriceSelector()));
+
 					product.setBrandName(this.getProductBrandNameAsString(node, this.getProductBrandNameSelector()));
 					try {
 						String href = this.getProductHrefAsString(node, this.getProductUrlSelector());
@@ -146,8 +146,6 @@ public class Shop {
 	public BrandList getBrandList() {
 		return brandList;
 	}
-
-	
 
 	public Boolean getJavaScriptEnabled() {
 		return javaScriptEnabled;
@@ -221,13 +219,11 @@ public class Shop {
 		try {
 
 			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
-			
 
 			text = text.trim();
-			
-			
+
 			productProperty = PriceHelper.getCurrency(text, currencyList);
-			
+
 		} catch (Exception e) {
 			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
 					this.getBaseUrl(), e);
@@ -263,7 +259,7 @@ public class Shop {
 		String productProperty = null;
 		try {
 
-			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
+			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getFirstChild().getTextContent();
 			text = BrandHelper.removeBrandName(text, brandList);
 
 			text = text.trim();
@@ -286,7 +282,7 @@ public class Shop {
 	public String getProductOldPriceSelector() {
 		return productOldPriceSelector;
 	}
-	
+
 	private Double getProductPropertyAsDouble(DomNode domNode, Currency currency, String querySelectorAllor) {
 		Double productProperty = null;
 		try {
@@ -294,8 +290,7 @@ public class Shop {
 			price = price.replaceAll(",", ".");
 
 			price = PriceHelper.removeCurrency(price, currencyList);
-			
-			
+
 			price = price.replaceAll("[^\\d.]", "");
 			price = price.trim();
 			productProperty = Double.parseDouble(price);
@@ -307,8 +302,6 @@ public class Shop {
 		return productProperty;
 	}
 
-	
-
 	private Double getProductPropertyAsDouble(DomNode domNode, String querySelectorAllor) {
 		Double productProperty = null;
 		try {
@@ -316,8 +309,7 @@ public class Shop {
 			price = price.replaceAll(",", ".");
 
 			price = PriceHelper.removeCurrency(price, currencyList);
-			
-			
+
 			price = price.replaceAll("[^\\d.]", "");
 			price = price.trim();
 			productProperty = Double.parseDouble(price);
@@ -432,6 +424,11 @@ public class Shop {
 				+ ", baseUrl=" + baseUrl + ", productList=" + productList + ", runnable=" + runnable + ", timeout="
 				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", referrer=" + referrer
 				+ ", javaScriptEnabled=" + javaScriptEnabled + "]";
+	}
+
+	@Override
+	public int compareTo(Shop o) {
+		return this.getBaseUrl().compareTo(o.getBaseUrl());
 	}
 
 }

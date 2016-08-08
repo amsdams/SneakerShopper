@@ -9,18 +9,24 @@ import org.slf4j.LoggerFactory;
 public class ProductList {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductList.class);
 
+	private List<Product> products = new ArrayList<Product>();
 
-	private List<Product> Products = new ArrayList<Product>();
+	public ProductList(List<Product> collect) {
+		this.products = collect;
+	}
+
+	public ProductList() {
+	}
 
 	public void addProduct(Product Product) {
-		Products.add(Product);
+		products.add(Product);
 	}
 
 	public List<Product> getProducts() {
-		return Products;
+		return products;
 	}
 
 	public void setProducts(List<Product> Products) {
-		this.Products = Products;
+		this.products = Products;
 	}
 }

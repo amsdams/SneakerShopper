@@ -10,10 +10,11 @@ public class BrandHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BrandHelper.class);
 
 	public static String getBrandName(String text, BrandList brandlist) {
+		brandlist.getBrands().sort(Brand.BrandNameSizeComparator);
 		String returnBrandName = "unknown";
 		for (Brand brand : brandlist.getBrands()) {
 			String brandName = brand.getName();
-			if (text.toLowerCase().contains(brandName.toLowerCase())) {
+			if (text.toUpperCase().contains(brandName)) {
 				returnBrandName = brandName;
 			}
 		}
@@ -24,10 +25,10 @@ public class BrandHelper {
 	}
 
 	public static String removeBrandName(String text, BrandList brandlist) {
-
+		brandlist.getBrands().sort(Brand.BrandNameSizeComparator);
 		for (Brand brand : brandlist.getBrands()) {
 			String brandName = brand.getName();
-			text = text.replaceAll(brandName, "");
+			text = text.toUpperCase().replaceAll(brandName, "");
 		}
 		return text;
 	}

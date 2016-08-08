@@ -45,11 +45,12 @@ public class CurrencyListStorage {
 		return allCurrencys;
 
 	}
+
 	public static void print(CurrencyList currencyList) {
 		for (Currency currency : currencyList.getCurrencys()) {
 			LOGGER.info(currency.toString());
 		}
-		LOGGER.info("printed "+ currencyList.getCurrencys().size() );
+		LOGGER.info("printed " + currencyList.getCurrencys().size());
 	}
 
 	public static void put(CurrencyList currencyList) {

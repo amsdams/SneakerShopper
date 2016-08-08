@@ -9,17 +9,25 @@ import org.slf4j.LoggerFactory;
 public class CurrencyList {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyList.class);
 
-	private List<Currency> brands = new ArrayList<Currency>();
+	private List<Currency> currencies = new ArrayList<Currency>();
+
+	public CurrencyList(List<Currency> collect) {
+		this.currencies = collect;
+	}
+
+	public CurrencyList() {
+
+	}
 
 	public void addCurrency(Currency Currency) {
-		brands.add(Currency);
+		currencies.add(Currency);
 	}
 
 	public List<Currency> getCurrencys() {
-		return brands;
+		return currencies;
 	}
 
 	public void setCurrencys(List<Currency> brands) {
-		this.brands = brands;
+		this.currencies = brands;
 	}
 }

@@ -11,11 +11,19 @@ public class BrandList {
 
 	private List<Brand> brands = new ArrayList<Brand>();
 
+	public BrandList(List<Brand> collect) {
+		this.brands = collect;
+	}
+
+	public BrandList() {
+	}
+
 	public void addBrand(Brand Brand) {
 		brands.add(Brand);
 	}
 
 	public List<Brand> getBrands() {
+
 		return brands;
 	}
 

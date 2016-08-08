@@ -28,14 +28,15 @@ public class ProductListStorage {
 		return allProducts;
 
 	}
+
 	public static void print(ProductList productList) {
 		for (Product product : productList.getProducts()) {
 			LOGGER.info(product.toString());
 		}
-		LOGGER.info("printed "+ productList.getProducts().size() );
+		LOGGER.info("printed " + productList.getProducts().size());
 	}
 
-	public static void   put(ProductList productList ) {
+	public static void put(ProductList productList) {
 
 		ObjectMapper mapper = new ObjectMapper();
 

@@ -32,7 +32,7 @@ public class ShopListStorage {
 		for (Shop shop : shopList.getShops()) {
 			LOGGER.info(shop.toString());
 		}
-		LOGGER.info("printed "+ shopList.getShops().size() );
+		LOGGER.info("printed " + shopList.getShops().size());
 	}
 
 	public static void put(ShopList allShops) {

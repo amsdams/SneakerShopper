@@ -52,8 +52,7 @@ public class ConsoleHelper {
 		sortProductsByDiscount.setAction("sbd<ASD|DESC>");
 		sortProductsByDiscount.setDescription("sort by discount");
 		actionList.getActions().add(sortProductsByDiscount);
-		
-		
+
 		Action filterByBrand = new Action();
 		filterByBrand.setAction("fbb<brand>");
 		filterByBrand.setDescription("filter by brand");
@@ -93,7 +92,7 @@ public class ConsoleHelper {
 		gp.setAction("gp");
 		gp.setDescription("get products");
 		actionList.getActions().add(gp);
-		
+
 		return actionList;
 	}
 
@@ -104,7 +103,7 @@ public class ConsoleHelper {
 		for (Action action : actionList.getActions()) {
 			question.append("type " + action.getAction() + " to " + action.getDescription() + "\r\n");
 		}
-		
+
 		return question.toString();
 
 	}

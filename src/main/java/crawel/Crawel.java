@@ -110,6 +110,8 @@ public class Crawel {
 		ActionList actionList = consoleHelper.getActionList();
 		ProductList filteredProductList = new ProductList();
 		Comparator<Product> comparator = Product.NewPriceComparator;
+		Comparator<Product> secondComparator = Product.NameComparator;
+
 		while (keepRunning) {
 
 			String in = consoleHelper.readLine(consoleHelper.printActionList(actionList));
@@ -120,8 +122,8 @@ public class Crawel {
 
 				comparator = Product.BrandNameComparator;
 
-				filteredProductList.setProducts(
-						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				filteredProductList.setProducts(productList.getProducts().stream()
+						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbn")) {
 				String order = in.replace("sbn", "");
@@ -129,8 +131,8 @@ public class Crawel {
 
 				comparator = Product.NameComparator;
 
-				filteredProductList.setProducts(
-						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				filteredProductList.setProducts(productList.getProducts().stream()
+						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbp")) {
 				String order = in.replace("sbp", "");
@@ -138,8 +140,8 @@ public class Crawel {
 
 				comparator = Product.NewPriceComparator;
 
-				filteredProductList.setProducts(
-						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				filteredProductList.setProducts(productList.getProducts().stream()
+						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbs")) {
 				String order = in.replace("sbs", "");
@@ -147,8 +149,8 @@ public class Crawel {
 
 				comparator = Product.ShopNameComparator;
 
-				filteredProductList.setProducts(
-						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				filteredProductList.setProducts(productList.getProducts().stream()
+						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbd")) {
 				String order = in.replace("sbd", "");
@@ -156,28 +158,30 @@ public class Crawel {
 
 				comparator = Product.DiscountComparator;
 
-				filteredProductList.setProducts(
-						productList.getProducts().stream().sorted(comparator).collect(Collectors.toList()));
+				filteredProductList.setProducts(productList.getProducts().stream()
+						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
-			}else if (in.startsWith("fbb")) {
+			} else if (in.startsWith("fbb")) {
 				String brand = in.replace("fbb", "");
 				LOGGER.info("extracted brand " + brand);
 
-				filteredProductList.setProducts(productList.getProducts().stream()
-						.filter(p -> p.getBrandName().contains(brand)).sorted(comparator).collect(Collectors.toList()));
+				filteredProductList
+						.setProducts(productList.getProducts().stream().filter(p -> p.getBrandName().contains(brand))
+								.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("fbn")) {
 				String name = in.replace("fbn", "");
 				LOGGER.info("extracted name " + name);
 
-				filteredProductList.setProducts(productList.getProducts().stream()
-						.filter(p -> p.getName().contains(name)).sorted(comparator).collect(Collectors.toList()));
+				filteredProductList
+						.setProducts(productList.getProducts().stream().filter(p -> p.getName().contains(name))
+								.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("reset")) {
 				filteredProductList = productList;
 				ProductListStorage.print(filteredProductList);
 
-			}else if (in.startsWith("gp")) {
+			} else if (in.startsWith("gp")) {
 				ShopList shopList = ShopListStorage.get();
 				productList = this.getShopsProductList(shopList);
 				ProductListStorage.print(productList);
@@ -192,6 +196,26 @@ public class Crawel {
 				BrandListStorage.print(BrandListStorage.get());
 			} else if (in.startsWith("pcl")) {
 				CurrencyListStorage.print(CurrencyListStorage.get());
+			} else if (in.startsWith("wsl")) {
+				ShopList shopList = ShopListStorage.get();
+				shopList = new ShopList(shopList.getShops().stream().sorted().collect(Collectors.toList()));
+
+				ShopListStorage.put(shopList);
+
+			} else if (in.startsWith("wpl")) {
+				productList = new ProductList(productList.getProducts().stream().sorted().collect(Collectors.toList()));
+				ProductListStorage.put(productList);
+
+			} else if (in.startsWith("wbl")) {
+				BrandList brandList = BrandListStorage.get();
+				brandList = new BrandList(brandList.getBrands().stream().sorted().collect(Collectors.toList()));
+				BrandListStorage.put(brandList);
+
+			} else if (in.startsWith("wcl")) {
+				CurrencyList currencyList = CurrencyListStorage.get();
+				currencyList = new CurrencyList(
+						currencyList.getCurrencys().stream().sorted().collect(Collectors.toList()));
+				CurrencyListStorage.put(currencyList);
 			} else if (in.startsWith("bye")) {
 				keepRunning = false;
 

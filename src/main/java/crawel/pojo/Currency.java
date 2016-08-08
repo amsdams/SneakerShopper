@@ -1,6 +1,6 @@
 package crawel.pojo;
 
-public class Currency {
+public class Currency implements Comparable<Currency> {
 	private String name;
 
 	private String symbol;
@@ -17,12 +17,13 @@ public class Currency {
 		this.name = name;
 		this.symbol = symbol;
 	}
+
 	public String getName() {
-		return name;
+		return name!=null?name.toUpperCase():"";
 	}
 
 	public String getSymbol() {
-		return symbol;
+		return symbol!=null?symbol.toUpperCase():"";
 	}
 
 	public void setName(String name) {
@@ -35,6 +36,12 @@ public class Currency {
 
 	@Override
 	public String toString() {
-		return "Currency [name=" + name + ", symbol=" + symbol + "]";
+		return "Currency [name=" + this.getName() + ", symbol=" + this.getSymbol() + "]";
+	}
+
+	@Override
+	public int compareTo(Currency o) {
+
+		return this.getName().compareTo(o.getName());
 	}
 }

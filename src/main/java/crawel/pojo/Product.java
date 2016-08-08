@@ -9,8 +9,8 @@ public class Product implements Comparable<Product> {
 		@Override
 		public int compare(Product product1, Product product2) {
 
-			String productName1 = product1.getBrandName().toUpperCase();
-			String productName2 = product2.getBrandName().toUpperCase();
+			String productName1 = product1.getBrandName();
+			String productName2 = product2.getBrandName();
 
 			return productName1.compareTo(productName2);
 
@@ -23,8 +23,8 @@ public class Product implements Comparable<Product> {
 		@Override
 		public int compare(Product product1, Product product2) {
 
-			String productName1 = product1.getName().toUpperCase();
-			String productName2 = product2.getName().toUpperCase();
+			String productName1 = product1.getName();
+			String productName2 = product2.getName();
 
 			return productName1.compareTo(productName2);
 
@@ -37,8 +37,8 @@ public class Product implements Comparable<Product> {
 		@Override
 		public int compare(Product product1, Product product2) {
 
-			String productName1 = product1.getShopName().toUpperCase();
-			String productName2 = product2.getShopName().toUpperCase();
+			String productName1 = product1.getShopName();
+			String productName2 = product2.getShopName();
 
 			return productName1.compareTo(productName2);
 
@@ -111,9 +111,8 @@ public class Product implements Comparable<Product> {
 
 	@Override
 	public int compareTo(Product o) {
-		String otherBrandName = o.getBrandName();
 
-		return this.getBrandName().compareTo(otherBrandName);
+		return this.getBrandName().compareTo(getBrandName());
 
 	}
 
@@ -203,10 +202,9 @@ public class Product implements Comparable<Product> {
 
 	@Override
 	public String toString() {
-		return "Product [brandName=" + brandName + ", name=" + name + ", newPriceInEuro=" + newPriceInEuro
-				+ ", oldPriceInEuro=" + oldPriceInEuro + ", currency=" + currency + ",  url=" + url + ",  shopName=" + shopName + ",  discount=" + discount
-				+ ", newPrice=" + newPrice
-				+ ", oldPrice=" + oldPrice + "]";
+		return "Product [brandName=" + this.getBrandName() + ", name=" + this.getName() + ", newPriceInEuro=" + this.getNewPriceInEuro()
+				+ ", oldPriceInEuro=" + this.getOldPriceInEuro() + ", currency=" + this.getCurrency() + ",  url=" + this.getUrl() + ",  shopName="
+				+ this.getShopName() + ",  discount=" + this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + "]";
 	}
 
 }
