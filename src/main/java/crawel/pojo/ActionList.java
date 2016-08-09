@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActionList {
-	private List<Action> Actions = new ArrayList<Action>();
+	private List<Action> actions;
+
+	public ActionList() {
+		actions = new ArrayList<Action>();
+	}
 
 	public void addAction(Action Action) {
-		Actions.add(Action);
+		actions.add(Action);
 	}
 
 	public List<Action> getActions() {
-		return Actions;
+		return actions;
 	}
 
 	public void setActions(List<Action> Actions) {
-		this.Actions = Actions;
+		this.actions = Actions;
 	}
 }

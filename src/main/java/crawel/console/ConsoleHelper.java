@@ -98,7 +98,7 @@ public class ConsoleHelper {
 
 	public String printActionList(ActionList actionList) {
 
-		StringBuffer question = new StringBuffer();
+		StringBuilder question = new StringBuilder();
 		question.append("What do you want to do?\r\n");
 		for (Action action : actionList.getActions()) {
 			question.append("type " + action.getAction() + " to " + action.getDescription() + "\r\n");
@@ -113,6 +113,7 @@ public class ConsoleHelper {
 		try {
 			return br.readLine();
 		} catch (IOException e) {
+			LOGGER.warn("could not readline {}", e.getMessage(), e);
 			return null;
 		}
 	}

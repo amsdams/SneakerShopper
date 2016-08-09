@@ -19,11 +19,12 @@ public class Brand implements Comparable<Brand> {
 	};
 
 	public Brand() {
-
+		this.name = "";
 	}
 
 	public Brand(String name) {
 		this.name = name;
+
 	}
 
 	public String getName() {
@@ -36,7 +37,7 @@ public class Brand implements Comparable<Brand> {
 
 	@Override
 	public String toString() {
-		return "Brand [name=" + this.getName() + "]";
+		return "Brand [name=" + name + "]";
 	}
 
 	@Override

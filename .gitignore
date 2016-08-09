@@ -6,3 +6,4 @@ allProducts.json
 /logging.log
 .resourceCache
 *.log
+.settings

@@ -9,14 +9,14 @@ import org.slf4j.LoggerFactory;
 public class CurrencyList {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyList.class);
 
-	private List<Currency> currencies = new ArrayList<Currency>();
+	private List<Currency> currencies;
 
 	public CurrencyList(List<Currency> collect) {
 		this.currencies = collect;
 	}
 
 	public CurrencyList() {
-
+		this.currencies = new ArrayList<Currency>();
 	}
 
 	public void addCurrency(Currency Currency) {

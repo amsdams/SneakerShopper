@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ShopList {
 
-	private List<Shop> shops = new ArrayList<Shop>();
+	private List<Shop> shops;
 
 	public ShopList() {
-
+		this.shops = new ArrayList<Shop>();
 	}
 
 	public ShopList(List<Shop> collect) {

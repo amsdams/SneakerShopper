@@ -64,7 +64,7 @@ public class Crawel {
 
 		} catch (CmdLineException e) {
 			// handling of wrong arguments
-			System.err.println(e.getMessage());
+			LOGGER.warn("could not read commandline {}", e.getMessage(), e);
 			parser.printUsage(System.err);
 		}
 
@@ -91,13 +91,13 @@ public class Crawel {
 		executor.shutdown();
 		// Wait until all threads are finish
 		while (!executor.isTerminated()) {
-			// System.out.println("\nnot terminated yet");
+
 		}
 		LOGGER.info("\nFinished all threads");
 
 		ProductList allProducts = new ProductList();
 		for (Shop shop : shopList.getShops()) {
-			allProducts.getProducts().addAll((shop.getProductList().getProducts()));
+			allProducts.getProducts().addAll(shop.getProductList().getProducts());
 
 		}
 		return allProducts;
@@ -220,10 +220,6 @@ public class Crawel {
 				keepRunning = false;
 
 			}
-			/*
-			 * for (Action action: actionList.getActions()){ if
-			 * (in.equals(action.getAction())){ action.doAction(); } }
-			 */
 
 		}
 

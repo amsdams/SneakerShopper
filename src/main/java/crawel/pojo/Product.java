@@ -16,8 +16,8 @@ public class Product implements Comparable<Product> {
 
 		}
 
-	};
-
+	}; 
+ 
 	public static Comparator<Product> NameComparator = new Comparator<Product>() {
 
 		@Override
@@ -108,6 +108,15 @@ public class Product implements Comparable<Product> {
 	private Double discount;
 
 	private Currency currency;
+	private boolean brandNameRemovedFromName;
+
+	public Product(String productName) {
+		this.name = productName;
+	}
+
+	public Product() {
+
+	}
 
 	@Override
 	public int compareTo(Product o) {
@@ -202,9 +211,18 @@ public class Product implements Comparable<Product> {
 
 	@Override
 	public String toString() {
-		return "Product [brandName=" + this.getBrandName() + ", name=" + this.getName() + ", newPriceInEuro=" + this.getNewPriceInEuro()
-				+ ", oldPriceInEuro=" + this.getOldPriceInEuro() + ", currency=" + this.getCurrency() + ",  url=" + this.getUrl() + ",  shopName="
-				+ this.getShopName() + ",  discount=" + this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + "]";
+		return "Product [brandName=" + this.getBrandName() + ", name=" + this.getName() + ", newPriceInEuro="
+				+ this.getNewPriceInEuro() + ", oldPriceInEuro=" + this.getOldPriceInEuro() + ", currency="
+				+ this.getCurrency() + ",  url=" + this.getUrl() + ",  shopName=" + this.getShopName() + ",  discount="
+				+ this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + "]";
+	}
+
+	public boolean isBrandNameRemovedFromName() {
+		return brandNameRemovedFromName;
+	}
+
+	public void setBrandNameRemovedFromName(boolean brandNameRemovedFromName) {
+		this.brandNameRemovedFromName = brandNameRemovedFromName;
 	}
 
 }

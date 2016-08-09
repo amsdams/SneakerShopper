@@ -97,8 +97,11 @@ public class Shop implements Comparable<Shop> {
 				DomNodeList<DomNode> nodes = page.querySelectorAll(this.getProductsSelector());
 				for (DomNode node : nodes) {
 					Product product = new Product();
-					product.setName(this.getProductNameAsString(node, this.getProductNameSelector()));
-
+					String name = this.getProductNameAsString(node, this.getProductNameSelector());
+					name  = BrandHelper.removeBrandName(name, brandList);
+					product.setBrandNameRemovedFromName(true);
+					product.setName(name);
+					
 					product.setCurrency(this.getProductCurrencyAsCurrency(node, this.getProductCurrencySelector()));
 
 					product.setNewPrice(this.getProductPropertyAsDouble(node, this.getProductNewPriceSelector()));
@@ -260,7 +263,7 @@ public class Shop implements Comparable<Shop> {
 		try {
 
 			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getFirstChild().getTextContent();
-			text = BrandHelper.removeBrandName(text, brandList);
+			
 
 			text = text.trim();
 			productProperty = text;

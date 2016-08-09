@@ -6,11 +6,13 @@ public class Currency implements Comparable<Currency> {
 	private String symbol;
 
 	public Currency() {
-
+		this.name = "";
+		this.symbol = "";
 	}
 
 	public Currency(String name) {
 		this.name = name;
+		this.symbol="";
 	}
 
 	public Currency(String name, String symbol) {
@@ -19,11 +21,11 @@ public class Currency implements Comparable<Currency> {
 	}
 
 	public String getName() {
-		return name!=null?name.toUpperCase():"";
+		return name != null ? name.toUpperCase() : "";
 	}
 
 	public String getSymbol() {
-		return symbol!=null?symbol.toUpperCase():"";
+		return symbol != null ? symbol.toUpperCase() : "";
 	}
 
 	public void setName(String name) {
