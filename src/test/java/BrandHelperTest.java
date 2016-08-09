@@ -37,10 +37,10 @@ public class BrandHelperTest {
 
 		//productList.addProduct(new Product("BOG"));
 
-		//productList.addProduct(new Product("PUMA X ALIFE BOG"));
-		//productList.addProduct(new Product("ALIFE X PUMA BOG"));
-		//productList.addProduct(new Product("BOG PUMA X ALIFE "));
-		//productList.addProduct(new Product("BOG ALIFE X PUMA "));
+		productList.addProduct(new Product("PUMA X ALIFE BOG"));
+		productList.addProduct(new Product("ALIFE X PUMA BOG"));
+		productList.addProduct(new Product("BOG PUMA X ALIFE "));
+		productList.addProduct(new Product("BOG ALIFE X PUMA "));
 
 		for (Product product : productList.getProducts()) {
 			String name = product.getName();

@@ -13,22 +13,18 @@ public class BrandHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BrandHelper.class);
 
 	public static String getBrandName(String text, BrandList brandList) {
-		
+
 		List<Brand> brands = new ArrayList<Brand>(brandList.getBrands());
 		brands.sort(Brand.BrandNameSizeComparator);
-		
+
 		String returnBrandName = "unknown";
-		for (Brand brand: brands) {
-		
-			
+		for (Brand brand : brands) {
+
 			String brandName = brand.getName();
 			List<String> brandAlternatives = BrandCombinations.getBrandCombos(brandName, " X ");
-			
-			if (text.toUpperCase().contains(brandName)) {
-				returnBrandName = brandName;
-				break;
-			}
-			for (String s: brandAlternatives){
+			brandAlternatives.add(brandName);
+
+			for (String s : brandAlternatives) {
 				if (text.toUpperCase().contains(s)) {
 					returnBrandName = brandName;
 					break;
@@ -42,22 +38,23 @@ public class BrandHelper {
 	}
 
 	public static String removeBrandName(String text, BrandList brandList) {
-	
+
 		List<Brand> brands = new ArrayList<Brand>(brandList.getBrands());
 		brands.sort(Brand.BrandNameSizeComparator);
-		for (Brand brand: brands) {
-			
-			
+		for (Brand brand : brands) {
+
 			String brandName = brand.getName();
-			 
-			if (!text.toUpperCase().equals(brandName)){
-				text = text.toUpperCase().replaceAll(brandName, "");
-				
-				break;
-				
-				
+			List<String> brandAlternatives = BrandCombinations.getBrandCombos(brandName, " X ");
+			brandAlternatives.add(brandName);
+
+			for (String s : brandAlternatives) {
+				if (!text.toUpperCase().equals(s)) {
+					text = text.toUpperCase().replaceAll(s, "");
+
+					break;
+				}
+
 			}
-			
 		}
 		return text;
 	}
