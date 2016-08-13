@@ -3,8 +3,7 @@ package crawel.pojo;
 import java.util.Comparator;
 
 public class Brand implements Comparable<Brand> {
-	private String name;
-	public static Comparator<Brand> BrandNameSizeComparator = new Comparator<Brand>() {
+	public static Comparator<Brand> BRANDNAMESIZECOMPARATOR = new Comparator<Brand>() {
 
 		@Override
 		public int compare(Brand product1, Brand product2) {
@@ -17,6 +16,7 @@ public class Brand implements Comparable<Brand> {
 		}
 
 	};
+	private String name;
 
 	public Brand() {
 		this.name = "";
@@ -25,6 +25,11 @@ public class Brand implements Comparable<Brand> {
 	public Brand(String name) {
 		this.name = name;
 
+	}
+
+	@Override
+	public int compareTo(Brand o) {
+		return this.getName().compareTo(o.getName());
 	}
 
 	public String getName() {
@@ -38,10 +43,5 @@ public class Brand implements Comparable<Brand> {
 	@Override
 	public String toString() {
 		return "Brand [name=" + name + "]";
-	}
-
-	@Override
-	public int compareTo(Brand o) {
-		return this.getName().compareTo(o.getName());
 	}
 }

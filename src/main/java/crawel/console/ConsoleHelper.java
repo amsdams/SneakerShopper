@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,10 +89,25 @@ public class ConsoleHelper {
 		pcl.setDescription("print currency list");
 		actionList.getActions().add(pcl);
 
+		Action pft = new Action();
+		pft.setAction("pftl");
+		pft.setDescription("print file transfer list");
+		actionList.getActions().add(pft);
+
 		Action gp = new Action();
 		gp.setAction("gp");
 		gp.setDescription("get products");
 		actionList.getActions().add(gp);
+
+		Action sp = new Action();
+		sp.setAction("sp");
+		sp.setDescription("save products");
+		actionList.getActions().add(sp);
+
+		Action ftp = new Action();
+		ftp.setAction("ftp");
+		ftp.setDescription("save products on ftp");
+		actionList.getActions().add(ftp);
 
 		return actionList;
 	}

@@ -14,8 +14,8 @@ public class BrandHelper {
 
 	public static String getBrandName(String text, BrandList brandList) {
 
-		List<Brand> brands = new ArrayList<Brand>(brandList.getBrands());
-		brands.sort(Brand.BrandNameSizeComparator);
+		List<Brand> brands = new ArrayList<>(brandList.getBrands());
+		brands.sort(Brand.BRANDNAMESIZECOMPARATOR);
 
 		String returnBrandName = "unknown";
 		for (Brand brand : brands) {
@@ -31,7 +31,7 @@ public class BrandHelper {
 				}
 			}
 		}
-		if (returnBrandName.equals("unknown")) {
+		if ("unknown".equals(returnBrandName)) {
 			LOGGER.info("unable to match brand from {}", text);
 		}
 		return returnBrandName;
@@ -39,8 +39,8 @@ public class BrandHelper {
 
 	public static String removeBrandName(String text, BrandList brandList) {
 
-		List<Brand> brands = new ArrayList<Brand>(brandList.getBrands());
-		brands.sort(Brand.BrandNameSizeComparator);
+		List<Brand> brands = new ArrayList<>(brandList.getBrands());
+		brands.sort(Brand.BRANDNAMESIZECOMPARATOR);
 		for (Brand brand : brands) {
 
 			String brandName = brand.getName();
@@ -48,7 +48,7 @@ public class BrandHelper {
 			brandAlternatives.add(brandName);
 
 			for (String s : brandAlternatives) {
-				if (!text.toUpperCase().equals(s)) {
+				if (!text.equalsIgnoreCase(s)) {
 					text = text.toUpperCase().replaceAll(s, "");
 
 					break;

@@ -15,12 +15,14 @@ import crawel.console.ConsoleHelper;
 import crawel.pojo.ActionList;
 import crawel.pojo.BrandList;
 import crawel.pojo.CurrencyList;
+import crawel.pojo.FileTransferList;
 import crawel.pojo.Product;
 import crawel.pojo.ProductList;
 import crawel.pojo.Shop;
 import crawel.pojo.ShopList;
 import crawel.storage.BrandListStorage;
 import crawel.storage.CurrencyListStorage;
+import crawel.storage.FileTransferListStorage;
 import crawel.storage.ProductListStorage;
 import crawel.storage.ShopListStorage;
 
@@ -186,6 +188,14 @@ public class Crawel {
 				productList = this.getShopsProductList(shopList);
 				ProductListStorage.print(productList);
 
+			} else if (in.startsWith("sp")) {
+
+				ProductListStorage.put(productList);
+			} else if (in.startsWith("ftp")) {
+
+				FileTransferList fileTransferList = FileTransferListStorage.get();
+				FileTransferListStorage.putTransfers(fileTransferList);
+
 			} else if (in.startsWith("psl")) {
 				ShopListStorage.print(ShopListStorage.get());
 
@@ -194,6 +204,8 @@ public class Crawel {
 
 			} else if (in.startsWith("pbl")) {
 				BrandListStorage.print(BrandListStorage.get());
+			} else if (in.startsWith("pftl")) {
+				FileTransferListStorage.print(FileTransferListStorage.get());
 			} else if (in.startsWith("pcl")) {
 				CurrencyListStorage.print(CurrencyListStorage.get());
 			} else if (in.startsWith("wsl")) {

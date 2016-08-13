@@ -11,12 +11,12 @@ public class ProductList {
 
 	private List<Product> products;
 
-	public ProductList(List<Product> collect) {
-		this.products = collect;
-	}
-
 	public ProductList() {
 		this.products = new ArrayList<Product>();
+	}
+
+	public ProductList(List<Product> collect) {
+		this.products = collect;
 	}
 
 	public void addProduct(Product Product) {

@@ -11,12 +11,12 @@ public class CurrencyList {
 
 	private List<Currency> currencies;
 
-	public CurrencyList(List<Currency> collect) {
-		this.currencies = collect;
-	}
-
 	public CurrencyList() {
 		this.currencies = new ArrayList<Currency>();
+	}
+
+	public CurrencyList(List<Currency> collect) {
+		this.currencies = collect;
 	}
 
 	public void addCurrency(Currency Currency) {

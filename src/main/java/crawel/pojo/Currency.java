@@ -12,12 +12,18 @@ public class Currency implements Comparable<Currency> {
 
 	public Currency(String name) {
 		this.name = name;
-		this.symbol="";
+		this.symbol = "";
 	}
 
 	public Currency(String name, String symbol) {
 		this.name = name;
 		this.symbol = symbol;
+	}
+
+	@Override
+	public int compareTo(Currency o) {
+
+		return this.getName().compareTo(o.getName());
 	}
 
 	public String getName() {
@@ -39,11 +45,5 @@ public class Currency implements Comparable<Currency> {
 	@Override
 	public String toString() {
 		return "Currency [name=" + this.getName() + ", symbol=" + this.getSymbol() + "]";
-	}
-
-	@Override
-	public int compareTo(Currency o) {
-
-		return this.getName().compareTo(o.getName());
 	}
 }

@@ -98,10 +98,10 @@ public class Shop implements Comparable<Shop> {
 				for (DomNode node : nodes) {
 					Product product = new Product();
 					String name = this.getProductNameAsString(node, this.getProductNameSelector());
-					name  = BrandHelper.removeBrandName(name, brandList);
+					name = BrandHelper.removeBrandName(name, brandList);
 					product.setBrandNameRemovedFromName(true);
 					product.setName(name);
-					
+
 					product.setCurrency(this.getProductCurrencyAsCurrency(node, this.getProductCurrencySelector()));
 
 					product.setNewPrice(this.getProductPropertyAsDouble(node, this.getProductNewPriceSelector()));
@@ -141,6 +141,11 @@ public class Shop implements Comparable<Shop> {
 
 	}
 
+	@Override
+	public int compareTo(Shop o) {
+		return this.getBaseUrl().compareTo(o.getBaseUrl());
+	}
+
 	public String getBaseUrl() {
 		return this.baseUrl;
 
@@ -160,7 +165,7 @@ public class Shop implements Comparable<Shop> {
 
 	public String getNextPageSelector() {
 		return nextPageSelector;
-	};
+	}
 
 	public String getNextPageUrl(String url) {
 		String nextPageUrl = null;
@@ -263,7 +268,6 @@ public class Shop implements Comparable<Shop> {
 		try {
 
 			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getFirstChild().getTextContent();
-			
 
 			text = text.trim();
 			productProperty = text;
@@ -358,7 +362,7 @@ public class Shop implements Comparable<Shop> {
 
 	public void setLimit(Boolean limit) {
 		this.limit = limit;
-	};
+	}
 
 	private void setLimitSelector(Boolean limit) {
 		this.limit = limit;
@@ -427,11 +431,6 @@ public class Shop implements Comparable<Shop> {
 				+ ", baseUrl=" + baseUrl + ", productList=" + productList + ", runnable=" + runnable + ", timeout="
 				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", referrer=" + referrer
 				+ ", javaScriptEnabled=" + javaScriptEnabled + "]";
-	}
-
-	@Override
-	public int compareTo(Shop o) {
-		return this.getBaseUrl().compareTo(o.getBaseUrl());
 	}
 
 }

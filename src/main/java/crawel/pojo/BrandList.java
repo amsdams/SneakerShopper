@@ -11,12 +11,12 @@ public class BrandList {
 
 	private List<Brand> brands;
 
-	public BrandList(List<Brand> collect) {
-		this.brands = collect;
+	public BrandList() {
+		brands = new ArrayList<>();
 	}
 
-	public BrandList() {
-		brands =  new ArrayList<>();
+	public BrandList(List<Brand> collect) {
+		this.brands = collect;
 	}
 
 	public void addBrand(Brand brand) {
@@ -26,7 +26,7 @@ public class BrandList {
 	public List<Brand> getBrands() {
 
 		return brands;
-	} 
+	}
 
 	public void setBrands(List<Brand> brands) {
 		this.brands = brands;
