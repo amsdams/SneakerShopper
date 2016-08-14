@@ -15,18 +15,32 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import crawel.pojo.CurrencyList;
 import crawel.pojo.FileTransfer;
 import crawel.pojo.FileTransferList;
 
 public class FileTransferListStorage {
 
+	private static final String ALL_FILE_TRANSFERS_JSON = "allFileTransfers.json";
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileTransferListStorage.class);
+	private static final FileTransferListStorage instance = new FileTransferListStorage();
+
+	private FileTransferListStorage() {
+	}
+
+	public static FileTransferListStorage getInstance() {
+		return instance;
+	}
 
 	public static FileTransferList get() {
+		return get(ALL_FILE_TRANSFERS_JSON);
+	}
+
+	public static FileTransferList get(String fileName) {
 		ObjectMapper mapper = new ObjectMapper();
 		FileTransferList allFileTransfers = new FileTransferList();
 		try {
-			allFileTransfers = mapper.readValue(new File("allFileTransfers.json"), FileTransferList.class);
+			allFileTransfers = mapper.readValue(new File(fileName), FileTransferList.class);
 		} catch (IOException e) {
 			LOGGER.error("could not open file, creating one", e);
 			allFileTransfers = new FileTransferList();
@@ -36,7 +50,6 @@ public class FileTransferListStorage {
 			String username = "yourusnername";
 			String password = "yourpassword";
 			String path = "/yourpath/";
-			String fileName = "allProducts.json";
 
 			FileTransfer fileTransfer = new FileTransfer();
 			fileTransfer.setServer(server);
@@ -62,13 +75,19 @@ public class FileTransferListStorage {
 		LOGGER.info("printed " + fileTransferList.getFileTransfers().size());
 	}
 
-	public static void put(FileTransferList fileTransferList) {
+	public static void put(FileTransferList brandList) {
+
+		put(brandList, ALL_FILE_TRANSFERS_JSON);
+
+	}
+
+	public static void put(FileTransferList fileTransferList, String fileName) {
 
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
 
-			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("allFileTransfers.json"), fileTransferList);
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), fileTransferList);
 
 		} catch (JsonGenerationException e) {
 			LOGGER.error("could not generate json", e);
@@ -128,10 +147,10 @@ public class FileTransferListStorage {
 			LOGGER.info("reply from ftp after disconnect {}", reply);
 
 		} catch (SocketException e) {
-			LOGGER.error(" {}", e.getMessage(), e);
+			LOGGER.error("socket problem {}", e.getMessage(), e);
 
 		} catch (IOException e) {
-			LOGGER.error(" {}", e.getMessage(), e);
+			LOGGER.error("io problem {}", e.getMessage(), e);
 		}
 	}
 

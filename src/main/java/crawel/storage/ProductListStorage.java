@@ -10,17 +10,32 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import crawel.helpers.PriceHelper;
+import crawel.pojo.FileTransferList;
 import crawel.pojo.Product;
 import crawel.pojo.ProductList;
 
 public class ProductListStorage {
+	private static final String ALL_PRODUCTS_JSON = "allProducts.json";
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductListStorage.class);
+	private static final ProductListStorage instance = new ProductListStorage();
+
+	private ProductListStorage() {
+	}
+
+	public static ProductListStorage getInstance() {
+		return instance;
+	}
 
 	public static ProductList get() {
+		return get(ALL_PRODUCTS_JSON);
+	}
+
+	public static ProductList get(String fileName) {
 		ObjectMapper mapper = new ObjectMapper();
 		ProductList allProducts = new ProductList();
 		try {
-			allProducts = mapper.readValue(new File("allProducts.json"), ProductList.class);
+			allProducts = mapper.readValue(new File(fileName), ProductList.class);
 		} catch (IOException e) {
 			LOGGER.error("could not open file", e);
 
@@ -38,11 +53,17 @@ public class ProductListStorage {
 
 	public static void put(ProductList productList) {
 
+		put(productList, ALL_PRODUCTS_JSON);
+
+	}
+	
+	public static void put(ProductList productList, String fileName) {
+
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
 
-			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("allProducts.json"), productList);
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), productList);
 
 		} catch (JsonGenerationException e) {
 			LOGGER.error("could not generate json", e);

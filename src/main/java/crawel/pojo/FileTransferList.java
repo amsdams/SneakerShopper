@@ -5,25 +5,25 @@ import java.util.List;
 
 public class FileTransferList {
 
-	private List<FileTransfer> shops;
+	private List<FileTransfer> fileTransfers;
 
 	public FileTransferList() {
-		this.shops = new ArrayList<FileTransfer>();
+		this.fileTransfers = new ArrayList<FileTransfer>();
 	}
 
 	public FileTransferList(List<FileTransfer> collect) {
-		this.shops = collect;
+		this.fileTransfers = collect;
 	}
 
 	public void addFileTransfer(FileTransfer shop) {
-		shops.add(shop);
+		fileTransfers.add(shop);
 	}
 
 	public List<FileTransfer> getFileTransfers() {
-		return shops;
+		return fileTransfers;
 	}
 
 	public void setFileTransfers(List<FileTransfer> shops) {
-		this.shops = shops;
+		this.fileTransfers = shops;
 	}
 }

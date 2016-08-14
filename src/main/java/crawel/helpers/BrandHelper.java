@@ -12,6 +12,13 @@ import crawel.pojo.BrandList;
 public class BrandHelper {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BrandHelper.class);
 
+    private static final BrandHelper instance = new BrandHelper();
+    private BrandHelper() { }
+
+    public static BrandHelper getInstance() {
+            return instance;
+    }
+    
 	public static String getBrandName(String text, BrandList brandList) {
 
 		List<Brand> brands = new ArrayList<>(brandList.getBrands());

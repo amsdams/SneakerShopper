@@ -10,16 +10,24 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import crawel.helpers.BrandHelper;
 import crawel.pojo.Brand;
 import crawel.pojo.BrandList;
 
 public class BrandListStorage {
+	private static final String ALL_BRANDS_JSON = "allBrands.json";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(BrandListStorage.class);
 
-	public static BrandList get() {
-		BrandList allBrands = get("allBrands.json");
+	private static final BrandListStorage instance = new BrandListStorage();
+    private BrandListStorage() { }
 
-		return allBrands;
+    public static BrandListStorage getInstance() {
+            return instance;
+    }
+    
+	public static BrandList get() {
+		return get(ALL_BRANDS_JSON);
 
 	}
 
@@ -53,7 +61,7 @@ public class BrandListStorage {
 
 	public static void put(BrandList brandList) {
 
-		put(brandList, "allBrands.json");
+		put(brandList, ALL_BRANDS_JSON);
 
 	}
 

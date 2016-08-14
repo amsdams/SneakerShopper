@@ -8,9 +8,17 @@ import org.javamoney.moneta.Money;
 
 import crawel.pojo.Currency;
 import crawel.pojo.CurrencyList;
+import crawel.storage.FileTransferListStorage;
 
 public class PriceHelper {
 
+	private static final PriceHelper instance = new PriceHelper();
+    private PriceHelper() { }
+
+    public static PriceHelper getInstance() {
+            return instance;
+    }
+    
 	public static Currency getCurrency(String text, CurrencyList currencyList) {
 		Currency returnCurrency = new Currency();
 
