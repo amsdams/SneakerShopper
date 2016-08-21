@@ -21,4 +21,13 @@ public class ActionList {
 	public void setActions(List<Action> Actions) {
 		this.actions = Actions;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Action s: this.actions){
+			sb.append(s.toString());
+		}
+		return "ActionList [actions=" + sb.toString() + "]";
+	}
 }

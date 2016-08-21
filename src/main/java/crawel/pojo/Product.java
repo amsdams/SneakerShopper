@@ -107,6 +107,8 @@ public class Product implements Comparable<Product> {
 
 	private Double discount;
 
+	private SizeList sizes;
+	
 	private Currency currency;
 	private boolean brandNameRemovedFromName;
 
@@ -222,7 +224,15 @@ public class Product implements Comparable<Product> {
 		return "Product [brandName=" + this.getBrandName() + ", name=" + this.getName() + ", newPriceInEuro="
 				+ this.getNewPriceInEuro() + ", oldPriceInEuro=" + this.getOldPriceInEuro() + ", currency="
 				+ this.getCurrency() + ",  url=" + this.getUrl() + ",  shopName=" + this.getShopName() + ",  discount="
-				+ this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + "]";
+				+ this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + ", sizes=" + this.getSizes() + "]";
+	}
+
+	public SizeList getSizes() {
+		return sizes;
+	}
+
+	public void setSizes(SizeList sizes) {
+		this.sizes = sizes;
 	}
 
 }

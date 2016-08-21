@@ -30,4 +30,13 @@ public class CurrencyList {
 	public void setCurrencys(List<Currency> brands) {
 		this.currencies = brands;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Currency s: this.currencies){
+			sb.append(s.toString());
+		}
+		return "CurrencyList [currencies=" + sb.toString() + "]";
+	}
 }

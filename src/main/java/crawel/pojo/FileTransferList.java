@@ -26,4 +26,13 @@ public class FileTransferList {
 	public void setFileTransfers(List<FileTransfer> shops) {
 		this.fileTransfers = shops;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (FileTransfer s: this.fileTransfers){
+			sb.append(s.toString());
+		}
+		return "FileTransferList [fileTransfers=" + sb.toString() + "]";
+	}
 }
