@@ -530,15 +530,13 @@
 		},
 		{
 			"name": "Cayler & Sons"
-		}
-		,
+		},
 		{
 			"name": "The Quiet Life"
 		},
 		{
 			"name": "ATF"
-		}
-		,
+		},
 		{
 			"name": "FOOTPATROL"
 		},
@@ -550,6 +548,9 @@
 		},
 		{
 			"name": "MITCHELL & NESS"
+		},
+		{
+			"name": "UNDEr ARMOUR"
 		}
 	]
 }

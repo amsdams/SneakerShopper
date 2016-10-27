@@ -121,7 +121,7 @@
 			"productBrandNameSelector": ".product-info>.product-brand ",
 			"productNewPriceSelector": ".product-info>.price-box>.special-price>.price>.integer",
 			"productCurrencySelector": ".product-info>.price-box>.old-price>.price>.currency",
-			"nextPageSelector": ".pager>.next",
+			"nextPageSelector": ".pager .next",
 			"baseUrl": "http://www.sneakerbaas.com/nl/sale.html/",
 			"productList": {
 				"products": []
@@ -245,6 +245,64 @@
 			"limit": false,
 			"timeout": 1000,
 			"productsSelector": ".category-products>article",
+			"referrer": "http://www.google.com"
+		} ,
+		{
+			"productOldPriceSelector": ".old-price",
+			"productUrlSelector": ".product-name>a",
+			"productNameSelector": ".product-name>a",
+			"productBrandNameSelector": ".product-name>a",
+			"productNewPriceSelector": ".special-price",
+			"productCurrencySelector": ".special-price",
+			"nextPageSelector": ".pages .next",
+			"baseUrl": "http://footdistrict.com/en/sales.html",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"javaScriptEnabled": false,
+			"limit": false,
+			"timeout": 1000,
+			"productsSelector": ".category-products li.item",
+			"referrer": "http://www.google.com"
+		}
+		,
+		{
+			"productOldPriceSelector": ".oldPrice",
+			"productUrlSelector": ".categoryElement>a",
+			"productNameSelector": ".catalogItemName>span",
+			"productBrandNameSelector": ".categoryElementHeadlineContent",
+			"productNewPriceSelector": ".price",
+			"productCurrencySelector": ".price",
+			"nextPageSelector": ".pager .pagerBox.pagerBoxRight",
+			"baseUrl": "https://www.kickz.com/nl/sale/schoenen/c",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"javaScriptEnabled": false,
+			"limit": false,
+			"timeout": 1000,
+			"productsSelector": ".categoryElement",
+			"referrer": "http://www.google.com"
+		},
+		{
+			"productOldPriceSelector": ".prod-reduced",
+			"productUrlSelector": "a",
+			"productNameSelector": ".prod-name",
+			"productBrandNameSelector": ".prod-name",
+			"productNewPriceSelector": ".prod-price",
+			"productCurrencySelector": ".prod-price",
+			"nextPageSelector": "",
+			"baseUrl": "http://www.hanon-shop.com/c/q/all-footwear-clearance/",
+			"productList": {
+				"products": []
+			},
+			"runnable": true,
+			"javaScriptEnabled": false,
+			"limit": false,
+			"timeout": 1000,
+			"productsSelector": ".product",
 			"referrer": "http://www.google.com"
 		}
 	]

@@ -188,7 +188,11 @@ public class Shop implements Comparable<Shop> {
 			webClient.getOptions().setUseInsecureSSL(true);
 
 			final HtmlPage page = webClient.getPage(url);
+			if (page.querySelectorAll(this.getNextPageSelector())==null){
+				LOGGER.info("no next page found on {}"  ,url);
 
+				return null;
+			}
 			HtmlElement htmlElement = (HtmlElement) page.querySelectorAll(this.getNextPageSelector()).get(0);
 
 			nextPageUrl = htmlElement.getAttribute("href");
