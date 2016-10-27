@@ -2,16 +2,17 @@
 [ ]http://www.offspring.co.uk/view/category/offspring_catalog/6
 [ ]http://www.triads.co.uk/sale/triads-mens-c1/footwear-c24/trainers-c211
 [ ]http://footdistrict.com/en/sales.html
-[x]http://www.seventyfive.com/shop/sale/
- 
+[x]http://footdistrict.com/en/sales.html
+[x] https://wellgosh.com/sale
+[x]https://www.kickz.com/nl/sale/schoenen/c?redir=true 
  
 ? http://www.baskets-store.com/sale/ 
 ? https://sneakerdistrict.nl/shop/sale 
+[broken]http://www.seventyfive.com/shop/sale/
+
  http://www.hanon-shop.com/c/q/all-footwear-clearance/
- http://footdistrict.com/en/sales.html
  http://www.reebok.nl/schoenen-outlet
  http://www.slamjamsocialism.com/sale-footwear/
  http://www.footasylum.com/sale-department/
- https://www.kickz.com/nl/sale/schoenen/c?redir=true
- https://wellgosh.com/sale
+ 
  
