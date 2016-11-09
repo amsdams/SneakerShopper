@@ -16,6 +16,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import crawel.helpers.BrandHelper;
 import crawel.helpers.PriceHelper;
+import crawel.helpers.SizeHelper;
 import crawel.storage.BrandListStorage;
 import crawel.storage.CurrencyListStorage;
 
@@ -53,11 +54,8 @@ public class Shop implements Comparable<Shop> {
 	private String referrer = "http://www.google.com";
 
 	private String productDetailsSizeSelector;
+	private String productDetailsSizeType;
 	private String productDetailsSizesSelector;
-
-	public void setProductDetailsSizeSelector(String productDetailsSizeSelector) {
-		this.productDetailsSizeSelector = productDetailsSizeSelector;
-	}
 
 	public Shop() {
 
@@ -74,54 +72,27 @@ public class Shop implements Comparable<Shop> {
 
 				final HtmlPage page = webClient.getPage(product.getUrl());
 				DomNodeList<DomNode> nodes = page.querySelectorAll(this.getProductDetailsSizesSelector());
+
+				String sizeType = this.getProductDetailsSizeType();
+
 				SizeList sizeList = new SizeList();
 				for (DomNode node : nodes) {
 
-					Double sizeValue = this.getProductSizeAsDouble(node, this.getProductDetailsSizeSelector());
-					if (sizeValue != null) {
-						Size size = new Size();
-						size.setSize(sizeValue);
+					Size size = this.getProductSizeAsSize(node, this.getProductDetailsSizeSelector(), sizeType);
+					if (size != null) {
+
 						sizeList.addSize(size);
 					}
-
 				}
 				product.setSizes(sizeList);
+
+				product.setSizesInEU(SizeHelper.getSizesInEU(sizeList));
 			}
 		} catch (Exception e) {
 			LOGGER.error("error getting product details with querySelectorAllor {} for baseUrl {}",
 					this.getProductDetailsSizesSelector(), product.getUrl());
 		}
 		return product;
-	}
-
-	private Double getProductSizeAsDouble(DomNode domNode, String querySelectorAllor) {
-		Double productProperty = null;
-		String sizeValue = "";
-
-		try {
-			if ("".equals(querySelectorAllor)) {
-				sizeValue = domNode.getTextContent();
-			} else {
-				sizeValue = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
-
-			}
-			sizeValue = sizeValue.replaceAll(",", ".");
-
-			sizeValue = sizeValue.replaceAll("[^\\d.]", "");
-			sizeValue = sizeValue.trim();
-			if (!"".equals(sizeValue)){
-				productProperty = Double.parseDouble(sizeValue);
-			}
-		} catch (Exception e) {
-			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
-		}
-		return productProperty;
-	}
-
-	private String getProductDetailsSizeSelector() {
-
-		return productDetailsSizeSelector;
 	}
 
 	public void addProductsToList(String url) {
@@ -183,27 +154,6 @@ public class Shop implements Comparable<Shop> {
 
 	}
 
-	private WebClient getWebClient() {
-		WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
-
-		webClient.getOptions().setJavaScriptEnabled(this.getJavaScriptEnabled());
-		webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-		webClient.waitForBackgroundJavaScript(getTimeout());
-		webClient.waitForBackgroundJavaScriptStartingBefore(this.getTimeout());
-
-		webClient.getOptions().setActiveXNative(false);
-		webClient.getOptions().setAppletEnabled(false);
-		webClient.getOptions().setCssEnabled(false);
-		webClient.getOptions().setPopupBlockerEnabled(true);
-		webClient.getOptions().setPrintContentOnFailingStatusCode(false);
-		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		webClient.getOptions().setThrowExceptionOnScriptError(false);
-		webClient.getOptions().setTimeout(this.getTimeout());
-		webClient.getOptions().setDoNotTrackEnabled(false);
-		webClient.getOptions().setUseInsecureSSL(true);
-		return webClient;
-	}
-
 	@Override
 	public int compareTo(Shop o) {
 		return this.getBaseUrl().compareTo(o.getBaseUrl());
@@ -235,8 +185,8 @@ public class Shop implements Comparable<Shop> {
 		try (final WebClient webClient = getWebClient()) {
 
 			final HtmlPage page = webClient.getPage(url);
-			if (page.querySelectorAll(this.getNextPageSelector())==null){
-				LOGGER.info("no next page found on {}"  ,url);
+			if (page.querySelectorAll(this.getNextPageSelector()) == null) {
+				LOGGER.info("no next page found on {}", url);
 
 				return null;
 			}
@@ -294,6 +244,19 @@ public class Shop implements Comparable<Shop> {
 		return productCurrencySelector;
 	}
 
+	private String getProductDetailsSizeSelector() {
+
+		return productDetailsSizeSelector;
+	}
+
+	public String getProductDetailsSizesSelector() {
+		return productDetailsSizesSelector;
+	}
+
+	public String getProductDetailsSizeType() {
+		return productDetailsSizeType;
+	}
+
 	private String getProductHrefAsString(DomNode domNode, String querySelectorAllor) {
 		String productProperty = null;
 		try {
@@ -318,10 +281,14 @@ public class Shop implements Comparable<Shop> {
 		String productProperty = null;
 		try {
 
-			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getFirstChild().getTextContent();
+			if (domNode.querySelectorAll(querySelectorAllor).size() != 0) {
+				String text = domNode.querySelectorAll(querySelectorAllor).get(0).getFirstChild().getTextContent();
+				text = text.trim();
+				productProperty = text;
+			} else {
+				LOGGER.warn("could not extract product name with {}", querySelectorAllor);
+			}
 
-			text = text.trim();
-			productProperty = text;
 		} catch (Exception e) {
 			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
 					this.getBaseUrl(), e);
@@ -378,6 +345,53 @@ public class Shop implements Comparable<Shop> {
 		return productProperty;
 	}
 
+	private Size getProductSizeAsSize(DomNode domNode, String querySelectorAllor, String sizeType) {
+		String productProperty = null;
+		String sizeValue = "";
+		Size size = new Size();
+		
+		try {
+			if ("".equals(querySelectorAllor)) {
+				sizeValue = domNode.getTextContent();
+			} else {
+				sizeValue = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
+
+			}
+			if (!sizeValue.matches(".*\\d+.*")){
+				LOGGER.warn("could not find digit in size "+sizeValue +". trying clothing sizes");
+				//size  = SizeHelper.getSize(sizeValue, sizeType, new SizesClothing().getSizesClothing());
+				//size  =new SizesClothing();
+				
+			}else{
+				if (sizeType.contains("-")) {
+					String[] sizeTypes = sizeType.split("-");
+	
+					String[] sizeValues = sizeValue.split("·|-");
+					sizeValue = sizeValues[0];
+					sizeType = sizeTypes[0];
+	
+				}
+				sizeValue = sizeValue.replaceAll(",", ".");
+	
+				sizeValue = sizeValue.replaceAll("[^\\d.]", "");
+				sizeValue = sizeValue.trim();
+				if (!"".equals(sizeValue)) {
+					try {
+						productProperty = sizeValue;
+					} catch (NumberFormatException e) {
+						LOGGER.error("caught exception {}", e.getMessage(), e);
+					}
+				}
+			}
+			size.setSizeRaw(productProperty);
+			size.setMetric(sizeType);
+		} catch (Exception e) {
+			LOGGER.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
+					this.getBaseUrl(), e);
+		}
+		return size;
+	}
+
 	public String getProductsSelector() {
 		return productsSelector;
 	}
@@ -398,6 +412,27 @@ public class Shop implements Comparable<Shop> {
 		return timeout;
 	}
 
+	private WebClient getWebClient() {
+		WebClient webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
+
+		webClient.getOptions().setJavaScriptEnabled(this.getJavaScriptEnabled());
+		webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+		webClient.waitForBackgroundJavaScript(getTimeout());
+		webClient.waitForBackgroundJavaScriptStartingBefore(this.getTimeout());
+
+		webClient.getOptions().setActiveXNative(false);
+		webClient.getOptions().setAppletEnabled(false);
+		webClient.getOptions().setCssEnabled(false);
+		webClient.getOptions().setPopupBlockerEnabled(true);
+		webClient.getOptions().setPrintContentOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setThrowExceptionOnScriptError(false);
+		webClient.getOptions().setTimeout(this.getTimeout());
+		webClient.getOptions().setDoNotTrackEnabled(false);
+		webClient.getOptions().setUseInsecureSSL(true);
+		return webClient;
+	}
+
 	private void setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
 
@@ -415,10 +450,7 @@ public class Shop implements Comparable<Shop> {
 		this.limit = limit;
 	}
 
-	private void setLimitSelector(Boolean limit) {
-		this.limit = limit;
-
-	}
+	
 
 	public void setNextPageSelector(String nextPageSelector) {
 		this.nextPageSelector = nextPageSelector;
@@ -431,6 +463,18 @@ public class Shop implements Comparable<Shop> {
 
 	public void setProductCurrencySelector(String productCurrencySelector) {
 		this.productCurrencySelector = productCurrencySelector;
+	}
+
+	public void setProductDetailsSizeSelector(String productDetailsSizeSelector) {
+		this.productDetailsSizeSelector = productDetailsSizeSelector;
+	}
+
+	public void setProductDetailsSizesSelector(String productDetailsSizesSelector) {
+		this.productDetailsSizesSelector = productDetailsSizesSelector;
+	}
+
+	public void setProductDetailsSizeType(String productDetailsSizeType) {
+		this.productDetailsSizeType = productDetailsSizeType;
 	}
 
 	public void setProductList(ProductList productList) {
@@ -482,14 +526,6 @@ public class Shop implements Comparable<Shop> {
 				+ ", baseUrl=" + baseUrl + ", productList=" + productList + ", runnable=" + runnable + ", timeout="
 				+ timeout + ", productsSelector=" + productsSelector + ", limit=" + limit + ", referrer=" + referrer
 				+ ", javaScriptEnabled=" + javaScriptEnabled + "]";
-	}
-
-	public String getProductDetailsSizesSelector() {
-		return productDetailsSizesSelector;
-	}
-
-	public void setProductDetailsSizesSelector(String productDetailsSizesSelector) {
-		this.productDetailsSizesSelector = productDetailsSizesSelector;
 	}
 
 }

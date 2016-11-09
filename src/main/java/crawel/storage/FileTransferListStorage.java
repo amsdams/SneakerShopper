@@ -15,7 +15,6 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import crawel.pojo.CurrencyList;
 import crawel.pojo.FileTransfer;
 import crawel.pojo.FileTransferList;
 
@@ -24,13 +23,6 @@ public class FileTransferListStorage {
 	private static final String ALL_FILE_TRANSFERS_JSON = "allFileTransfers.json";
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileTransferListStorage.class);
 	private static final FileTransferListStorage instance = new FileTransferListStorage();
-
-	private FileTransferListStorage() {
-	}
-
-	public static FileTransferListStorage getInstance() {
-		return instance;
-	}
 
 	public static FileTransferList get() {
 		return get(ALL_FILE_TRANSFERS_JSON);
@@ -66,6 +58,10 @@ public class FileTransferListStorage {
 		}
 		return allFileTransfers;
 
+	}
+
+	public static FileTransferListStorage getInstance() {
+		return instance;
 	}
 
 	public static void print(FileTransferList fileTransferList) {
@@ -158,5 +154,8 @@ public class FileTransferListStorage {
 		for (FileTransfer fileTransfer : fileTransferList.getFileTransfers()) {
 			putFileTransfer(fileTransfer);
 		}
+	}
+
+	private FileTransferListStorage() {
 	}
 }

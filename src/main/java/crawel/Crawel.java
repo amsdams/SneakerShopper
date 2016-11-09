@@ -10,13 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import crawel.console.ConsoleHelper;
-import crawel.pojo.BrandList;
-import crawel.pojo.CurrencyList;
 import crawel.pojo.ProductList;
 import crawel.pojo.Shop;
 import crawel.pojo.ShopList;
-import crawel.storage.BrandListStorage;
-import crawel.storage.CurrencyListStorage;
 import crawel.storage.ProductListStorage;
 import crawel.storage.ShopListStorage;
 

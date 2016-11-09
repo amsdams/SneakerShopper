@@ -89,9 +89,9 @@ public class Product implements Comparable<Product> {
 
 	};
 
-	private Double newPrice;
+	private Double newPriceRaw;
 
-	private Double oldPrice;
+	private Double oldPriceRaw;
 
 	private Double newPriceInEuro;
 
@@ -107,7 +107,9 @@ public class Product implements Comparable<Product> {
 
 	private Double discount;
 
-	private SizeList sizes;
+	private SizeList sizesRaw;
+	private SizeList sizesInEU;
+
 	
 	private Currency currency;
 	private boolean brandNameRemovedFromName;
@@ -147,7 +149,7 @@ public class Product implements Comparable<Product> {
 	}
 
 	public Double getNewPrice() {
-		return newPrice != null ? newPrice : 0.0;
+		return newPriceRaw != null ? newPriceRaw : 0.0;
 	}
 
 	public Double getNewPriceInEuro() {
@@ -155,7 +157,7 @@ public class Product implements Comparable<Product> {
 	}
 
 	public Double getOldPrice() {
-		return oldPrice != null ? oldPrice : 0.0;
+		return oldPriceRaw != null ? oldPriceRaw : 0.0;
 	}
 
 	public Double getOldPriceInEuro() {
@@ -164,6 +166,14 @@ public class Product implements Comparable<Product> {
 
 	public String getShopName() {
 		return shopName.toUpperCase();
+	}
+
+	public SizeList getSizes() {
+		return sizesRaw;
+	}
+
+	public SizeList getSizesInEU() {
+		return sizesInEU;
 	}
 
 	public String getUrl() {
@@ -195,7 +205,7 @@ public class Product implements Comparable<Product> {
 	}
 
 	public void setNewPrice(Double newPrice) {
-		this.newPrice = newPrice;
+		this.newPriceRaw = newPrice;
 	}
 
 	public void setNewPriceInEuro(Double newPriceInEuro) {
@@ -203,7 +213,7 @@ public class Product implements Comparable<Product> {
 	}
 
 	public void setOldPrice(Double oldPrice) {
-		this.oldPrice = oldPrice;
+		this.oldPriceRaw = oldPrice;
 	}
 
 	public void setOldPriceInEuro(Double oldPriceInEuro) {
@@ -215,6 +225,14 @@ public class Product implements Comparable<Product> {
 
 	}
 
+	public void setSizes(SizeList sizes) {
+		this.sizesRaw = sizes;
+	}
+
+	public void setSizesInEU(SizeList sizesInEU) {
+		this.sizesInEU = sizesInEU;
+	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
@@ -224,15 +242,7 @@ public class Product implements Comparable<Product> {
 		return "Product [brandName=" + this.getBrandName() + ", name=" + this.getName() + ", newPriceInEuro="
 				+ this.getNewPriceInEuro() + ", oldPriceInEuro=" + this.getOldPriceInEuro() + ", currency="
 				+ this.getCurrency() + ",  url=" + this.getUrl() + ",  shopName=" + this.getShopName() + ",  discount="
-				+ this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + ", sizes=" + this.getSizes() + "]";
-	}
-
-	public SizeList getSizes() {
-		return sizes;
-	}
-
-	public void setSizes(SizeList sizes) {
-		this.sizes = sizes;
+				+ this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + ", sizes=" + this.getSizes() + ", sizes=" + this.getSizesInEU() + "]";
 	}
 
 }

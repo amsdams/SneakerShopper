@@ -20,13 +20,6 @@ public class SizeListStorage {
 
 	private static final SizeListStorage instance = new SizeListStorage();
 
-	private SizeListStorage() {
-	}
-
-	public static SizeListStorage getInstance() {
-		return instance;
-	}
-
 	public static SizeList get() {
 		return get(ALL_SIZES_JSON);
 
@@ -40,8 +33,8 @@ public class SizeListStorage {
 		} catch (IOException e) {
 			LOGGER.error("could not open file, creating one", e);
 			SizeList sizeList = new SizeList();
-			for (double d = 3.0; d < 15.0; d = d + 0.5) {
-				Size size = new Size(d, "US");
+			for (Double d = 3.0; d < 15.0; d = d + 0.5) {
+				Size size = new Size(d.toString(), "US");
 
 				sizeList.addSize(size);
 
@@ -52,6 +45,10 @@ public class SizeListStorage {
 
 		return allSizes;
 
+	}
+
+	public static SizeListStorage getInstance() {
+		return instance;
 	}
 
 	public static void print(SizeList sizeList) {
@@ -84,5 +81,8 @@ public class SizeListStorage {
 			LOGGER.error("could not write file", e);
 		}
 
+	}
+
+	private SizeListStorage() {
 	}
 }

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import crawel.pojo.BrandList;
 import crawel.pojo.Currency;
 import crawel.pojo.CurrencyList;
 
@@ -20,16 +19,12 @@ public class CurrencyListStorage {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyListStorage.class);
 
 	private static final CurrencyListStorage instance = new CurrencyListStorage();
-    private CurrencyListStorage() { }
-
-    public static CurrencyListStorage getInstance() {
-            return instance;
-    }
     public static CurrencyList get() {
     	return get(ALL_CURRENCYS_JSON);
     	
     }
-	public static CurrencyList get(String fileName) {
+
+    public static CurrencyList get(String fileName) {
 		ObjectMapper mapper = new ObjectMapper();
 		CurrencyList allCurrencys = new CurrencyList();
 		try {
@@ -58,7 +53,9 @@ public class CurrencyListStorage {
 		return allCurrencys;
 
 	}
-
+    public static CurrencyListStorage getInstance() {
+            return instance;
+    }
 	public static void print(CurrencyList currencyList) {
 		for (Currency currency : currencyList.getCurrencys()) {
 			LOGGER.info(currency.toString());
@@ -71,6 +68,7 @@ public class CurrencyListStorage {
 		put(brandList, ALL_CURRENCYS_JSON);
 
 	}
+
 	public static void put(CurrencyList currencyList, String fileName) {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -88,4 +86,5 @@ public class CurrencyListStorage {
 		}
 
 	}
+	private CurrencyListStorage() { }
 }

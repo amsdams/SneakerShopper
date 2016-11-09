@@ -10,8 +10,6 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import crawel.helpers.PriceHelper;
-import crawel.pojo.FileTransferList;
 import crawel.pojo.Product;
 import crawel.pojo.ProductList;
 
@@ -19,13 +17,6 @@ public class ProductListStorage {
 	private static final String ALL_PRODUCTS_JSON = "allProducts.json";
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductListStorage.class);
 	private static final ProductListStorage instance = new ProductListStorage();
-
-	private ProductListStorage() {
-	}
-
-	public static ProductListStorage getInstance() {
-		return instance;
-	}
 
 	public static ProductList get() {
 		return get(ALL_PRODUCTS_JSON);
@@ -44,6 +35,10 @@ public class ProductListStorage {
 
 	}
 
+	public static ProductListStorage getInstance() {
+		return instance;
+	}
+
 	public static void print(ProductList productList) {
 		for (Product product : productList.getProducts()) {
 			LOGGER.info(product.toString());
@@ -56,7 +51,7 @@ public class ProductListStorage {
 		put(productList, ALL_PRODUCTS_JSON);
 
 	}
-	
+
 	public static void put(ProductList productList, String fileName) {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -73,5 +68,8 @@ public class ProductListStorage {
 			LOGGER.error("could not write file", e);
 		}
 
+	}
+	
+	private ProductListStorage() {
 	}
 }

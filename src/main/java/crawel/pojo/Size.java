@@ -3,54 +3,54 @@ package crawel.pojo;
 import java.util.Comparator;
 
 public class Size implements Comparable<Size> {
-	public static Comparator<Size> BRANDNAMESIZECOMPARATOR = new Comparator<Size>() {
+	public static Comparator<Size> SIZECOMPARATOR = new Comparator<Size>() {
 
 		@Override
 		public int compare(Size size1, Size size2) {
-
-			Integer lenght1 = size1.getMetric().length();
-			Integer lenght2 = size2.getMetric().length();
-			// long to sort
+			//TODO no idea yet
+			Integer lenght1 = size1.getSizeRaw().length();
+			Integer lenght2 = size2.getSizeRaw().length();
+			
 			return lenght2.compareTo(lenght1);
 
 		}
 
 	};
 	private String metric;
-	private Double size;
+	private String sizeRaw;
 	public Size(){
 		
 	}
-	public Size(double size, String metric) {
+	public Size(String size, String metric) {
 		this.metric = metric;
-		this.size = size;
+		this.sizeRaw = size;
 	}
 
 	
 
 	@Override
 	public int compareTo(Size o) {
-		return this.getSize().compareTo(o.getSize());
+		return this.getSizeRaw().compareTo(o.getSizeRaw());
 	}
 
 	public String getMetric() {
 		return metric.toUpperCase();
 	}
 
+	public String getSizeRaw() {
+		return sizeRaw;
+	}
+
 	public void setMetric(String metric) {
 		this.metric = metric;
 	}
 
+	public void setSizeRaw(String size) {
+		this.sizeRaw = size;
+	}
+
 	@Override
 	public String toString() {
-		return "Size [metric=" + metric + ", size=" + size + "]";
-	}
-
-	public Double getSize() {
-		return size;
-	}
-
-	public void setSize(Double size) {
-		this.size = size;
+		return "Size [metric=" + metric + ", sizeRaw=" + sizeRaw + "]";
 	}
 }

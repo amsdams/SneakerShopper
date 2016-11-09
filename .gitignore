@@ -9,3 +9,4 @@ allProducts.json
 .settings
 allFileTransfers.json
 info.log.1
+info.log*

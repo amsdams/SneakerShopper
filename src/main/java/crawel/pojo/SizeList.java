@@ -28,6 +28,10 @@ public class SizeList {
 		return sizes;
 	}
 
+	public void setSizes(List<Size> sizes) {
+		this.sizes = sizes;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -35,9 +39,5 @@ public class SizeList {
 			sb.append(s.toString());
 		}
 		return "SizeList [sizes=" + sb.toString() + "]";
-	}
-
-	public void setSizes(List<Size> sizes) {
-		this.sizes = sizes;
 	}
 }
