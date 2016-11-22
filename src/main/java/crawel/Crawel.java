@@ -62,6 +62,8 @@ public class Crawel {
 			if (crawel.isInterative) {
 				ProductList productList = ProductListStorage.get();
 				crawel.goInteractive(productList);
+			}else{
+				parser.printUsage(System.err);
 			}
 
 		} catch (CmdLineException e) {
