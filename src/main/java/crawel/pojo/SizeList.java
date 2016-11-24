@@ -3,11 +3,10 @@ package crawel.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Data;
 
+@Data
 public class SizeList {
-	private static final Logger LOGGER = LoggerFactory.getLogger(SizeList.class);
 
 	private List<Size> sizes;
 
@@ -23,21 +22,4 @@ public class SizeList {
 		sizes.add(size);
 	}
 
-	public List<Size> getSizes() {
-		sizes = sizes==null?new ArrayList<Size>():sizes;
-		return sizes;
-	}
-
-	public void setSizes(List<Size> sizes) {
-		this.sizes = sizes;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (Size s: this.sizes){
-			sb.append(s.toString());
-		}
-		return "SizeList [sizes=" + sb.toString() + "]";
-	}
 }

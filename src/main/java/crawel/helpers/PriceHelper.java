@@ -1,5 +1,7 @@
 package crawel.helpers;
 
+import java.math.BigDecimal;
+
 import javax.money.MonetaryAmount;
 import javax.money.convert.CurrencyConversion;
 import javax.money.convert.MonetaryConversions;
@@ -12,10 +14,11 @@ import crawel.pojo.CurrencyList;
 public class PriceHelper {
 
 	private static final PriceHelper instance = new PriceHelper();
-    public static Currency getCurrency(String text, CurrencyList currencyList) {
+
+	public static Currency getCurrency(String text, CurrencyList currencyList) {
 		Currency returnCurrency = new Currency();
 
-		for (Currency currency : currencyList.getCurrencys()) {
+		for (Currency currency : currencyList.getCurrencies()) {
 			String currencyString = currency.getSymbol();
 			if (text.toUpperCase().contains(currencyString)) {
 				returnCurrency = currency;
@@ -24,37 +27,35 @@ public class PriceHelper {
 		return returnCurrency;
 	}
 
-    public static PriceHelper getInstance() {
-            return instance;
-    }
-    
+	public static PriceHelper getInstance() {
+		return instance;
+	}
+
 	public static String removeCurrency(String text, CurrencyList currencyList) {
 
-		for (Currency currency : currencyList.getCurrencys()) {
+		for (Currency currency : currencyList.getCurrencies()) {
 			String currencyString = currency.getSymbol();
 			text = text.replaceAll(currencyString, "");
 		}
 		return text;
 	}
 
-	public static Double toEuro(Double price, Currency currenntCurrency, CurrencyList currencyList) {
-		// ExchangeRateProvider ecbExchangeRateProvider =
-		// MonetaryConversions.getExchangeRateProvider("ECB");
+	public static BigDecimal toEuro(BigDecimal price, Currency currenntCurrency, CurrencyList currencyList) {
+
 		CurrencyConversion euroConversion = MonetaryConversions.getConversion("EUR");
 
 		String foundName = "EUR";
-		for (Currency currency : currencyList.getCurrencys()) {
+		for (Currency currency : currencyList.getCurrencies()) {
 			if (currenntCurrency.getName().equals(currency.getName())) {
 				foundName = currency.getName();
 			}
 		}
 
-		// ExchangeRate rate =
-		// ecbExchangeRateProvider.getExchangeRate(foundName, "EUR");
 		MonetaryAmount moneyFound = Money.of(price, foundName);
-		MonetaryAmount inEuro = moneyFound.with(euroConversion); //  "inUnitedStatesD 12.537" (at the time writing)
-		return inEuro.getNumber().doubleValue();
+		MonetaryAmount inEuro = moneyFound.with(euroConversion);
+		return new BigDecimal(inEuro.getNumber().doubleValue());
 	}
 
-	private PriceHelper() { }
+	private PriceHelper() {
+	}
 }

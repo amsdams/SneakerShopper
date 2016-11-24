@@ -1,7 +1,11 @@
 package crawel.pojo;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 
+import lombok.Data;
+
+@Data
 public class Product implements Comparable<Product> {
 
 	public static Comparator<Product> BrandNameComparator = new Comparator<Product>() {
@@ -51,11 +55,10 @@ public class Product implements Comparable<Product> {
 		@Override
 		public int compare(Product product1, Product product2) {
 
-			Double discount1 = product1.getDiscount();
-			Double discount2 = product2.getDiscount();
+			BigDecimal discount1 = product1.getDiscountInEU();
+			BigDecimal discount2 = product2.getDiscountInEU();
 
 			return discount2.compareTo(discount1);
-			// return Double.compare(discount1, discount2);
 
 		}
 
@@ -66,8 +69,8 @@ public class Product implements Comparable<Product> {
 		@Override
 		public int compare(Product product1, Product product2) {
 
-			Double productName1 = product1.getNewPrice();
-			Double productName2 = product2.getNewPrice();
+			BigDecimal productName1 = product1.getNewPriceInEuro();
+			BigDecimal productName2 = product2.getNewPriceInEuro();
 
 			return productName1.compareTo(productName2);
 
@@ -80,8 +83,8 @@ public class Product implements Comparable<Product> {
 		@Override
 		public int compare(Product product1, Product product2) {
 
-			Double productName1 = product1.getOldPrice();
-			Double productName2 = product2.getOldPrice();
+			BigDecimal productName1 = product1.getOldPriceInEuro();
+			BigDecimal productName2 = product2.getOldPriceInEuro();
 
 			return productName1.compareTo(productName2);
 
@@ -89,13 +92,13 @@ public class Product implements Comparable<Product> {
 
 	};
 
-	private Double newPriceRaw;
+	private BigDecimal newPriceRaw;
 
-	private Double oldPriceRaw;
+	private BigDecimal oldPriceRaw;
 
-	private Double newPriceInEuro;
+	private BigDecimal newPriceInEuro;
 
-	private Double oldPriceInEuro;
+	private BigDecimal oldPriceInEuro;
 
 	private String brandName;
 
@@ -105,13 +108,12 @@ public class Product implements Comparable<Product> {
 
 	private String shopName;
 
-	private Double discount;
+	private BigDecimal discountInEU;
 
 	private SizeList sizesRaw;
 	private SizeList sizesInEU;
 
-	
-	private Currency currency;
+	private Currency currencyRaw;
 	private boolean brandNameRemovedFromName;
 
 	public Product() {
@@ -129,121 +131,13 @@ public class Product implements Comparable<Product> {
 
 	}
 
-	public String getBrandName() {
+	// TODO check output;
+	public BigDecimal getDiscountInEU() {
+		BigDecimal temp = BigDecimal.ONE.multiply(this.getNewPriceInEuro().divide(this.getNewPriceInEuro()));
+		BigDecimal multiplyer = new BigDecimal(100);
 
-		return brandName == null ? "" : brandName.toUpperCase();
-	}
-
-	public Currency getCurrency() {
-		return currency == null ? new Currency() : currency;
-	}
-
-	public Double getDiscount() {
-		// this.discount = ((this.getNewPrice()/this.getOldPrice())*100)-100;
-		this.discount = (1 - (this.getNewPrice() / this.getOldPrice())) * 100;
-		return this.discount;
-	}
-
-	public String getName() {
-		return name == null ? "" : name.toUpperCase();
-	}
-
-	public Double getNewPrice() {
-		return newPriceRaw != null ? newPriceRaw : 0.0;
-	}
-
-	public Double getNewPriceInEuro() {
-		return newPriceInEuro;
-	}
-
-	public Double getOldPrice() {
-		return oldPriceRaw != null ? oldPriceRaw : 0.0;
-	}
-
-	public Double getOldPriceInEuro() {
-		return oldPriceInEuro;
-	}
-
-	public String getShopName() {
-		return shopName.toUpperCase();
-	}
-
-	public SizeList getSizes() {
-		return sizesRaw;
-	}
-
-	public SizeList getSizesInEU() {
-		sizesInEU = sizesInEU==null?new SizeList():sizesInEU;
-		return sizesInEU;
-	}
-
-	public String getUrl() {
-		return url == null ? "" : url;
-	}
-
-	public boolean isBrandNameRemovedFromName() {
-		return brandNameRemovedFromName;
-	}
-
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
-	}
-
-	public void setBrandNameRemovedFromName(boolean brandNameRemovedFromName) {
-		this.brandNameRemovedFromName = brandNameRemovedFromName;
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
-
-	public void setDiscount(Double discount) {
-		this.discount = discount;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setNewPrice(Double newPrice) {
-		this.newPriceRaw = newPrice;
-	}
-
-	public void setNewPriceInEuro(Double newPriceInEuro) {
-		this.newPriceInEuro = newPriceInEuro;
-	}
-
-	public void setOldPrice(Double oldPrice) {
-		this.oldPriceRaw = oldPrice;
-	}
-
-	public void setOldPriceInEuro(Double oldPriceInEuro) {
-		this.oldPriceInEuro = oldPriceInEuro;
-	}
-
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-
-	}
-
-	public void setSizes(SizeList sizes) {
-		this.sizesRaw = sizes;
-	}
-
-	public void setSizesInEU(SizeList sizesInEU) {
-		this.sizesInEU = sizesInEU;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [brandName=" + this.getBrandName() + ", name=" + this.getName() + ", newPriceInEuro="
-				+ this.getNewPriceInEuro() + ", oldPriceInEuro=" + this.getOldPriceInEuro() + ", currency="
-				+ this.getCurrency() + ",  url=" + this.getUrl() + ",  shopName=" + this.getShopName() + ",  discount="
-				+ this.getDiscount() + ", newPrice=" + this.getNewPrice() + ", oldPrice=" + this.getOldPrice() + ", sizes=" + this.getSizes() + ", sizes=" + this.getSizesInEU() + "]";
+		this.discountInEU = temp.multiply(multiplyer);
+		return this.discountInEU;
 	}
 
 }

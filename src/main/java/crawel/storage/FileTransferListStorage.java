@@ -8,8 +8,6 @@ import java.net.SocketException;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -17,11 +15,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import crawel.pojo.FileTransfer;
 import crawel.pojo.FileTransferList;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class FileTransferListStorage {
 
 	private static final String ALL_FILE_TRANSFERS_JSON = "allFileTransfers.json";
-	private static final Logger LOGGER = LoggerFactory.getLogger(FileTransferListStorage.class);
 	private static final FileTransferListStorage instance = new FileTransferListStorage();
 
 	public static FileTransferList get() {
@@ -34,7 +33,7 @@ public class FileTransferListStorage {
 		try {
 			allFileTransfers = mapper.readValue(new File(fileName), FileTransferList.class);
 		} catch (IOException e) {
-			LOGGER.error("could not open file, creating one", e);
+			log.error("could not open file, creating one", e);
 			allFileTransfers = new FileTransferList();
 			String server = "yourhost";
 			int port = 21;
@@ -66,9 +65,9 @@ public class FileTransferListStorage {
 
 	public static void print(FileTransferList fileTransferList) {
 		for (FileTransfer fileTransfer : fileTransferList.getFileTransfers()) {
-			LOGGER.info(fileTransfer.toString());
+			log.info(fileTransfer.toString());
 		}
-		LOGGER.info("printed " + fileTransferList.getFileTransfers().size());
+		log.info("printed " + fileTransferList.getFileTransfers().size());
 	}
 
 	public static void put(FileTransferList brandList) {
@@ -86,11 +85,11 @@ public class FileTransferListStorage {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), fileTransferList);
 
 		} catch (JsonGenerationException e) {
-			LOGGER.error("could not generate json", e);
+			log.error("could not generate json", e);
 		} catch (JsonMappingException e) {
-			LOGGER.error("could not map json", e);
+			log.error("could not map json", e);
 		} catch (IOException e) {
-			LOGGER.error("could not write file", e);
+			log.error("could not write file", e);
 		}
 
 	}
@@ -103,50 +102,50 @@ public class FileTransferListStorage {
 
 			ftp.connect(fileTransfer.getServer(), fileTransfer.getPort());
 			int reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after connect {}", reply);
+			log.info("reply from ftp after connect {}", reply);
 
 			ftp.login(fileTransfer.getUsername(), fileTransfer.getPassword());
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after login {} with {} ", reply, ftp.getSystemType());
+			log.info("reply from ftp after login {} with {} ", reply, ftp.getSystemType());
 
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp gettin systemtype{}", reply);
+			log.info("reply from ftp gettin systemtype{}", reply);
 
 			ftp.changeWorkingDirectory(fileTransfer.getPassword());
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after path change {}", reply);
+			log.info("reply from ftp after path change {}", reply);
 
 			ftp.setFileType(FTP.ASCII_FILE_TYPE);
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after setting filetype {}", reply);
+			log.info("reply from ftp after setting filetype {}", reply);
 
 			ftp.enterLocalPassiveMode();
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after setting passive mode {}", reply);
+			log.info("reply from ftp after setting passive mode {}", reply);
 
 			InputStream input = new FileInputStream(f);
 			// ftp.setCopyStreamListener(streamListener);
 			ftp.storeFile(fileTransfer.getPath() + "/" + f.getName(), input);
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after store file {}", reply);
+			log.info("reply from ftp after store file {}", reply);
 			input.close();
 
 			for (String s : ftp.listNames(fileTransfer.getPath())) {
-				LOGGER.info("listing file  {} in path {}", s, fileTransfer.getPath());
+				log.info("listing file  {} in path {}", s, fileTransfer.getPath());
 			}
 
 			ftp.logout();
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after logout {}", reply);
+			log.info("reply from ftp after logout {}", reply);
 			ftp.disconnect();
 			reply = ftp.getReplyCode();
-			LOGGER.info("reply from ftp after disconnect {}", reply);
+			log.info("reply from ftp after disconnect {}", reply);
 
 		} catch (SocketException e) {
-			LOGGER.error("socket problem {}", e.getMessage(), e);
+			log.error("socket problem {}", e.getMessage(), e);
 
 		} catch (IOException e) {
-			LOGGER.error("io problem {}", e.getMessage(), e);
+			log.error("io problem {}", e.getMessage(), e);
 		}
 	}
 

@@ -7,9 +7,6 @@ import java.io.PrintStream;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import crawel.Crawel;
 import crawel.pojo.Action;
 import crawel.pojo.ActionList;
@@ -19,17 +16,16 @@ import crawel.pojo.FileTransferList;
 import crawel.pojo.Product;
 import crawel.pojo.ProductList;
 import crawel.pojo.ShopList;
-import crawel.pojo.Size;
-import crawel.pojo.SizeList;
 import crawel.storage.BrandListStorage;
 import crawel.storage.CurrencyListStorage;
 import crawel.storage.FileTransferListStorage;
 import crawel.storage.ProductListStorage;
 import crawel.storage.ShopListStorage;
 import crawel.storage.SizeListStorage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ConsoleHelper {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleHelper.class);
 	public static void goInteractive(Crawel crawler) {
 		boolean keepRunning = true;
 		ConsoleHelper consoleHelper = new ConsoleHelper();
@@ -44,10 +40,10 @@ public class ConsoleHelper {
 		while (keepRunning) {
 
 			String in = consoleHelper.readLine(consoleHelper.printActionList(actionList));
-			LOGGER.info("received " + in);
+			log.info("received " + in);
 			if (in.startsWith("sbb")) {
 				String order = in.replace("sbb", "");
-				LOGGER.info("will sort by name and order" + order);
+				log.info("will sort by name and order" + order);
 
 				comparator = Product.BrandNameComparator;
 
@@ -56,7 +52,7 @@ public class ConsoleHelper {
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbn")) {
 				String order = in.replace("sbn", "");
-				LOGGER.info("will sort by name and order" + order);
+				log.info("will sort by name and order" + order);
 
 				comparator = Product.NameComparator;
 
@@ -65,7 +61,7 @@ public class ConsoleHelper {
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbp")) {
 				String order = in.replace("sbp", "");
-				LOGGER.info("will sort by new price" + order);
+				log.info("will sort by new price" + order);
 
 				comparator = Product.NewPriceComparator;
 
@@ -74,7 +70,7 @@ public class ConsoleHelper {
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbs")) {
 				String order = in.replace("sbs", "");
-				LOGGER.info("will sort by shop and order" + order);
+				log.info("will sort by shop and order" + order);
 
 				comparator = Product.ShopNameComparator;
 
@@ -83,7 +79,7 @@ public class ConsoleHelper {
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbd")) {
 				String order = in.replace("sbd", "");
-				LOGGER.info("will sort by discount and order" + order);
+				log.info("will sort by discount and order" + order);
 
 				comparator = Product.DiscountComparator;
 
@@ -92,33 +88,26 @@ public class ConsoleHelper {
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("fbb")) {
 				String brand = in.replace("fbb", "");
-				LOGGER.info("extracted brand " + brand);
+				log.info("extracted brand " + brand);
 
 				filteredProductList
-						.setProducts(productList.getProducts().stream()
-								.filter(p -> p.getBrandName().contains(brand))
-								.sorted(comparator.thenComparing(secondComparator))
-								.collect(Collectors.toList()));
+						.setProducts(productList.getProducts().stream().filter(p -> p.getBrandName().contains(brand))
+								.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
-			}
-			else if (in.startsWith("fbs")) {
+			} else if (in.startsWith("fbs")) {
 				String size = in.replace("fbs", "");
-				LOGGER.info("extracted size " + size);
+				log.info("extracted size " + size);
 
-				filteredProductList
-						.setProducts(productList.getProducts().stream()
-								.filter(p -> p.getSizesInEU().getSizes().stream()
-										.anyMatch(s ->s.getSizeRaw().contains(size))
-										
-										
-										)
-								
-								.sorted(comparator.thenComparing(secondComparator))
-								.collect(Collectors.toList()));
+				filteredProductList.setProducts(productList.getProducts().stream()
+						.filter(p -> p.getSizesInEU().getSizes().stream().anyMatch(s -> s.getSizeRaw().contains(size))
+
+						)
+
+						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("fbn")) {
 				String name = in.replace("fbn", "");
-				LOGGER.info("extracted name " + name);
+				log.info("extracted name " + name);
 
 				filteredProductList
 						.setProducts(productList.getProducts().stream().filter(p -> p.getName().contains(name))
@@ -172,7 +161,7 @@ public class ConsoleHelper {
 			} else if (in.startsWith("wcl")) {
 				CurrencyList currencyList = CurrencyListStorage.get();
 				currencyList = new CurrencyList(
-						currencyList.getCurrencys().stream().sorted().collect(Collectors.toList()));
+						currencyList.getCurrencies().stream().sorted().collect(Collectors.toList()));
 				CurrencyListStorage.put(currencyList);
 			} else if (in.startsWith("bye")) {
 				keepRunning = false;
@@ -181,6 +170,7 @@ public class ConsoleHelper {
 
 		}
 	}
+
 	BufferedReader br;
 
 	PrintStream ps;
@@ -237,7 +227,7 @@ public class ConsoleHelper {
 		filterBySize.setAction("fbs<size>");
 		filterBySize.setDescription("filter by size");
 		actionList.getActions().add(filterBySize);
-		
+
 		Action exit = new Action();
 		exit.setAction("bye");
 		exit.setDescription("exits the program");
@@ -308,7 +298,7 @@ public class ConsoleHelper {
 		try {
 			return br.readLine();
 		} catch (IOException e) {
-			LOGGER.warn("could not readline {}", e.getMessage(), e);
+			log.warn("could not readline {}", e.getMessage(), e);
 			return null;
 		}
 	}

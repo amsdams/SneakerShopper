@@ -3,11 +3,13 @@ package crawel.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+
+@Data
 public class BrandList {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BrandList.class);
 
 	private List<Brand> brands;
 
@@ -23,21 +25,4 @@ public class BrandList {
 		brands.add(brand);
 	}
 
-	public List<Brand> getBrands() {
-
-		return brands;
-	}
-
-	public void setBrands(List<Brand> brands) {
-		this.brands = brands;
-	}
-	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (Brand s: this.brands){
-			sb.append(s.toString());
-		}
-		return "BrandList [brands=" + sb.toString() + "]";
-	}
 }

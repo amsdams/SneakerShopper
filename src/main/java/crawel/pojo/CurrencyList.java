@@ -3,11 +3,12 @@ package crawel.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Data
+@Slf4j
 public class CurrencyList {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyList.class);
 
 	private List<Currency> currencies;
 
@@ -23,20 +24,4 @@ public class CurrencyList {
 		currencies.add(Currency);
 	}
 
-	public List<Currency> getCurrencys() {
-		return currencies;
-	}
-
-	public void setCurrencys(List<Currency> brands) {
-		this.currencies = brands;
-	}
-	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (Currency s: this.currencies){
-			sb.append(s.toString());
-		}
-		return "CurrencyList [currencies=" + sb.toString() + "]";
-	}
 }

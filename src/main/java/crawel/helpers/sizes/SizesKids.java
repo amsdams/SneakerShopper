@@ -3,8 +3,10 @@ package crawel.helpers.sizes;
 import java.util.ArrayList;
 import java.util.List;
 
+import crawel.pojo.SizeKids;
+
 public class SizesKids {
-	
+
 	public static List<SizeKids> getSizesKids() {
 		List<SizeKids> sizes = new ArrayList<>();
 

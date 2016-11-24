@@ -1,12 +1,10 @@
 package crawel;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import crawel.pojo.Shop;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ShopRunner implements Runnable {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShopRunner.class);
 
 	private final Shop shop;
 
@@ -18,13 +16,13 @@ public class ShopRunner implements Runnable {
 	public void run() {
 		try {
 			if (shop.getRunnable().equals(Boolean.FALSE)) {
-				LOGGER.info("will not run shop {}", shop.getBaseUrl());
+				log.info("will not run shop {}", shop.getBaseUrl());
 			} else {
 				shop.addProductsToList(shop.getBaseUrl());
 
 			}
 		} catch (Exception e) {
-			LOGGER.error("error ", e);
+			log.error("error ", e);
 		}
 	}
 }

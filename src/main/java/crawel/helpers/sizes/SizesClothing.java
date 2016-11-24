@@ -3,6 +3,8 @@ package crawel.helpers.sizes;
 import java.util.ArrayList;
 import java.util.List;
 
+import crawel.pojo.SizeClothing;
+
 public class SizesClothing {
 
 	public static List<SizeClothing> getSizesClothing() {

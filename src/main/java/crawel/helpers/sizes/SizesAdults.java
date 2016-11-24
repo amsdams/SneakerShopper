@@ -3,8 +3,10 @@ package crawel.helpers.sizes;
 import java.util.ArrayList;
 import java.util.List;
 
+import crawel.pojo.SizeAdults;
+
 public class SizesAdults {
-	public static List<SizeAdults> getSizes(){
+	public static List<SizeAdults> getSizes() {
 		List<SizeAdults> sizes = new ArrayList<>();
 		sizes.add(new SizeAdults("36", 22.1, "3.5", "4.0", "5.0"));
 		sizes.add(new SizeAdults("36 2/3", 22.5, "4", "4.5", "5.5"));
@@ -36,6 +38,5 @@ public class SizesAdults {
 		sizes.add(new SizeAdults("54 2/3", 35.6, "18", "19", "0"));
 		return sizes;
 	}
-	
 
 }

@@ -6,8 +6,6 @@ import java.util.concurrent.Executors;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import crawel.console.ConsoleHelper;
 import crawel.pojo.ProductList;
@@ -15,10 +13,11 @@ import crawel.pojo.Shop;
 import crawel.pojo.ShopList;
 import crawel.storage.ProductListStorage;
 import crawel.storage.ShopListStorage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Crawel {
 	private static final int MYTHREADS = 30;
-	private static final Logger LOGGER = LoggerFactory.getLogger(Crawel.class);
 
 	public static void main(String[] args) {
 		Crawel crawel = new Crawel();
@@ -46,7 +45,7 @@ public class Crawel {
 
 		} catch (CmdLineException e) {
 			// handling of wrong arguments
-			LOGGER.warn("could not read commandline {}", e.getMessage(), e);
+			log.warn("could not read commandline {}", e.getMessage(), e);
 			parser.printUsage(System.err);
 		}
 
@@ -76,7 +75,7 @@ public class Crawel {
 		while (!executor.isTerminated()) {
 
 		}
-		LOGGER.info("\nFinished all threads");
+		log.info("\nFinished all threads");
 
 		ProductList allProducts = new ProductList();
 		for (Shop shop : shopList.getShops()) {

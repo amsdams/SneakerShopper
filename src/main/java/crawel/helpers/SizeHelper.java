@@ -3,18 +3,15 @@ package crawel.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import crawel.helpers.sizes.SizeAdults;
 import crawel.helpers.sizes.SizesAdults;
 
 import crawel.pojo.Size;
+import crawel.pojo.SizeAdults;
 import crawel.pojo.SizeList;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class SizeHelper {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(SizeHelper.class);
 
 	public static Size getSize(String text, SizeList sizeList) {
 		List<Size> sizes = new ArrayList<>(sizeList.getSizes());
@@ -29,10 +26,11 @@ public class SizeHelper {
 			}
 		}
 		if ("unknown".equals(returnSize)) {
-			LOGGER.info("unable to match brand from {}", text);
+			log.info("unable to match brand from {}", text);
 		}
 		return new Size(returnSize, "asd");
 	}
+
 	public static Size getSize(String text, String sizeType, SizeList sizeList) {
 		List<Size> sizes = new ArrayList<>(sizeList.getSizes());
 		sizes.sort(Size.SIZECOMPARATOR);
@@ -46,17 +44,9 @@ public class SizeHelper {
 			}
 		}
 		if ("unknown".equals(returnSize)) {
-			LOGGER.info("unable to match brand from {}", text);
+			log.info("unable to match brand from {}", text);
 		}
 		return new Size(returnSize, sizeType);
-	}
-	
-	public static SizeList getSizesInEU(SizeList sizeList) {
-		SizeList sizeListInEU = new SizeList();
-		for (Size size : sizeList.getSizes()) {
-			sizeListInEU.addSize(sizeToEU(size));
-		}
-		return sizeListInEU;
 	}
 
 	private static String getSizeFrominUnitedKingdom(String size) {
@@ -77,6 +67,14 @@ public class SizeHelper {
 			}
 		}
 		return sizeEU;
+	}
+
+	public static SizeList getSizesInEU(SizeList sizeList) {
+		SizeList sizeListInEU = new SizeList();
+		for (Size size : sizeList.getSizes()) {
+			sizeListInEU.addSize(sizeToEU(size));
+		}
+		return sizeListInEU;
 	}
 
 	private static Size sizeToEU(Size size) {

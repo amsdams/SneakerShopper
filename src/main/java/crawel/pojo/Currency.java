@@ -1,5 +1,8 @@
 package crawel.pojo;
 
+import lombok.Data;
+
+@Data
 public class Currency implements Comparable<Currency> {
 	private String name;
 
@@ -26,24 +29,4 @@ public class Currency implements Comparable<Currency> {
 		return this.getName().compareTo(o.getName());
 	}
 
-	public String getName() {
-		return name != null ? name.toUpperCase() : "";
-	}
-
-	public String getSymbol() {
-		return symbol != null ? symbol.toUpperCase() : "";
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
-	@Override
-	public String toString() {
-		return "Currency [name=" + this.getName() + ", symbol=" + this.getSymbol() + "]";
-	}
 }

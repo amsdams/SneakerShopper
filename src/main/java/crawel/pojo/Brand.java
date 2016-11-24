@@ -2,6 +2,9 @@ package crawel.pojo;
 
 import java.util.Comparator;
 
+import lombok.Data;
+
+@Data
 public class Brand implements Comparable<Brand> {
 	public static Comparator<Brand> BRANDNAMESIZECOMPARATOR = new Comparator<Brand>() {
 
@@ -32,16 +35,4 @@ public class Brand implements Comparable<Brand> {
 		return this.getName().compareTo(o.getName());
 	}
 
-	public String getName() {
-		return name.toUpperCase();
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return "Brand [name=" + name + "]";
-	}
 }
