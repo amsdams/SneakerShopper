@@ -11,8 +11,8 @@ public class Size implements Comparable<Size> {
 		@Override
 		public int compare(Size size1, Size size2) {
 			// TODO no idea yet
-			Integer lenght1 = size1.getSizeRaw().length();
-			Integer lenght2 = size2.getSizeRaw().length();
+			Integer lenght1 = size1.getSize().length();
+			Integer lenght2 = size2.getSize().length();
 
 			return lenght2.compareTo(lenght1);
 
@@ -20,7 +20,7 @@ public class Size implements Comparable<Size> {
 
 	};
 	private String metric;
-	private String sizeRaw;
+	private String size;
 
 	public Size() {
 
@@ -28,12 +28,12 @@ public class Size implements Comparable<Size> {
 
 	public Size(String size, String metric) {
 		this.metric = metric;
-		this.sizeRaw = size;
+		this.size = size;
 	}
 
 	@Override
 	public int compareTo(Size o) {
-		return this.getSizeRaw().compareTo(o.getSizeRaw());
+		return this.getSize().compareTo(o.getSize());
 	}
 
 }

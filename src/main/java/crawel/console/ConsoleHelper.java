@@ -31,9 +31,11 @@ public class ConsoleHelper {
 		ConsoleHelper consoleHelper = new ConsoleHelper();
 
 		ActionList actionList = consoleHelper.getActionList();
-		ProductList filteredProductList = new ProductList();
+		
 		ProductList productList = ProductListStorage.get();
-
+		ProductList filteredProductList = new ProductList(productList.getProducts());
+		
+		
 		Comparator<Product> comparator = Product.NewPriceComparator;
 		Comparator<Product> secondComparator = Product.NameComparator;
 
@@ -47,7 +49,7 @@ public class ConsoleHelper {
 
 				comparator = Product.BrandNameComparator;
 
-				filteredProductList.setProducts(productList.getProducts().stream()
+				filteredProductList.setProducts(filteredProductList.getProducts().stream()
 						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbn")) {
@@ -56,7 +58,7 @@ public class ConsoleHelper {
 
 				comparator = Product.NameComparator;
 
-				filteredProductList.setProducts(productList.getProducts().stream()
+				filteredProductList.setProducts(filteredProductList.getProducts().stream()
 						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbp")) {
@@ -65,7 +67,7 @@ public class ConsoleHelper {
 
 				comparator = Product.NewPriceComparator;
 
-				filteredProductList.setProducts(productList.getProducts().stream()
+				filteredProductList.setProducts(filteredProductList.getProducts().stream()
 						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbs")) {
@@ -74,7 +76,7 @@ public class ConsoleHelper {
 
 				comparator = Product.ShopNameComparator;
 
-				filteredProductList.setProducts(productList.getProducts().stream()
+				filteredProductList.setProducts(filteredProductList.getProducts().stream()
 						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("sbd")) {
@@ -83,7 +85,7 @@ public class ConsoleHelper {
 
 				comparator = Product.DiscountComparator;
 
-				filteredProductList.setProducts(productList.getProducts().stream()
+				filteredProductList.setProducts(filteredProductList.getProducts().stream()
 						.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("fbb")) {
@@ -91,15 +93,15 @@ public class ConsoleHelper {
 				log.info("extracted brand " + brand);
 
 				filteredProductList
-						.setProducts(productList.getProducts().stream().filter(p -> p.getBrandName().contains(brand))
+						.setProducts(filteredProductList.getProducts().stream().filter(p -> p.getBrandName().contains(brand))
 								.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("fbs")) {
 				String size = in.replace("fbs", "");
 				log.info("extracted size " + size);
 
-				filteredProductList.setProducts(productList.getProducts().stream()
-						.filter(p -> p.getSizesInEU().getSizes().stream().anyMatch(s -> s.getSizeRaw().contains(size))
+				filteredProductList.setProducts(filteredProductList.getProducts().stream()
+						.filter(p -> p.getSizesInEU().getSizes().stream().anyMatch(s -> s.getSize().contains(size))
 
 						)
 
@@ -110,17 +112,18 @@ public class ConsoleHelper {
 				log.info("extracted name " + name);
 
 				filteredProductList
-						.setProducts(productList.getProducts().stream().filter(p -> p.getName().contains(name))
+						.setProducts(filteredProductList.getProducts().stream().filter(p -> p.getName().contains(name))
 								.sorted(comparator.thenComparing(secondComparator)).collect(Collectors.toList()));
 				ProductListStorage.print(filteredProductList);
 			} else if (in.startsWith("reset")) {
-				filteredProductList = productList;
+				filteredProductList = new ProductList(productList.getProducts());
+				
 				ProductListStorage.print(filteredProductList);
 
 			} else if (in.startsWith("gp")) {
 
-				productList = crawler.getShopsProductList();
-				ProductListStorage.print(productList);
+				filteredProductList = crawler.getShopsProductList();
+				ProductListStorage.print(filteredProductList);
 
 			} else if (in.startsWith("sp")) {
 

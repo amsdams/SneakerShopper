@@ -43,7 +43,7 @@ public class ProductListStorage {
 			product.setOldPriceInEuro(BigDecimal.valueOf(1.0));
 			SizeList sizesRaw = new SizeList();
 			Size size = new Size();
-			size.setSizeRaw("43");
+			size.setSize("43");
 			size.setMetric("eu");
 
 			sizesRaw.addSize(size);

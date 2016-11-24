@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Crawel {
-	private static final int MYTHREADS = 30;
+	private static final int MYTHREADS = 40;
 
 	public static void main(String[] args) {
 		Crawel crawel = new Crawel();

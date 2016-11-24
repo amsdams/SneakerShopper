@@ -20,7 +20,7 @@ public class SizeHelper {
 		String returnSize = "unknown";
 		for (Size size : sizes) {
 
-			String sizeName = size.getSizeRaw();
+			String sizeName = size.getSize();
 			if (sizeName.matches(text)) {
 				returnSize = sizeName;
 			}
@@ -38,7 +38,7 @@ public class SizeHelper {
 		String returnSize = "unknown";
 		for (Size size : sizes) {
 
-			String sizeName = size.getSizeRaw();
+			String sizeName = size.getSize();
 			if (sizeName.matches(text)) {
 				returnSize = sizeName;
 			}
@@ -78,7 +78,7 @@ public class SizeHelper {
 	}
 
 	private static Size sizeToEU(Size size) {
-		String sizeEU = size.getSizeRaw();
+		String sizeEU = size.getSize();
 		if (sizeEU == null) {
 			sizeEU = "unknown";
 		}
@@ -86,18 +86,19 @@ public class SizeHelper {
 		Size newSize = new Size();
 		switch (region.toLowerCase()) {
 		case "us":
-			sizeEU = getSizeFrominUnitedStates(size.getSizeRaw());
+			sizeEU = getSizeFrominUnitedStates(size.getSize());
 			break;
 		case "uk":
-			sizeEU = getSizeFrominUnitedKingdom(size.getSizeRaw());
+			sizeEU = getSizeFrominUnitedKingdom(size.getSize());
 			break;
 		default:
-			sizeEU = size.getSizeRaw();
+			sizeEU = size.getSize();
 			break;
 
 		}
 
-		newSize.setSizeRaw(sizeEU);
+	
+		newSize.setSize(sizeEU);
 		newSize.setMetric("eu");
 		return newSize;
 	}

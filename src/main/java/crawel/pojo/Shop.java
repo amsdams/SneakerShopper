@@ -15,6 +15,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import crawel.helpers.BrandHelper;
 import crawel.helpers.PriceHelper;
 import crawel.helpers.SizeHelper;
+import crawel.helpers.TextHelper;
 import crawel.helpers.sizes.SizesClothing;
 import crawel.storage.BrandListStorage;
 import crawel.storage.CurrencyListStorage;
@@ -106,22 +107,38 @@ public class Shop implements Comparable<Shop> {
 
 				DomNodeList<DomNode> nodes = page.querySelectorAll(this.getProductsSelector());
 				for (DomNode node : nodes) {
-					Product product = new Product();
+					
 					String name = this.getProductNameAsString(node, this.getProductNameSelector());
 					name = BrandHelper.removeBrandName(name, brandList);
+
+					Currency currecyRaw = this.getProductCurrencyAsCurrency(node, this.getProductCurrencySelector());
+
+					
+					BigDecimal newPriceRaw = this.getProductPropertyAsDecimal(node, this.getProductNewPriceSelector());
+					BigDecimal oldPriceRaw = this.getProductPropertyAsDecimal(node, this.getProductOldPriceSelector());
+
+					BigDecimal newPriceInEuro = this.getProductPropertyAsDecimal(node, currecyRaw,
+							this.getProductNewPriceSelector());
+
+					BigDecimal oldPriceInEuro = this.getProductPropertyAsDecimal(node, currecyRaw,
+							this.getProductOldPriceSelector());
+
+					String brandName = this.getProductBrandNameAsString(node, this.getProductBrandNameSelector());
+
+					Product product = new Product();
+					product.setBrandName(brandName);
 					product.setBrandNameRemovedFromName(true);
 					product.setName(name);
+					
+					product.setCurrencyRaw(currecyRaw);
+					product.setNewPriceRaw(newPriceRaw);
+					product.setOldPriceRaw(oldPriceRaw);
 
-					product.setCurrencyRaw(this.getProductCurrencyAsCurrency(node, this.getProductCurrencySelector()));
+					product.setNewPriceInEuro(newPriceInEuro);
 
-					product.setNewPriceRaw(this.getProductPropertyAsDecimal(node, this.getProductNewPriceSelector()));
-					product.setOldPriceRaw(this.getProductPropertyAsDecimal(node, this.getProductOldPriceSelector()));
-					product.setNewPriceInEuro(this.getProductPropertyAsDecimal(node, product.getCurrencyRaw(),
-							this.getProductNewPriceSelector()));
-					product.setOldPriceInEuro(this.getProductPropertyAsDecimal(node, product.getCurrencyRaw(),
-							this.getProductOldPriceSelector()));
+					product.setOldPriceInEuro(oldPriceInEuro);
 
-					product.setBrandName(this.getProductBrandNameAsString(node, this.getProductBrandNameSelector()));
+					
 					try {
 						String href = this.getProductHrefAsString(node, this.getProductUrlSelector());
 
@@ -131,7 +148,7 @@ public class Shop implements Comparable<Shop> {
 					}
 					product.setShopName(this.getClass().getName());
 
-					// getDetails()
+				
 					product = addProductDetailsToProduct(product);
 
 					productList.addProduct(product);
@@ -188,9 +205,10 @@ public class Shop implements Comparable<Shop> {
 		try {
 
 			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
+			text = TextHelper.sanitize(text);
+
 			text = BrandHelper.getBrandName(text, brandList);
 
-			text = text.trim();
 			productProperty = text;
 		} catch (Exception e) {
 			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
@@ -205,7 +223,7 @@ public class Shop implements Comparable<Shop> {
 
 			String text = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 
-			text = text.trim();
+			text = TextHelper.sanitize(text);
 
 			productProperty = PriceHelper.getCurrency(text, currencyList);
 
@@ -223,7 +241,8 @@ public class Shop implements Comparable<Shop> {
 
 			String text = htmlElement.getAttribute("href");
 
-			text = text.trim();
+			//text = TextHelper.sanitize(text);
+
 			productProperty = text;
 		} catch (Exception e) {
 			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
@@ -238,7 +257,8 @@ public class Shop implements Comparable<Shop> {
 
 			if (domNode.querySelectorAll(querySelectorAllor).size() != 0) {
 				String text = domNode.querySelectorAll(querySelectorAllor).get(0).getFirstChild().getTextContent();
-				text = text.trim();
+				text = TextHelper.sanitize(text);
+
 				productProperty = text;
 			} else {
 				log.warn("could not extract product name with {}", querySelectorAllor);
@@ -255,12 +275,14 @@ public class Shop implements Comparable<Shop> {
 		BigDecimal productProperty = null;
 		try {
 			String price = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
+			price = TextHelper.sanitize(price);
+//TODO extract Currency 
 			price = price.replaceAll(",", ".");
 
 			price = PriceHelper.removeCurrency(price, currencyList);
 
 			price = price.replaceAll("[^\\d.]", "");
-			price = price.trim();
+
 			productProperty = new BigDecimal(price);
 
 			productProperty = PriceHelper.toEuro(productProperty, currency, currencyList);
@@ -275,12 +297,13 @@ public class Shop implements Comparable<Shop> {
 		BigDecimal productProperty = null;
 		try {
 			String price = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
+			price = TextHelper.sanitize(price);
+
 			price = price.replaceAll(",", ".");
 
 			price = PriceHelper.removeCurrency(price, currencyList);
 
 			price = price.replaceAll("[^\\d.]", "");
-			price = price.trim();
 			productProperty = new BigDecimal(price);
 		} catch (Exception e) {
 			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
@@ -292,7 +315,7 @@ public class Shop implements Comparable<Shop> {
 	private Size getProductSizeAsSize(DomNode domNode, String querySelectorAllor, String sizeType) {
 		String productProperty = null;
 		String sizeValue = "";
-		Size size = new Size();
+		Size size = new Size("", "");
 
 		try {
 			if ("".equals(querySelectorAllor)) {
@@ -301,26 +324,10 @@ public class Shop implements Comparable<Shop> {
 				sizeValue = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 
 			}
-			sizeValue = sizeValue.trim().toUpperCase();
+			sizeValue = TextHelper.sanitize(sizeValue);
 
-			/*
-			 * 
-			 * filteredProductList
-			 * .setProducts(productList.getProducts().stream() .filter(p ->
-			 * p.getSizesInEU().getSizes().stream() .anyMatch(s
-			 * ->s.getSizeRaw().contains(size))
-			 * 
-			 * 
-			 * )
-			 * 
-			 * .sorted(comparator.thenComparing(secondComparator))
-			 * .collect(Collectors.toList()));
-			 */
 			if (!sizeValue.matches(".*\\d+.*")) {
 
-				// size = SizeHelper.getSize(sizeValue, sizeType, new
-				// SizesClothing().getSizesClothing());
-				// size =new SizesClothing();
 				final String sizeValueCheck = sizeValue;
 				if (SizesClothing.getSizesClothing().stream().anyMatch(s -> s.getInLabel().matches(sizeValueCheck))) {
 					productProperty = sizeValue;
@@ -340,7 +347,7 @@ public class Shop implements Comparable<Shop> {
 				sizeValue = sizeValue.replaceAll(",", ".");
 
 				sizeValue = sizeValue.replaceAll("[^\\d.]", "");
-				sizeValue = sizeValue.trim();
+
 				if (!"".equals(sizeValue)) {
 					try {
 						productProperty = sizeValue;
@@ -349,8 +356,10 @@ public class Shop implements Comparable<Shop> {
 					}
 				}
 			}
-			size.setSizeRaw(productProperty);
-			size.setMetric(sizeType);
+			if (productProperty!= null){
+				size.setSize(productProperty);
+				size.setMetric(sizeType);
+			}
 		} catch (Exception e) {
 			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
 					this.getBaseUrl(), e);

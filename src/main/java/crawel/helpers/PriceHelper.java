@@ -20,7 +20,7 @@ public class PriceHelper {
 
 		for (Currency currency : currencyList.getCurrencies()) {
 			String currencyString = currency.getSymbol();
-			if (text.toUpperCase().contains(currencyString)) {
+			if (text.contains(currencyString)) {
 				returnCurrency = currency;
 			}
 		}
@@ -53,7 +53,7 @@ public class PriceHelper {
 
 		MonetaryAmount moneyFound = Money.of(price, foundName);
 		MonetaryAmount inEuro = moneyFound.with(euroConversion);
-		return new BigDecimal(inEuro.getNumber().doubleValue());
+		return BigDecimal.valueOf(inEuro.getNumber().doubleValue());
 	}
 
 	private PriceHelper() {
