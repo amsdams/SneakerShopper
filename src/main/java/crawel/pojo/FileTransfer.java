@@ -1,10 +1,13 @@
 package crawel.pojo;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class FileTransfer {
 
 	private String server;
@@ -19,5 +22,9 @@ public class FileTransfer {
 	private String fileName;
 
 	private long fileSize;
+	
+	public FileTransfer(){
+		
+	}
 
 }

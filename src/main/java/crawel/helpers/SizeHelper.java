@@ -3,6 +3,7 @@ package crawel.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import crawel.Constants;
 import crawel.helpers.sizes.SizesAdults;
 
 import crawel.pojo.Size;
@@ -17,7 +18,9 @@ public class SizeHelper {
 		List<Size> sizes = new ArrayList<>(sizeList.getSizes());
 		sizes.sort(Size.SIZECOMPARATOR);
 
-		String returnSize = "unknown";
+		String returnSize = Constants.UNKOWN_SIZE_SIZE;
+		String returnMetric = Constants.UNKOWN_SIZE_METRIC;
+		
 		for (Size size : sizes) {
 
 			String sizeName = size.getSize();
@@ -25,10 +28,10 @@ public class SizeHelper {
 				returnSize = sizeName;
 			}
 		}
-		if ("unknown".equals(returnSize)) {
-			log.info("unable to match brand from {}", text);
+		if (Constants.UNKOWN_SIZE_SIZE.equals(returnSize)) {
+			log.info(Constants.NOT_FOUND_SIZE_FROM, text);
 		}
-		return new Size(returnSize, "asd");
+		return new Size(returnSize, returnMetric);
 	}
 
 	public static Size getSize(String text, String sizeType, SizeList sizeList) {

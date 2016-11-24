@@ -3,11 +3,13 @@ package crawel.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 public class BrandList {
 
@@ -17,9 +19,7 @@ public class BrandList {
 		brands = new ArrayList<>();
 	}
 
-	public BrandList(List<Brand> collect) {
-		this.brands = collect;
-	}
+
 
 	public void addBrand(Brand brand) {
 		brands.add(brand);

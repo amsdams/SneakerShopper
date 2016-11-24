@@ -120,9 +120,7 @@ public class Product implements Comparable<Product> {
 
 	}
 
-	public Product(String productName) {
-		this.name = productName;
-	}
+	
 
 	@Override
 	public int compareTo(Product o) {

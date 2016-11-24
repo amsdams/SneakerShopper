@@ -1,27 +1,23 @@
 package crawel.pojo;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Currency implements Comparable<Currency> {
 	private String name;
 
 	private String symbol;
 
 	public Currency() {
-		this.name = "";
-		this.symbol = "";
+		
 	}
 
-	public Currency(String name) {
-		this.name = name;
-		this.symbol = "";
-	}
+	
 
-	public Currency(String name, String symbol) {
-		this.name = name;
-		this.symbol = symbol;
-	}
+	
 
 	@Override
 	public int compareTo(Currency o) {

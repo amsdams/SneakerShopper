@@ -1,5 +1,6 @@
 package crawel.helpers;
 
+import crawel.Constants;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -17,7 +18,7 @@ public class TextHelper {
 			returnText = returnText.toUpperCase();
 
 		} catch (Exception e) {
-			log.error("caught exception {}", e.getMessage(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return returnText;
 	}

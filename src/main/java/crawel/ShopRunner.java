@@ -22,7 +22,7 @@ public class ShopRunner implements Runnable {
 
 			}
 		} catch (Exception e) {
-			log.error("error ", e);
+			log.error(Constants.CAUGHT_EXCEPTION,e.getMessage(), e);
 		}
 	}
 }

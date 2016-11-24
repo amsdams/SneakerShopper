@@ -14,8 +14,8 @@ public class SizeList {
 		sizes = new ArrayList<>();
 	}
 
-	public SizeList(List<Size> collect) {
-		this.sizes = collect;
+	public SizeList(List<Size> sizes) {
+		this.sizes = sizes;
 	}
 
 	public void addSize(Size size) {

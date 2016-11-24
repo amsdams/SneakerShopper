@@ -3,6 +3,7 @@ package crawel.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import crawel.Constants;
 import crawel.pojo.Brand;
 import crawel.pojo.BrandList;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class BrandHelper {
 		List<Brand> brands = new ArrayList<>(brandList.getBrands());
 		brands.sort(Brand.BRANDNAMESIZECOMPARATOR);
 
-		String returnBrandName = "unknown";
+		String returnBrandName = Constants.UNKOWN_BRAND;
 		for (Brand brand : brands) {
 
 			String brandName = brand.getName();
@@ -34,8 +35,8 @@ public class BrandHelper {
 				}
 			}
 		}
-		if ("unknown".equals(returnBrandName)) {
-			log.info("unable to match brand from {}", text);
+		if (returnBrandName.equals(returnBrandName)) {
+			log.info(Constants.NOT_FOUND_BRAND_FROM, text);
 		}
 		return returnBrandName.trim();
 	}

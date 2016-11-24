@@ -1,6 +1,5 @@
 package crawel.pojo;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 
@@ -12,6 +11,7 @@ import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import crawel.Constants;
 import crawel.helpers.BrandHelper;
 import crawel.helpers.PriceHelper;
 import crawel.helpers.SizeHelper;
@@ -19,11 +19,14 @@ import crawel.helpers.TextHelper;
 import crawel.helpers.sizes.SizesClothing;
 import crawel.storage.BrandListStorage;
 import crawel.storage.CurrencyListStorage;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Shop implements Comparable<Shop> {
 
 	private String productOldPriceSelector;
@@ -91,8 +94,7 @@ public class Shop implements Comparable<Shop> {
 				product.setSizesInEU(SizeHelper.getSizesInEU(sizeList));
 			}
 		} catch (Exception e) {
-			log.error("error getting product details with querySelectorAllor {} for baseUrl {}",
-					this.getProductDetailsSizesSelector(), product.getUrl());
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return product;
 	}
@@ -144,7 +146,7 @@ public class Shop implements Comparable<Shop> {
 
 						product.setUrl(page.getFullyQualifiedUrl(href).toString());
 					} catch (Exception e) {
-						log.error("could not get fully qualified url for node {}", node, e);
+						log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 					}
 					product.setShopName(this.getClass().getName());
 
@@ -164,10 +166,9 @@ public class Shop implements Comparable<Shop> {
 				}
 			}
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 
-			log.error("error getting products with querySelectorAllor {} for baseUrl {}", this.getProductsSelector(),
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 
 	}
@@ -194,7 +195,7 @@ public class Shop implements Comparable<Shop> {
 			nextPageUrl = nextPage.toString();
 
 		} catch (Exception e) {
-			log.error("Failed to get next page from {}", url, e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 
 		return nextPageUrl;
@@ -211,8 +212,7 @@ public class Shop implements Comparable<Shop> {
 
 			productProperty = text;
 		} catch (Exception e) {
-			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return productProperty;
 	}
@@ -228,8 +228,7 @@ public class Shop implements Comparable<Shop> {
 			productProperty = PriceHelper.getCurrency(text, currencyList);
 
 		} catch (Exception e) {
-			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return productProperty;
 	}
@@ -245,8 +244,7 @@ public class Shop implements Comparable<Shop> {
 
 			productProperty = text;
 		} catch (Exception e) {
-			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return productProperty;
 	}
@@ -265,8 +263,7 @@ public class Shop implements Comparable<Shop> {
 			}
 
 		} catch (Exception e) {
-			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return productProperty;
 	}
@@ -287,8 +284,7 @@ public class Shop implements Comparable<Shop> {
 
 			productProperty = PriceHelper.toEuro(productProperty, currency, currencyList);
 		} catch (Exception e) {
-			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return productProperty;
 	}
@@ -306,8 +302,7 @@ public class Shop implements Comparable<Shop> {
 			price = price.replaceAll("[^\\d.]", "");
 			productProperty = new BigDecimal(price);
 		} catch (Exception e) {
-			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return productProperty;
 	}
@@ -352,7 +347,7 @@ public class Shop implements Comparable<Shop> {
 					try {
 						productProperty = sizeValue;
 					} catch (NumberFormatException e) {
-						log.error("caught exception {}", e.getMessage(), e);
+						log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 					}
 				}
 			}
@@ -361,8 +356,7 @@ public class Shop implements Comparable<Shop> {
 				size.setMetric(sizeType);
 			}
 		} catch (Exception e) {
-			log.error("error getting product property with querySelectorAllor {} for baseUrl {}", querySelectorAllor,
-					this.getBaseUrl(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 		return size;
 	}

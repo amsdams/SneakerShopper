@@ -2,17 +2,14 @@ package crawel.storage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.SocketException;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import crawel.Constants;
 import crawel.pojo.FileTransfer;
 import crawel.pojo.FileTransferList;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +29,9 @@ public class FileTransferListStorage {
 		FileTransferList allFileTransfers = new FileTransferList();
 		try {
 			allFileTransfers = mapper.readValue(new File(fileName), FileTransferList.class);
-		} catch (IOException e) {
-			log.error("could not open file, creating one", e);
+		} catch (Exception e) {
+			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+
 			allFileTransfers = new FileTransferList();
 			String server = "yourhost";
 			int port = 21;
@@ -84,12 +82,9 @@ public class FileTransferListStorage {
 
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), fileTransferList);
 
-		} catch (JsonGenerationException e) {
-			log.error("could not generate json", e);
-		} catch (JsonMappingException e) {
-			log.error("could not map json", e);
-		} catch (IOException e) {
-			log.error("could not write file", e);
+		} catch (Exception e) {
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+
 		}
 
 	}
@@ -141,11 +136,9 @@ public class FileTransferListStorage {
 			reply = ftp.getReplyCode();
 			log.info("reply from ftp after disconnect {}", reply);
 
-		} catch (SocketException e) {
-			log.error("socket problem {}", e.getMessage(), e);
+		} catch (Exception e) {
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 
-		} catch (IOException e) {
-			log.error("io problem {}", e.getMessage(), e);
 		}
 	}
 

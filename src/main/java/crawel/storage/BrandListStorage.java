@@ -1,12 +1,10 @@
 package crawel.storage;
 
 import java.io.File;
-import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import crawel.Constants;
 import crawel.pojo.Brand;
 import crawel.pojo.BrandList;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +25,9 @@ public class BrandListStorage {
 		BrandList allBrands = new BrandList();
 		try {
 			allBrands = mapper.readValue(new File(fileName), BrandList.class);
-		} catch (IOException e) {
-			log.error("could not open file, creating one", e);
+		} catch (Exception e) {
+			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+
 			BrandList brandList = new BrandList();
 
 			Brand brand = new Brand("PUMA X ALIFE");
@@ -68,12 +67,9 @@ public class BrandListStorage {
 
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), brandList);
 
-		} catch (JsonGenerationException e) {
-			log.error("could not generate json", e);
-		} catch (JsonMappingException e) {
-			log.error("could not map json", e);
-		} catch (IOException e) {
-			log.error("could not write file", e);
+		} catch (Exception e) {
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+
 		}
 
 	}

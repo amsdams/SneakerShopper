@@ -1,13 +1,11 @@
 package crawel.storage;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import crawel.Constants;
 import crawel.pojo.Product;
 import crawel.pojo.ProductList;
 import crawel.pojo.Size;
@@ -29,9 +27,9 @@ public class ProductListStorage {
 		ProductList allProducts = new ProductList();
 		try {
 			allProducts = mapper.readValue(new File(fileName), ProductList.class);
-		} catch (IOException e) {
-			log.error("could not open file", e);
-			log.error("could not open file, creating one", e);
+		} catch (Exception e) {
+			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+
 			allProducts = new ProductList();
 			Product product = new Product();
 			product.setName("yourname");
@@ -81,12 +79,9 @@ public class ProductListStorage {
 
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), productList);
 
-		} catch (JsonGenerationException e) {
-			log.error("could not generate json", e);
-		} catch (JsonMappingException e) {
-			log.error("could not map json", e);
-		} catch (IOException e) {
-			log.error("could not write file", e);
+		} catch (Exception e) {
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+
 		}
 
 	}

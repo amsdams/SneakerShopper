@@ -1,7 +1,9 @@
 package crawel.pojo;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Data
 public class SizeKids extends Size {
 
@@ -13,12 +15,6 @@ public class SizeKids extends Size {
 
 	private String inUnitedKingdom;
 
-	public SizeKids(String inEurope, double inCentiMeters, String inUnitedKingdom, String inUnitedStates) {
-
-		this.inEurope = inEurope;
-		this.inCentiMeters = inCentiMeters;
-		this.inUnitedKingdom = inUnitedKingdom;
-		this.inUnitedStates = inUnitedStates;
-	}
+	
 
 }
