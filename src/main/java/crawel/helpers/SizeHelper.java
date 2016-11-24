@@ -94,7 +94,7 @@ public class SizeHelper {
 			sizeEU = getSizeFrominUnitedKingdom(size.getSizeRaw());
 			break;
 		default:
-			// LOGGER.warn("region is not us or uk");
+			sizeEU = size.getSizeRaw();
 			break;
 
 		}

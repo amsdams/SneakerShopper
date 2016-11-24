@@ -2,6 +2,7 @@ package crawel.pojo;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import crawel.helpers.BrandHelper;
 import crawel.helpers.PriceHelper;
 import crawel.helpers.SizeHelper;
+import crawel.helpers.sizes.SizesClothing;
 import crawel.storage.BrandListStorage;
 import crawel.storage.CurrencyListStorage;
 
@@ -357,10 +359,31 @@ public class Shop implements Comparable<Shop> {
 				sizeValue = domNode.querySelectorAll(querySelectorAllor).get(0).getTextContent();
 
 			}
+			sizeValue = sizeValue.trim().toUpperCase();
+			
+			/*
+			 * 
+			 * filteredProductList
+						.setProducts(productList.getProducts().stream()
+								.filter(p -> p.getSizesInEU().getSizes().stream()
+										.anyMatch(s ->s.getSizeRaw().contains(size))
+										
+										
+										)
+								
+								.sorted(comparator.thenComparing(secondComparator))
+								.collect(Collectors.toList()));
+			 */
 			if (!sizeValue.matches(".*\\d+.*")){
-				LOGGER.warn("could not find digit in size "+sizeValue +". trying clothing sizes");
+				
 				//size  = SizeHelper.getSize(sizeValue, sizeType, new SizesClothing().getSizesClothing());
 				//size  =new SizesClothing();
+				final String sizeValueCheck = sizeValue;
+				if (SizesClothing.getSizesClothing().stream().anyMatch(s->s.getInLabel().matches(sizeValueCheck))){
+					productProperty =sizeValue;
+				}else{
+					LOGGER.warn("could not use found size "+sizeValue +". ");
+				}
 				
 			}else{
 				if (sizeType.contains("-")) {

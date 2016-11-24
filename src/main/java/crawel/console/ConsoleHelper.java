@@ -233,6 +233,11 @@ public class ConsoleHelper {
 		filterByName.setDescription("filter by name");
 		actionList.getActions().add(filterByName);
 
+		Action filterBySize = new Action();
+		filterBySize.setAction("fbs<size>");
+		filterBySize.setDescription("filter by size");
+		actionList.getActions().add(filterBySize);
+		
 		Action exit = new Action();
 		exit.setAction("bye");
 		exit.setDescription("exits the program");

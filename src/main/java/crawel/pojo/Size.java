@@ -38,6 +38,7 @@ public class Size implements Comparable<Size> {
 	}
 
 	public String getSizeRaw() {
+		sizeRaw = sizeRaw==null?"":sizeRaw;
 		return sizeRaw;
 	}
 

@@ -24,7 +24,7 @@ public class SizeList {
 	}
 
 	public List<Size> getSizes() {
-
+		sizes = sizes==null?new ArrayList<Size>():sizes;
 		return sizes;
 	}
 

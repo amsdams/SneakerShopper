@@ -173,6 +173,7 @@ public class Product implements Comparable<Product> {
 	}
 
 	public SizeList getSizesInEU() {
+		sizesInEU = sizesInEU==null?new SizeList():sizesInEU;
 		return sizesInEU;
 	}
 
