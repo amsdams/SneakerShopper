@@ -12,9 +12,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import crawel.Constants;
 import crawel.pojo.FileTransfer;
 import crawel.pojo.FileTransferList;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@NoArgsConstructor
 public class FileTransferListStorage {
 
 	private static final String ALL_FILE_TRANSFERS_JSON = "allFileTransfers.json";
@@ -30,7 +32,9 @@ public class FileTransferListStorage {
 		try {
 			allFileTransfers = mapper.readValue(new File(fileName), FileTransferList.class);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+			}
 
 			allFileTransfers = new FileTransferList();
 			String server = "yourhost";
@@ -83,7 +87,9 @@ public class FileTransferListStorage {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), fileTransferList);
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 
 		}
 
@@ -137,7 +143,9 @@ public class FileTransferListStorage {
 			log.info("reply from ftp after disconnect {}", reply);
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 
 		}
 	}
@@ -148,6 +156,5 @@ public class FileTransferListStorage {
 		}
 	}
 
-	private FileTransferListStorage() {
-	}
+	
 }

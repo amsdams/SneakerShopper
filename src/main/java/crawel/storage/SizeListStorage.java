@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import crawel.Constants;
 import crawel.pojo.Size;
 import crawel.pojo.SizeList;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@NoArgsConstructor
 public class SizeListStorage {
 	private static final String ALL_SIZES_JSON = "allSizes.json";
 
@@ -26,8 +28,9 @@ public class SizeListStorage {
 		try {
 			allSizes = mapper.readValue(new File(fileName), SizeList.class);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
-
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+			}
 			SizeList sizeList = new SizeList();
 			for (Double d = 3.0; d < 15.0; d = d + 0.5) {
 				Size size = new Size(d.toString(), "US");
@@ -70,11 +73,12 @@ public class SizeListStorage {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), sizeList);
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 
 	}
 
-	private SizeListStorage() {
-	}
+	
 }

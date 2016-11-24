@@ -45,7 +45,9 @@ public class Crawel {
 
 		} catch (CmdLineException e) {
 			// handling of wrong arguments
-			log.warn("could not read commandline {}", e.getMessage(), e);
+			if (log.isWarnEnabled()){
+				log.warn("could not read commandline {}", e.getMessage(), e);
+			}
 			parser.printUsage(System.err);
 		}
 
@@ -75,7 +77,9 @@ public class Crawel {
 		while (!executor.isTerminated()) {
 
 		}
-		log.info("\nFinished all threads");
+		if (log.isInfoEnabled()){
+			log.info("\nFinished all threads");
+		}
 
 		ProductList allProducts = new ProductList();
 		for (Shop shop : shopList.getShops()) {

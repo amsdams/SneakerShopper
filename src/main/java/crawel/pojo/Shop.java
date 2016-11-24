@@ -96,7 +96,9 @@ public class Shop implements Comparable<Shop> {
 				product.setSizesInEU(SizeHelper.getSizesInEU(sizeList));
 			}
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return product;
 	}
@@ -148,7 +150,9 @@ public class Shop implements Comparable<Shop> {
 
 						product.setUrl(page.getFullyQualifiedUrl(href).toString());
 					} catch (Exception e) {
-						log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+						if (log.isErrorEnabled()){
+							log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+						}
 					}
 					product.setShopName(this.getClass().getName());
 
@@ -169,8 +173,9 @@ public class Shop implements Comparable<Shop> {
 			}
 
 		} catch (Exception e) {
-
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 
 	}
@@ -197,7 +202,9 @@ public class Shop implements Comparable<Shop> {
 			nextPageUrl = nextPage.toString();
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 
 		return nextPageUrl;
@@ -214,7 +221,9 @@ public class Shop implements Comparable<Shop> {
 
 			productProperty = text;
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return productProperty;
 	}
@@ -230,7 +239,9 @@ public class Shop implements Comparable<Shop> {
 			productProperty = PriceHelper.getCurrency(text, currencyList);
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return productProperty;
 	}
@@ -246,7 +257,9 @@ public class Shop implements Comparable<Shop> {
 
 			productProperty = text;
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return productProperty;
 	}
@@ -265,7 +278,9 @@ public class Shop implements Comparable<Shop> {
 			}
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return productProperty;
 	}
@@ -286,7 +301,9 @@ public class Shop implements Comparable<Shop> {
 
 			productProperty = PriceHelper.toEuro(productProperty, currency, currencyList);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return productProperty;
 	}
@@ -304,7 +321,9 @@ public class Shop implements Comparable<Shop> {
 			price = price.replaceAll("[^\\d.]", "");
 			productProperty = new BigDecimal(price);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return productProperty;
 	}
@@ -349,7 +368,9 @@ public class Shop implements Comparable<Shop> {
 					try {
 						productProperty = sizeValue;
 					} catch (NumberFormatException e) {
-						log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+						if (log.isErrorEnabled()){
+							log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+						}
 					}
 				}
 			}
@@ -358,7 +379,9 @@ public class Shop implements Comparable<Shop> {
 				size.setMetric(sizeType);
 			}
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 		return size;
 	}

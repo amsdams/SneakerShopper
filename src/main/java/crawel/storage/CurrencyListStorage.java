@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import crawel.Constants;
 import crawel.pojo.Currency;
 import crawel.pojo.CurrencyList;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@NoArgsConstructor
 public class CurrencyListStorage {
 	private static final String ALL_CURRENCYS_JSON = "allCurrencys.json";
 
@@ -26,7 +28,9 @@ public class CurrencyListStorage {
 		try {
 			allCurrencys = mapper.readValue(new File(fileName), CurrencyList.class);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+			}
 			CurrencyList currencyList = new CurrencyList();
 			Currency currency = new Currency();
 			currency.setName("EURO");
@@ -76,12 +80,13 @@ public class CurrencyListStorage {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), currencyList);
 
 		} catch (Exception e){
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 
 		}
 
 	}
 
-	private CurrencyListStorage() {
-	}
+	
 }

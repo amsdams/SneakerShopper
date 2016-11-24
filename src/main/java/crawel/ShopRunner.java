@@ -20,7 +20,9 @@ public class ShopRunner implements Runnable {
 
 			}
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()) {
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 	}
 }

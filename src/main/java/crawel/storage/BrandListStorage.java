@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import crawel.Constants;
 import crawel.pojo.Brand;
 import crawel.pojo.BrandList;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@NoArgsConstructor
 public class BrandListStorage {
 	private static final String ALL_BRANDS_JSON = "allBrands.json";
 
@@ -26,8 +28,11 @@ public class BrandListStorage {
 		try {
 			allBrands = mapper.readValue(new File(fileName), BrandList.class);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
-
+			if (log.isErrorEnabled()){
+				if (log.isErrorEnabled()){
+					log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+				}
+			}
 			BrandList brandList = new BrandList();
 
 			Brand brand = new Brand("PUMA X ALIFE");
@@ -68,12 +73,13 @@ public class BrandListStorage {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), brandList);
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 
 		}
 
 	}
 
-	private BrandListStorage() {
-	}
+	
 }

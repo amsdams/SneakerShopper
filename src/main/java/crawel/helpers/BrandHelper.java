@@ -35,7 +35,7 @@ public class BrandHelper {
 				}
 			}
 		}
-		if (returnBrandName.equals(returnBrandName)) {
+		if (Constants.UNKOWN_BRAND.equals(returnBrandName)) {
 			log.info(Constants.NOT_FOUND_BRAND_FROM, text);
 		}
 		return returnBrandName.trim();

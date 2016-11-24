@@ -15,4 +15,7 @@
  http://www.slamjamsocialism.com/sale-footwear/
  http://www.footasylum.com/sale-department/
  
+ #FIX log4j appenders
+ #MOVE to DB/NOSQL mongodb (app getting slow i guess)
+ 
  

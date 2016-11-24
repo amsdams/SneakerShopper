@@ -7,10 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import crawel.Constants;
 import crawel.pojo.Shop;
 import crawel.pojo.ShopList;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-
+@NoArgsConstructor
 public class ShopListStorage {
 	private static final String ALL_SHOPS_JSON = "allShops.json";
 
@@ -26,8 +27,9 @@ public class ShopListStorage {
 		try {
 			allShops = mapper.readValue(new File(fileName), ShopList.class);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
-
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+			}
 			allShops = new ShopList();
 
 			Shop shop = new Shop();
@@ -65,11 +67,12 @@ public class ShopListStorage {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), allShops);
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 		}
 
 	}
 
-	private ShopListStorage() {
-	}
+	
 }

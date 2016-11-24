@@ -10,9 +10,11 @@ import crawel.pojo.Product;
 import crawel.pojo.ProductList;
 import crawel.pojo.Size;
 import crawel.pojo.SizeList;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@NoArgsConstructor
 public class ProductListStorage {
 	private static final String ALL_PRODUCTS_JSON = "allProducts.json";
 	private static final ProductListStorage instance = new ProductListStorage();
@@ -28,8 +30,10 @@ public class ProductListStorage {
 		try {
 			allProducts = mapper.readValue(new File(fileName), ProductList.class);
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
 
+			}
 			allProducts = new ProductList();
 			Product product = new Product();
 			product.setName("yourname");
@@ -80,12 +84,13 @@ public class ProductListStorage {
 			mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), productList);
 
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			if (log.isErrorEnabled()){
+				log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
+			}
 
 		}
 
 	}
 
-	private ProductListStorage() {
-	}
+	
 }
