@@ -9,7 +9,7 @@ public class SizesClothing {
 
 	public static List<SizeClothing> getSizesClothing() {
 		List<SizeClothing> sizes = new ArrayList<>();
-
+   
 		sizes.add(new SizeClothing("XXS"));
 		sizes.add(new SizeClothing("XS"));
 		sizes.add(new SizeClothing("S"));

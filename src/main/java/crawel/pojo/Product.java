@@ -140,4 +140,8 @@ public class Product implements Comparable<Product> {
 		return this.discountInEU;
 	}
 
+	public Product(String name) {
+		this.name = name;
+	}
+
 }
