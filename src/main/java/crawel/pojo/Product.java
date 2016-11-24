@@ -3,9 +3,14 @@ package crawel.pojo;
 import java.math.BigDecimal;
 import java.util.Comparator;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 public class Product implements Comparable<Product> {
 
 	public static Comparator<Product> BrandNameComparator = new Comparator<Product>() {
@@ -116,9 +121,6 @@ public class Product implements Comparable<Product> {
 	private Currency currencyRaw;
 	private boolean brandNameRemovedFromName;
 
-	public Product() {
-
-	}
 
 	
 

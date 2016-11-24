@@ -3,17 +3,16 @@ package crawel.pojo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 public class Currency implements Comparable<Currency> {
 	private String name;
 
 	private String symbol;
 
-	public Currency() {
-		
-	}
 
 	
 

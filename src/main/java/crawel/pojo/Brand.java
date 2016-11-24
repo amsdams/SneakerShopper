@@ -2,9 +2,14 @@ package crawel.pojo;
 
 import java.util.Comparator;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 public class Brand implements Comparable<Brand> {
 	public static Comparator<Brand> BRANDNAMESIZECOMPARATOR = new Comparator<Brand>() {
 
@@ -21,14 +26,9 @@ public class Brand implements Comparable<Brand> {
 	};
 	private String name;
 
-	public Brand() {
-		this.name = "";
-	}
 
-	public Brand(String name) {
-		this.name = name;
 
-	}
+	
 
 	@Override
 	public int compareTo(Brand o) {

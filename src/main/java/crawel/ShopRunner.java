@@ -1,16 +1,14 @@
 package crawel;
 
 import crawel.pojo.Shop;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@AllArgsConstructor
 public class ShopRunner implements Runnable {
 
 	private final Shop shop;
-
-	ShopRunner(Shop shop) {
-		this.shop = shop;
-	}
 
 	@Override
 	public void run() {
@@ -22,7 +20,7 @@ public class ShopRunner implements Runnable {
 
 			}
 		} catch (Exception e) {
-			log.error(Constants.CAUGHT_EXCEPTION,e.getMessage(), e);
+			log.error(Constants.CAUGHT_EXCEPTION, e.getMessage(), e);
 		}
 	}
 }

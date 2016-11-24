@@ -2,9 +2,14 @@ package crawel.pojo;
 
 import java.util.Comparator;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor
 public class Size implements Comparable<Size> {
 	public static Comparator<Size> SIZECOMPARATOR = new Comparator<Size>() {
 
@@ -22,14 +27,9 @@ public class Size implements Comparable<Size> {
 	private String metric;
 	private String size;
 
-	public Size() {
+	
 
-	}
-
-	public Size(String size, String metric) {
-		this.metric = metric;
-		this.size = size;
-	}
+	
 
 	@Override
 	public int compareTo(Size o) {
