@@ -31,4 +31,13 @@ public class BrandList {
 	public void setBrands(List<Brand> brands) {
 		this.brands = brands;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Brand s: this.brands){
+			sb.append(s.toString());
+		}
+		return "BrandList [brands=" + sb.toString() + "]";
+	}
 }

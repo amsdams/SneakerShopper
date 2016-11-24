@@ -20,13 +20,6 @@ public class ShopListStorage {
 
 	private static final ShopListStorage instance = new ShopListStorage();
 
-	private ShopListStorage() {
-	}
-
-	public static ShopListStorage getInstance() {
-		return instance;
-	}
-
 	public static ShopList get() {
 		return get(ALL_SHOPS_JSON);
 	}
@@ -48,6 +41,10 @@ public class ShopListStorage {
 		}
 		return allShops;
 
+	}
+
+	public static ShopListStorage getInstance() {
+		return instance;
 	}
 
 	public static void print(ShopList shopList) {
@@ -79,5 +76,8 @@ public class ShopListStorage {
 			LOGGER.error("could not write file", e);
 		}
 
+	}
+
+	private ShopListStorage() {
 	}
 }

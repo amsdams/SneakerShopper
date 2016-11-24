@@ -30,4 +30,13 @@ public class ProductList {
 	public void setProducts(List<Product> Products) {
 		this.products = Products;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Product s: this.products){
+			sb.append(s.toString());
+		}
+		return "ProductList [products=" + sb.toString() + "]";
+	}
 }

@@ -1,6 +1,9 @@
 {
 	"shops": [
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizesSelector": "#sizeTable table tbody tr:first-child td",
+			"productDetailsSizeType": "eu",
 			"productOldPriceSelector": ".price-box>.old-price>.price",
 			"productUrlSelector": ".product-name",
 			"productNameSelector": ".product-name",
@@ -14,12 +17,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu",
+			"productDetailsSizesSelector": "select#attributesize-size_eu>option",
 			"productOldPriceSelector": ".price-box>.old-price>.price",
 			"productUrlSelector": ".product-name",
 			"productNameSelector": ".product-name>.name",
@@ -33,12 +39,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.columns>ul>li",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu-us",
+			"productDetailsSizesSelector": "select.customSelectBox>option",
 			"productOldPriceSelector": ".price>.oldprice>.priceWithCurrency",
 			"productUrlSelector": ".pText>.pName",
 			"productNameSelector": ".pText>.pName>.productname",
@@ -52,12 +61,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".productlist>div>ul>li",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu-us",
+			"productDetailsSizesSelector": ".selectVariants select.customSelectBox>option",
 			"productOldPriceSelector": ".pInfo>.pPrice>.oldPrice>.priceWithCurrency",
 			"productUrlSelector": ".pName",
 			"productNameSelector": ".pInfo>.pName>.productName",
@@ -71,12 +83,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": "ul.productListing>li",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "uk",
+			"productDetailsSizesSelector": "ul#configurable_swatch_shoe_size .swatch-label",
 			"productOldPriceSelector": ".old-price>.price",
 			"productUrlSelector": ".item__details>a",
 			"productNameSelector": ".item__title",
@@ -90,12 +105,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".cat-list>ol>li",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "uk",
+			"productDetailsSizesSelector": ".product-options .input-box .ddlabel",
 			"productOldPriceSelector": ".price-box>.price.old-price",
 			"productUrlSelector": "h3>a",
 			"productNameSelector": "h3>a",
@@ -109,12 +127,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.item",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu",
+			"productDetailsSizesSelector": "#size-group-male-eu a",
 			"productOldPriceSelector": ".product-info>.price-box>.old-price>.price>.integer",
 			"productUrlSelector": ".product-info>.product-name>a",
 			"productNameSelector": ".product-info>.product-name>a",
@@ -128,12 +149,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu",
+			"productDetailsSizesSelector": ".shoesizes div",
 			"productOldPriceSelector": ".product-details>.price-box>.old-price>.price",
 			"productUrlSelector": ".product-details>.product-name>a",
 			"productNameSelector": ".product-details>.product-name>a",
@@ -147,12 +171,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".product-grid>.item",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "us",
+			"productDetailsSizesSelector": ".sh-size cite",
 			"productOldPriceSelector": ".price-box>.old-price>.price",
 			"productUrlSelector": ".product-name>a",
 			"productNameSelector": ".product-name>a",
@@ -166,12 +193,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li.item",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "uk",
+			"productDetailsSizesSelector": "[rel='uk size'] a",
 			"productOldPriceSelector": ".fp-product-thumb-price>.price-was",
 			"productUrlSelector": ".fp-product-thumb>a",
 			"productNameSelector": ".fp-product-thumb-title>span",
@@ -185,12 +215,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 10000,
 			"productsSelector": "ul.fp-product-list>li",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu-us",
+			"productDetailsSizesSelector": ".product-options .attribute-item",
 			"productOldPriceSelector": "div.content>a>.price-box>.price>.old-price",
 			"productUrlSelector": "div.content>a",
 			"productNameSelector": "div.content>a>.name",
@@ -203,13 +236,16 @@
 				"products": []
 			},
 			"runnable": true,
-			"javaScriptEnabled": false,
-			"limit": false,
+			"javaScriptEnabled": true,
+			"limit": true,
 			"timeout": 1000,
 			"productsSelector": "ul.product-list>li.item",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu",
+			"productDetailsSizesSelector": "select#pa_size option",
 			"productOldPriceSelector": "a>.overlay>.info>.price>del>span",
 			"productUrlSelector": "a",
 			"productNameSelector": "a>.overlay>.info>.title>h3",
@@ -223,12 +259,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 1000,
 			"productsSelector": "ul.products>li.item-sneaker",
 			"referrer": "http://www.google.com"
 		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "uk",
+			"productDetailsSizesSelector": ".product-options select option",
 			"productOldPriceSelector": "figure>figcaption.product-name>a>.price>.price-box>.old-price>.price",
 			"productUrlSelector": "figure>a",
 			"productNameSelector": "figure>figcaption.product-name>a",
@@ -241,13 +280,16 @@
 				"products": []
 			},
 			"runnable": true,
-			"javaScriptEnabled": false,
-			"limit": false,
+			"javaScriptEnabled": true,
+			"limit": true,
 			"timeout": 1000,
 			"productsSelector": ".category-products>article",
 			"referrer": "http://www.google.com"
-		} ,
+		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "uk",
+			"productDetailsSizesSelector": "select#attribute134>option",
 			"productOldPriceSelector": ".old-price",
 			"productUrlSelector": ".product-name>a",
 			"productNameSelector": ".product-name>a",
@@ -260,14 +302,16 @@
 				"products": []
 			},
 			"runnable": true,
-			"javaScriptEnabled": false,
-			"limit": false,
+			"javaScriptEnabled": true,
+			"limit": true,
 			"timeout": 1000,
 			"productsSelector": ".category-products li.item",
 			"referrer": "http://www.google.com"
-		}
-		,
+		},
 		{
+			"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "eu",
+			"productDetailsSizesSelector": ".chooseSizeLink",
 			"productOldPriceSelector": ".oldPrice",
 			"productUrlSelector": ".categoryElement>a",
 			"productNameSelector": ".catalogItemName>span",
@@ -281,12 +325,16 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 1000,
 			"productsSelector": ".categoryElement",
 			"referrer": "http://www.google.com"
 		},
 		{
+		"productDetailsSizeSelector": "",
+			"productDetailsSizeType": "uk-us",
+			"productDetailsSizesSelector": ".ks-select select>option",
+			
 			"productOldPriceSelector": ".prod-reduced",
 			"productUrlSelector": "a",
 			"productNameSelector": ".prod-name",
@@ -300,7 +348,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limit": true,
 			"timeout": 1000,
 			"productsSelector": ".product",
 			"referrer": "http://www.google.com"

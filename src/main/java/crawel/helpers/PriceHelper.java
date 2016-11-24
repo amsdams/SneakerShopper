@@ -8,18 +8,11 @@ import org.javamoney.moneta.Money;
 
 import crawel.pojo.Currency;
 import crawel.pojo.CurrencyList;
-import crawel.storage.FileTransferListStorage;
 
 public class PriceHelper {
 
 	private static final PriceHelper instance = new PriceHelper();
-    private PriceHelper() { }
-
-    public static PriceHelper getInstance() {
-            return instance;
-    }
-    
-	public static Currency getCurrency(String text, CurrencyList currencyList) {
+    public static Currency getCurrency(String text, CurrencyList currencyList) {
 		Currency returnCurrency = new Currency();
 
 		for (Currency currency : currencyList.getCurrencys()) {
@@ -31,6 +24,10 @@ public class PriceHelper {
 		return returnCurrency;
 	}
 
+    public static PriceHelper getInstance() {
+            return instance;
+    }
+    
 	public static String removeCurrency(String text, CurrencyList currencyList) {
 
 		for (Currency currency : currencyList.getCurrencys()) {
@@ -55,7 +52,9 @@ public class PriceHelper {
 		// ExchangeRate rate =
 		// ecbExchangeRateProvider.getExchangeRate(foundName, "EUR");
 		MonetaryAmount moneyFound = Money.of(price, foundName);
-		MonetaryAmount inEuro = moneyFound.with(euroConversion); //  "USD 12.537" (at the time writing)
+		MonetaryAmount inEuro = moneyFound.with(euroConversion); //  "inUnitedStatesD 12.537" (at the time writing)
 		return inEuro.getNumber().doubleValue();
 	}
+
+	private PriceHelper() { }
 }

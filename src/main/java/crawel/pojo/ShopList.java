@@ -26,4 +26,12 @@ public class ShopList {
 	public void setShops(List<Shop> shops) {
 		this.shops = shops;
 	}
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Shop s: this.shops){
+			sb.append(s.toString());
+		}
+		return "ShopList [shops=" + sb.toString() + "]";
+	}
 }
