@@ -6,24 +6,25 @@ import java.util.List;
 import crawel.Constants;
 import crawel.pojo.Brand;
 import crawel.pojo.BrandList;
+import crawel.storage.BrandListStorage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+
 public class BrandHelper {
 
 	private static final BrandHelper instance = new BrandHelper();
 
-	public static String getBrandName(String text, BrandList brandList) {
-		
+	public static String getBrandName(String text) {
 
-		List<Brand> brands = new ArrayList<>(brandList.getBrands());
+		List<Brand> brands = BrandListStorage.get().getBrands();
 		brands.sort(Brand.BRANDNAMESIZECOMPARATOR);
 
 		String returnBrandName = Constants.UNKOWN_BRAND;
 		for (Brand brand : brands) {
 
 			String brandName = brand.getName();
-			brandName  = TextHelper.sanitize(brandName);
+			brandName = TextHelper.sanitize(brandName);
 
 			List<String> brandAlternatives = BrandCombinations.getBrandCombos(brandName, " X ");
 			brandAlternatives.add(brandName);
@@ -45,16 +46,15 @@ public class BrandHelper {
 		return instance;
 	}
 
-	public static String removeBrandName(String text, BrandList brandList) {
-		
+	public static String removeBrandName(String text) {
 
-		List<Brand> brands = new ArrayList<>(brandList.getBrands());
+		List<Brand> brands = BrandListStorage.get().getBrands();
+
 		brands.sort(Brand.BRANDNAMESIZECOMPARATOR);
 		for (Brand brand : brands) {
 
 			String brandName = brand.getName();
-			brandName  = TextHelper.sanitize(brandName);
-			
+			brandName = TextHelper.sanitize(brandName);
 
 			List<String> brandAlternatives = BrandCombinations.getBrandCombos(brandName, " X ");
 			brandAlternatives.add(brandName);

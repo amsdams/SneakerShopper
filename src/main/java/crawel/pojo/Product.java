@@ -1,13 +1,19 @@
 package crawel.pojo;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 
+import crawel.Crawel;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
+import sun.util.logging.resources.logging;
 
+@Slf4j
 @Data
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor
@@ -121,9 +127,6 @@ public class Product implements Comparable<Product> {
 	private Currency currencyRaw;
 	private boolean brandNameRemovedFromName;
 
-
-	
-
 	@Override
 	public int compareTo(Product o) {
 
@@ -133,10 +136,16 @@ public class Product implements Comparable<Product> {
 
 	// TODO check output;
 	public BigDecimal getDiscountInEU() {
-		BigDecimal temp = BigDecimal.ONE.multiply(this.getNewPriceInEuro().divide(this.getNewPriceInEuro()));
-		BigDecimal multiplyer = new BigDecimal(100);
+		try {
+			if (this.getNewPriceInEuro() != null && this.getOldPriceInEuro() != null) {
+				BigDecimal temp = this.getNewPriceInEuro().divide(this.getOldPriceInEuro(), RoundingMode.HALF_UP);
+				BigDecimal multiplyer = new BigDecimal(100);
 
-		this.discountInEU = temp.multiply(multiplyer);
+				this.discountInEU = temp.multiply(multiplyer);
+			}
+		} catch (Exception e) {
+			log.error("Caught exception {}", e.getMessage(), e);
+		}
 		return this.discountInEU;
 	}
 

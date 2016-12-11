@@ -25,17 +25,17 @@ public class BrandHelperTest {
 	public void matchTest() {
 
 		BrandList brandList = new BrandList();
-		//brandList.addBrand(new Brand("PUMA"));
+		// brandList.addBrand(new Brand("PUMA"));
 		brandList.addBrand(new Brand("PUMA X ALIFE"));
 		brandList.addBrand(new Brand("PUMA X BAPE"));
-		
+
 		ProductList productList = new ProductList();
-		//productList.addProduct(new Product("PUMA"));
-		//productList.addProduct(new Product("PUMA"));
+		// productList.addProduct(new Product("PUMA"));
+		// productList.addProduct(new Product("PUMA"));
 		productList.addProduct(new Product("PUMA X ALIFE"));
 		productList.addProduct(new Product("ALIFE X PUMA"));
 
-		//productList.addProduct(new Product("BOG"));
+		// productList.addProduct(new Product("BOG"));
 
 		productList.addProduct(new Product("PUMA X ALIFE BOG"));
 		productList.addProduct(new Product("ALIFE X PUMA BOG"));
@@ -44,14 +44,13 @@ public class BrandHelperTest {
 
 		for (Product product : productList.getProducts()) {
 			String name = product.getName();
-			String brand = BrandHelper.getBrandName(name, brandList);
+			String brand = BrandHelper.getBrandName(name);
 
-			String newName = BrandHelper.removeBrandName(name, brandList);
+			String newName = BrandHelper.removeBrandName(name);
 			product.setBrandNameRemovedFromName(true);
 			System.out.println("orginal name " + name + "  , new name " + newName + "  , brand name " + brand);
 		}
 
 	}
 
-	
 }

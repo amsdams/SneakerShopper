@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TextHelper {
 
 	public static String sanitize(String text) {
+		
 		String returnText = "";
 		try {
 			returnText = text.replaceAll("\r", "");

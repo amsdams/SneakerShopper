@@ -17,7 +17,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
 			"referrer": "http://www.google.com"
@@ -39,7 +39,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.columns>ul>li",
 			"referrer": "http://www.google.com"
@@ -61,7 +61,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".productlist>div>ul>li",
 			"referrer": "http://www.google.com"
@@ -83,7 +83,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": "ul.productListing>li",
 			"referrer": "http://www.google.com"
@@ -105,7 +105,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".cat-list>ol>li",
 			"referrer": "http://www.google.com"
@@ -127,7 +127,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>.item",
 			"referrer": "http://www.google.com"
@@ -149,7 +149,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li",
 			"referrer": "http://www.google.com"
@@ -171,7 +171,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".product-grid>.item",
 			"referrer": "http://www.google.com"
@@ -193,7 +193,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": ".category-products>ul>li.item",
 			"referrer": "http://www.google.com"
@@ -209,13 +209,13 @@
 			"productNewPriceSelector": ".fp-product-thumb-price>.fp-price--now",
 			"productCurrencySelector": ".fp-product-thumb-price>.price-was",
 			"nextPageSelector": ".fp-column-full>a.search-results-load-more",
-			"baseUrl": "http://www.footpatrol.co.uk/sale/footwear/",
+			"baseUrl": "http://www.footpatrol.co.uk/sale/footwear/#",
 			"productList": {
 				"products": []
 			},
 			"runnable": true,
-			"javaScriptEnabled": false,
-			"limit": false,
+			"javaScriptEnabled": true,
+			"limitEnabled": false,
 			"timeout": 10000,
 			"productsSelector": "ul.fp-product-list>li",
 			"referrer": "http://www.google.com"
@@ -237,7 +237,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": true,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 1000,
 			"productsSelector": "ul.product-list>li.item",
 			"referrer": "http://www.google.com"
@@ -259,7 +259,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 1000,
 			"productsSelector": "ul.products>li.item-sneaker",
 			"referrer": "http://www.google.com"
@@ -281,7 +281,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": true,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 1000,
 			"productsSelector": ".category-products>article",
 			"referrer": "http://www.google.com"
@@ -303,7 +303,7 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": true,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 1000,
 			"productsSelector": ".category-products li.item",
 			"referrer": "http://www.google.com"
@@ -325,16 +325,15 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 1000,
 			"productsSelector": ".categoryElement",
 			"referrer": "http://www.google.com"
 		},
 		{
-		"productDetailsSizeSelector": "",
+			"productDetailsSizeSelector": "",
 			"productDetailsSizeType": "uk-us",
 			"productDetailsSizesSelector": ".ks-select select>option",
-			
 			"productOldPriceSelector": ".prod-reduced",
 			"productUrlSelector": "a",
 			"productNameSelector": ".prod-name",
@@ -348,10 +347,13 @@
 			},
 			"runnable": true,
 			"javaScriptEnabled": false,
-			"limit": false,
+			"limitEnabled": false,
 			"timeout": 1000,
 			"productsSelector": ".product",
 			"referrer": "http://www.google.com"
 		}
-	]
+	],
+	"limitEnabled": false,
+	"detailsEnabled": false, 
+	"javaScriptEnabled": false
 }

@@ -31,7 +31,9 @@ public class ShopListStorage {
 				log.error(Constants.CAUGHT_EXCEPTION_CREATING_NEW, e.getMessage(), e);
 			}
 			allShops = new ShopList();
-
+			allShops.setLimitEnabled(false);
+			allShops.setDetailsEnabled(false);
+			allShops.setJavaScriptEnabled(false);
 			Shop shop = new Shop();
 			shop.setJavaScriptEnabled(true);
 			// etc

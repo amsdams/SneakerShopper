@@ -45,7 +45,7 @@ public class Crawel {
 
 		} catch (CmdLineException e) {
 			// handling of wrong arguments
-			if (log.isWarnEnabled()){
+			if (log.isWarnEnabled()) {
 				log.warn("could not read commandline {}", e.getMessage(), e);
 			}
 			parser.printUsage(System.err);
@@ -66,18 +66,40 @@ public class Crawel {
 		ExecutorService executor = Executors.newFixedThreadPool(MYTHREADS);
 
 		ShopList shopList = ShopListStorage.get();
+
 		for (Shop shop : shopList.getShops()) {
 
+			if (shopList.getLimitEnabled()) {
+				shop.setLimitEnabled(true);
+				log.info("will not get all pages");
+			}
+
+			if (shopList.getDetailsEnabled()) {
+				shop.setDetailsEnabled(true);
+				log.info("will get all details");
+
+			}
+
+			if (shopList.getJavaScriptEnabled()) {
+				shop.setJavaScriptEnabled(true);
+				log.info("will use javascript");
+
+			}
+			
 			Runnable worker = new ShopRunner(shop);
+
 			executor.execute(worker);
+
 		}
 
 		executor.shutdown();
 		// Wait until all threads are finish
-		while (!executor.isTerminated()) {
+		while (!executor.isTerminated())
+
+		{
 
 		}
-		if (log.isInfoEnabled()){
+		if (log.isInfoEnabled()) {
 			log.info("\nFinished all threads");
 		}
 

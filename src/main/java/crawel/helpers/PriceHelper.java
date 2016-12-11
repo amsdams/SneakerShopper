@@ -10,15 +10,16 @@ import org.javamoney.moneta.Money;
 
 import crawel.pojo.Currency;
 import crawel.pojo.CurrencyList;
+import crawel.storage.CurrencyListStorage;
 
 public class PriceHelper {
 
 	private static final PriceHelper instance = new PriceHelper();
 
-	public static Currency getCurrency(String text, CurrencyList currencyList) {
+	public static Currency getCurrency(String text) {
 		Currency returnCurrency = new Currency();
 
-		for (Currency currency : currencyList.getCurrencies()) {
+		for (Currency currency : CurrencyListStorage.get().getCurrencies()) {
 			String currencyString = currency.getSymbol();
 			if (text.contains(currencyString)) {
 				returnCurrency = currency;
@@ -31,21 +32,21 @@ public class PriceHelper {
 		return instance;
 	}
 
-	public static String removeCurrency(String text, CurrencyList currencyList) {
+	public static String removeCurrency(String text) {
 
-		for (Currency currency : currencyList.getCurrencies()) {
+		for (Currency currency : CurrencyListStorage.get().getCurrencies()) {
 			String currencyString = currency.getSymbol();
 			text = text.replaceAll(currencyString, "");
 		}
 		return text;
 	}
 
-	public static BigDecimal toEuro(BigDecimal price, Currency currenntCurrency, CurrencyList currencyList) {
+	public static BigDecimal toEuro(BigDecimal price, Currency currenntCurrency) {
 
 		CurrencyConversion euroConversion = MonetaryConversions.getConversion("EUR");
 
 		String foundName = "EUR";
-		for (Currency currency : currencyList.getCurrencies()) {
+		for (Currency currency : CurrencyListStorage.get().getCurrencies()) {
 			if (currenntCurrency.getName().equals(currency.getName())) {
 				foundName = currency.getName();
 			}

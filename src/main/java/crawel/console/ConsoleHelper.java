@@ -127,7 +127,7 @@ public class ConsoleHelper {
 
 			} else if (in.startsWith("sp")) {
 
-				ProductListStorage.put(productList);
+				ProductListStorage.put(filteredProductList);
 			} else if (in.startsWith("ftp")) {
 
 				FileTransferList fileTransferList = FileTransferListStorage.get();
@@ -148,7 +148,7 @@ public class ConsoleHelper {
 				CurrencyListStorage.print(CurrencyListStorage.get());
 			} else if (in.startsWith("wsl")) {
 				ShopList shopList = ShopListStorage.get();
-				shopList = new ShopList(shopList.getShops().stream().sorted().collect(Collectors.toList()));
+				shopList = new ShopList(shopList.getShops().stream().sorted().collect(Collectors.toList()),false, false, false);
 
 				ShopListStorage.put(shopList);
 
